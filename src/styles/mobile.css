@@ -1,0 +1,535 @@
+/* Estilos específicos para dispositivos móviles - WildTour */
+
+/* Variables CSS para safe areas */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+}
+
+/* Clases utilitarias para safe areas */
+.safe-area-top {
+  padding-top: var(--safe-area-inset-top);
+}
+
+.safe-area-right {
+  padding-right: var(--safe-area-inset-right);
+}
+
+.safe-area-bottom {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+.safe-area-left {
+  padding-left: var(--safe-area-inset-left);
+}
+
+.safe-area-inset {
+  padding-top: var(--safe-area-inset-top);
+  padding-right: var(--safe-area-inset-right);
+  padding-bottom: var(--safe-area-inset-bottom);
+  padding-left: var(--safe-area-inset-left);
+}
+
+/* Optimizaciones táctiles */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+.touch-pan-x {
+  touch-action: pan-x;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+}
+
+.touch-none {
+  touch-action: none;
+}
+
+/* Tamaños mínimos para elementos táctiles */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.touch-target-large {
+  min-height: 56px;
+  min-width: 56px;
+}
+
+/* Scrolling optimizado para móviles */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.momentum-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+}
+
+/* Pull to refresh */
+.pull-to-refresh {
+  position: relative;
+  overflow: hidden;
+}
+
+.pull-to-refresh-indicator {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.pull-to-refresh.pulling .pull-to-refresh-indicator {
+  top: 10px;
+}
+
+.pull-to-refresh.refreshing .pull-to-refresh-indicator {
+  top: 10px;
+  background: rgba(59, 130, 246, 0.2);
+}
+
+/* Bottom sheet styles */
+.bottom-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bottom-sheet-overlay.open {
+  opacity: 1;
+}
+
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 16px 16px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 51;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.bottom-sheet.open {
+  transform: translateY(0);
+}
+
+.bottom-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 2px;
+  margin: 12px auto 8px;
+  cursor: grab;
+}
+
+.bottom-sheet-handle:active {
+  cursor: grabbing;
+}
+
+.bottom-sheet-content {
+  padding: 16px;
+  padding-bottom: calc(16px + var(--safe-area-inset-bottom));
+  max-height: calc(90vh - 40px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Swipe gestures */
+.swipeable {
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-action {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.swipe-action.left {
+  left: 0;
+  background: #10b981;
+}
+
+.swipe-action.right {
+  right: 0;
+  background: #ef4444;
+}
+
+/* Modal optimizations for mobile */
+@media (max-width: 768px) {
+  .modal-content {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .modal-content.bottom-modal {
+    height: auto;
+    max-height: 90vh;
+    margin-top: auto;
+    border-radius: 16px 16px 0 0;
+  }
+}
+
+/* Card optimizations */
+.mobile-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mobile-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile-specific button styles */
+.mobile-button {
+  min-height: 48px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.mobile-button:active {
+  transform: scale(0.96);
+}
+
+.mobile-button-primary {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+}
+
+.mobile-button-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+/* Form optimizations */
+.mobile-form-field {
+  margin-bottom: 16px;
+}
+
+.mobile-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mobile-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.mobile-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Textarea specific */
+.mobile-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Select styling */
+.mobile-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+/* Toast notifications for mobile */
+.mobile-toast {
+  position: fixed;
+  top: calc(20px + var(--safe-area-inset-top));
+  left: 16px;
+  right: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 1000;
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-toast.success {
+  border-left: 4px solid #10b981;
+}
+
+.mobile-toast.error {
+  border-left: 4px solid #ef4444;
+}
+
+.mobile-toast.warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.mobile-toast.info {
+  border-left: 4px solid #3b82f6;
+}
+
+/* Loading states */
+.mobile-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: mobile-shimmer 1.5s infinite;
+}
+
+@keyframes mobile-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Skeleton loading */
+.mobile-skeleton {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: mobile-skeleton 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes mobile-skeleton {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Image optimizations */
+.mobile-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  loading: lazy;
+}
+
+.mobile-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f3f4f6;
+}
+
+.mobile-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #9ca3af;
+}
+
+/* List optimizations */
+.mobile-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-list-item {
+  padding: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  background: white;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-list-item:active {
+  background: #f9fafb;
+}
+
+.mobile-list-item:last-child {
+  border-bottom: none;
+}
+
+/* Tab bar */
+.mobile-tab-bar {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-tab {
+  flex: 1;
+  padding: 12px 16px;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  touch-action: manipulation;
+}
+
+.mobile-tab.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.mobile-tab:not(.active) {
+  color: #6b7280;
+}
+
+/* Floating action button */
+.mobile-fab {
+  position: fixed;
+  bottom: calc(80px + var(--safe-area-inset-bottom));
+  right: 16px;
+  width: 56px;
+  height: 56px;
+  background: #3b82f6;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+  transition: all 0.3s ease;
+  touch-action: manipulation;
+}
+
+.mobile-fab:active {
+  transform: scale(0.95);
+}
+
+.mobile-fab:hover {
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+}
+
+/* Search optimizations */
+.mobile-search {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.mobile-search-input {
+  width: 100%;
+  height: 48px;
+  padding: 12px 16px 12px 48px;
+  border: 2px solid #e5e7eb;
+  border-radius: 24px;
+  font-size: 16px;
+  background: #f9fafb;
+}
+
+.mobile-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+}
+
+/* Responsive utilities específicas para móviles */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+
+  .mobile-no-padding {
+    padding: 0 !important;
+  }
+
+  .mobile-small-text {
+    font-size: 14px !important;
+  }
+
+  .mobile-large-text {
+    font-size: 18px !important;
+  }
+}
+
+/* Landscape específico */
+@media (max-width: 896px) and (orientation: landscape) {
+  .landscape-hidden {
+    display: none;
+  }
+
+  .mobile-fab {
+    bottom: calc(16px + var(--safe-area-inset-bottom));
+  }
+}
+
+/* Optimizaciones para dispositivos con notch */
+@supports (padding: max(0px)) {
+  .mobile-header {
+    padding-top: max(16px, var(--safe-area-inset-top));
+  }
+
+  .mobile-footer {
+    padding-bottom: max(16px, var(--safe-area-inset-bottom));
+  }
+}

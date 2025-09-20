@@ -1,0 +1,421 @@
+/* Estilos de Accesibilidad para WildTour */
+
+/* Screen Reader Only - Solo visible para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip Link - Enlace para saltar al contenido principal */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Indicadores de foco mejorados */
+.focus-visible:focus {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Modo de alto contraste */
+.high-contrast {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+}
+
+.high-contrast * {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.high-contrast button,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+.high-contrast button:hover,
+.high-contrast button:focus {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+}
+
+.high-contrast a {
+  color: #00ff00 !important;
+  text-decoration: underline !important;
+}
+
+.high-contrast a:visited {
+  color: #ff00ff !important;
+}
+
+.high-contrast a:hover,
+.high-contrast a:focus {
+  color: #ffff00 !important;
+  background-color: #000000 !important;
+}
+
+.high-contrast .bg-blue-600,
+.high-contrast .bg-blue-500 {
+  background-color: #0000ff !important;
+}
+
+.high-contrast .text-blue-600,
+.high-contrast .text-blue-500 {
+  color: #00ffff !important;
+}
+
+.high-contrast .bg-green-600,
+.high-contrast .bg-green-500 {
+  background-color: #00ff00 !important;
+  color: #000000 !important;
+}
+
+.high-contrast .bg-red-600,
+.high-contrast .bg-red-500 {
+  background-color: #ff0000 !important;
+  color: #ffffff !important;
+}
+
+.high-contrast .text-gray-600,
+.high-contrast .text-gray-500,
+.high-contrast .text-gray-400 {
+  color: #ffffff !important;
+}
+
+.high-contrast .border-gray-300,
+.high-contrast .border-gray-200 {
+  border-color: #ffffff !important;
+}
+
+.high-contrast .bg-gray-50,
+.high-contrast .bg-gray-100 {
+  background-color: #333333 !important;
+}
+
+/* Animaciones reducidas */
+.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduce-motion .animate-spin {
+  animation: none !important;
+}
+
+.reduce-motion .animate-pulse {
+  animation: none !important;
+}
+
+.reduce-motion .animate-bounce {
+  animation: none !important;
+}
+
+/* Indicadores de estado accesibles */
+.loading-indicator {
+  position: relative;
+}
+
+.loading-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Estados de error accesibles */
+.error-state {
+  border: 2px solid #ef4444;
+  background-color: #fef2f2;
+}
+
+.error-message {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.success-state {
+  border: 2px solid #10b981;
+  background-color: #f0fdf4;
+}
+
+.success-message {
+  color: #059669;
+  font-weight: 500;
+}
+
+/* Mejoras para formularios */
+.form-field {
+  position: relative;
+}
+
+.form-field.required label::after {
+  content: ' *';
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.form-field.error input,
+.form-field.error select,
+.form-field.error textarea {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-field.error .error-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ef4444;
+}
+
+/* Mejoras para botones */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* Mínimo tamaño táctil recomendado */
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Mejoras para enlaces */
+.link {
+  color: #2563eb;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.link:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Indicadores de carga accesibles */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #3b82f6;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Font size progress indicator */
+.font-progress-bar {
+  width: var(--progress-width, 0%);
+}
+
+/* Mejoras para modales */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 51;
+}
+
+/* Mejoras para tooltips */
+.tooltip {
+  position: relative;
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1f2937;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 60;
+}
+
+.tooltip:hover .tooltip-content,
+.tooltip:focus .tooltip-content {
+  opacity: 1;
+}
+
+/* Mejoras para tablas */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Mejoras para navegación */
+.nav-item {
+  position: relative;
+}
+
+.nav-item.current::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #2563eb;
+}
+
+/* Mejoras para formularios de búsqueda */
+.search-input {
+  position: relative;
+}
+
+.search-input input {
+  padding-left: 2.5rem;
+}
+
+.search-input .search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+/* Responsive y mejoras móviles */
+@media (max-width: 640px) {
+  .btn {
+    min-height: 48px; /* Mayor tamaño táctil en móviles */
+  }
+
+  .modal-content {
+    margin: 1rem;
+    width: calc(100% - 2rem);
+    transform: none;
+    top: 1rem;
+    left: 1rem;
+  }
+}
+
+/* Mejoras para impresión */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+}
