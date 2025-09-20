@@ -11,7 +11,7 @@ import {
   DollarSign,
   Star,
   Award,
-  Language,
+  Languages,
   Shield,
   AlertTriangle,
   CheckCircle,
@@ -174,7 +174,7 @@ const VillaviejaServices: React.FC = () => {
                       <span className="text-sm text-gray-700">{guide.experience} de experiencia</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Language className="w-4 h-4 text-blue-500" />
+                      <Languages className="w-4 h-4 text-blue-500" />
                       <span className="text-sm text-gray-700">{guide.languages.join(', ')}</span>
                     </div>
                     <div className="flex items-center space-x-2">
