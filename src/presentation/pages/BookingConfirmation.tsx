@@ -349,10 +349,10 @@ export default function BookingConfirmation() {
         <p className="text-gray-600 mb-6">Descubre más experiencias increíbles en Colombia</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            to="/destinos"
+            to="/villavieja"
             className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >
-            Explorar destinos
+            Explorar Villavieja
           </Link>
           <Link
             to="/"

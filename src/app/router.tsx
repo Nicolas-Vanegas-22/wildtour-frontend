@@ -6,8 +6,6 @@ import LoadingSpinner from '../presentation/components/LoadingSpinner';
 
 // Lazy loading de componentes para mejorar el rendimiento
 const Home = React.lazy(() => import('../presentation/pages/Home'));
-const Destinations = React.lazy(() => import('../presentation/pages/Destinations'));
-const DestinationDetail = React.lazy(() => import('../presentation/pages/DestinationDetail'));
 const Login = React.lazy(() => import('../presentation/pages/Login'));
 const Register = React.lazy(() => import('../presentation/pages/Register'));
 const ForgotPassword = React.lazy(() => import('../presentation/pages/ForgotPassword'));
@@ -25,6 +23,9 @@ const NotificationSettings = React.lazy(() => import('../presentation/pages/Noti
 const AccountSettings = React.lazy(() => import('../presentation/pages/AccountSettings'));
 const Booking = React.lazy(() => import('../presentation/pages/Booking'));
 const VillaviejaModule = React.lazy(() => import('../presentation/pages/VillaviejaModule'));
+const ServiceFeed = React.lazy(() => import('../presentation/pages/ServiceFeed'));
+const ServiceBooking = React.lazy(() => import('../presentation/pages/ServiceBooking'));
+const PaymentReturn = React.lazy(() => import('../presentation/pages/PaymentReturn'));
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
   const token = useAuthStore((s) => s.token);
@@ -48,9 +49,10 @@ export function AppRouter() {
         <Routes>
           {/* Rutas públicas */}
           <Route path="/" element={<Home />} />
-          <Route path="/destinos" element={<Destinations />} />
-          <Route path="/destinos/:id" element={<DestinationDetail />} />
           <Route path="/villavieja" element={<VillaviejaModule />} />
+          <Route path="/servicios" element={<ServiceFeed />} />
+          <Route path="/servicios/:serviceId/reservar" element={<PrivateRoute><ServiceBooking /></PrivateRoute>} />
+          <Route path="/payment/return" element={<PaymentReturn />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

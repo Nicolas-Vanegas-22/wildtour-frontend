@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { motion } from 'framer-motion';
+import { Eye, EyeOff, Mail, Lock, User, Phone, CreditCard, Mountain, ArrowLeft, UserPlus } from 'lucide-react';
+import { useAuthStore } from '../../application/state/useAuthStore';
+import { authApi } from '../../infrastructure/services/authApi';
+import { Button } from '../../shared/ui/Button';
+import { useToast } from '../hooks/useToast';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -12,17 +17,17 @@ export default function Register() {
     email: '',
     password: '',
     passwordConfirmation: '',
+    role: 'user' as 'user' | 'provider',
+    businessName: '',
     acceptTerms: false
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { register, isRegisterLoading, registerError, isAuthenticated, initializeAuth } = useAuth();
+  const { setAuth, isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    initializeAuth();
-  }, [initializeAuth]);
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -42,163 +47,291 @@ export default function Register() {
     e.preventDefault();
 
     if (formData.password !== formData.passwordConfirmation) {
+      showToast('Las contraseñas no coinciden', 'error');
       return;
     }
 
     if (!formData.acceptTerms) {
+      showToast('Debes aceptar los términos y condiciones', 'error');
       return;
     }
 
-    const registerData = {
-      username: formData.username,
-      email: formData.email,
-      password: formData.password,
-      person: {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        document: Number(formData.document),
-        phoneNumber: Number(formData.phoneNumber)
-      }
-    };
+    setIsLoading(true);
 
-    register(registerData);
+    try {
+      const registerData = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.passwordConfirmation,
+        person: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          document: parseInt(formData.document),
+          phoneNumber: parseInt(formData.phoneNumber)
+        }
+      };
+
+      const response = await authApi.register(registerData);
+      setAuth(response.token, response.user);
+      showToast('¡Cuenta creada exitosamente!', 'success');
+      navigate('/');
+    } catch (error) {
+      showToast(error instanceof Error ? error.message : 'Error al crear la cuenta', 'error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          Crear Cuenta
-        </h1>
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-accent-50 flex items-center justify-center p-4">
+      {/* Fondo decorativo */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-100 rounded-full opacity-20 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-100 rounded-full opacity-20 blur-3xl" />
+      </div>
 
-        <form onSubmit={onSubmit} className="space-y-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative bg-white/80 backdrop-blur-lg rounded-3xl shadow-strong border border-white/20 p-8 w-full max-w-lg"
+      >
+        {/* Header */}
+        <div className="text-center mb-8">
+          <Link
+            to="/"
+            className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-6"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Volver al inicio
+          </Link>
+
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <UserPlus className="w-8 h-8 text-white" />
+            </div>
+          </div>
+
+          <h1 className="text-3xl font-display font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent mb-2">
+            Únete a la aventura
+          </h1>
+          <p className="text-gray-600">
+            Crea tu cuenta y descubre Colombia
+          </p>
+        </div>
+
+        <form onSubmit={onSubmit} className="space-y-6">
+          {/* Tipo de cuenta */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              Tipo de cuenta
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setFormData(prev => ({ ...prev, role: 'user' }))}
+                className={`p-4 rounded-xl border-2 transition-all ${
+                  formData.role === 'user'
+                    ? 'border-primary-500 bg-primary-50 text-primary-700'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <User className="w-6 h-6 mx-auto mb-2" />
+                <span className="text-sm font-medium">Turista</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormData(prev => ({ ...prev, role: 'provider' }))}
+                className={`p-4 rounded-xl border-2 transition-all ${
+                  formData.role === 'provider'
+                    ? 'border-primary-500 bg-primary-50 text-primary-700'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <Mountain className="w-6 h-6 mx-auto mb-2" />
+                <span className="text-sm font-medium">Prestador</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Usuario */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Nombre de usuario
             </label>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="nombredeusuario"
-              required
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nombre
-              </label>
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
-                name="firstName"
-                value={formData.firstName}
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Nombre"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Apellido
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Apellido"
+                className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                placeholder="juan_perez"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Documento de identidad
-            </label>
-            <input
-              type="number"
-              name="document"
-              value={formData.document}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="12345678"
-              required
-            />
+          {/* Nombres */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Nombres
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  placeholder="Juan"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Apellidos
+              </label>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  placeholder="Pérez"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="tu@email.com"
-              required
-            />
+          {/* Documento y Teléfono */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Documento
+              </label>
+              <div className="relative">
+                <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="number"
+                  name="document"
+                  value={formData.document}
+                  onChange={handleChange}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  placeholder="1234567890"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Teléfono
+              </label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="number"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  placeholder="3001234567"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
+          {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Teléfono
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Correo electrónico
             </label>
-            <input
-              type="number"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="3001234567"
-              required
-            />
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                placeholder="tu@email.com"
+                required
+              />
+            </div>
           </div>
 
+          {/* Nombre del negocio (solo para prestadores) */}
+          {formData.role === 'provider' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Nombre del negocio
+              </label>
+              <div className="relative">
+                <Mountain className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="businessName"
+                  value={formData.businessName}
+                  onChange={handleChange}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  placeholder="Mi empresa turística"
+                  required={formData.role === 'provider'}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Contraseña
             </label>
             <div className="relative">
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-11 pr-12 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                 placeholder="••••••••"
                 required
                 minLength={8}
+                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+                title="La contraseña debe tener al menos 8 caracteres, una letra minúscula, una mayúscula, un número y un carácter especial"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
               >
-                {showPassword ? '🙈' : '👁️'}
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
           </div>
 
+          {/* Confirm Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Confirmar contraseña
             </label>
             <div className="relative">
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type={showPasswordConfirm ? 'text' : 'password'}
                 name="passwordConfirmation"
                 value={formData.passwordConfirmation}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-11 pr-12 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                 placeholder="••••••••"
                 required
                 minLength={8}
@@ -206,59 +339,61 @@ export default function Register() {
               <button
                 type="button"
                 onClick={() => setShowPasswordConfirm(!showPasswordConfirm)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
               >
-                {showPasswordConfirm ? '🙈' : '👁️'}
+                {showPasswordConfirm ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
             {formData.password !== formData.passwordConfirmation && formData.passwordConfirmation && (
-              <p className="text-red-600 text-xs mt-1">Las contraseñas no coinciden</p>
+              <p className="text-red-500 text-sm mt-2">Las contraseñas no coinciden</p>
             )}
           </div>
 
-          <div className="flex items-center">
+          {/* Terms */}
+          <div className="flex items-start space-x-3">
             <input
               type="checkbox"
               name="acceptTerms"
               checked={formData.acceptTerms}
               onChange={handleChange}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               required
             />
-            <label className="ml-2 block text-sm text-gray-700">
+            <label className="text-sm text-gray-600">
               Acepto los{' '}
-              <Link to="/terms" className="text-blue-600 hover:underline">
+              <Link to="/terms" className="text-primary-600 hover:text-primary-700 font-medium">
                 términos y condiciones
               </Link>{' '}
               y la{' '}
-              <Link to="/privacy" className="text-blue-600 hover:underline">
+              <Link to="/privacy" className="text-primary-600 hover:text-primary-700 font-medium">
                 política de privacidad
               </Link>
             </label>
           </div>
 
-          {registerError && (
-            <div className="text-red-600 text-sm mt-2 p-2 bg-red-50 rounded">
-              {registerError.message}
-            </div>
-          )}
-
-          <button
+          <Button
             type="submit"
-            disabled={isRegisterLoading || formData.password !== formData.passwordConfirmation || !formData.acceptTerms}
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isLoading || formData.password !== formData.passwordConfirmation || !formData.acceptTerms}
+            className="w-full"
+            size="lg"
           >
-            {isRegisterLoading ? 'Creando cuenta...' : 'Crear cuenta'}
-          </button>
+            {isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
+          </Button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
-          ¿Ya tienes cuenta?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">
-            Inicia sesión
-          </Link>
-        </p>
-      </div>
+        {/* Links */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-600">
+            ¿Ya tienes cuenta?{' '}
+            <Link
+              to="/login"
+              className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
+            >
+              Inicia sesión aquí
+            </Link>
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 }

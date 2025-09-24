@@ -47,42 +47,18 @@ const Home: React.FC = () => {
     },
   ];
 
-  // Destinos destacados
-  const featuredDestinations = [
-    {
-      id: 1,
-      name: 'Desierto de la Tatacoa',
-      location: 'Huila, Colombia',
-      image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&h=400&fit=crop',
-      rating: 4.9,
-      reviews: 234,
-      price: 'Desde $150.000',
-      category: 'Astronomía',
-      slug: 'villavieja',
-    },
-    {
-      id: 2,
-      name: 'Parque Tayrona',
-      location: 'Magdalena, Colombia',
-      image: 'https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=600&h=400&fit=crop',
-      rating: 4.8,
-      reviews: 567,
-      price: 'Desde $200.000',
-      category: 'Playa',
-      slug: 'tayrona',
-    },
-    {
-      id: 3,
-      name: 'Valle de Cocora',
-      location: 'Quindío, Colombia',
-      image: 'https://images.unsplash.com/photo-1552832230-8c84df64d5b3?w=600&h=400&fit=crop',
-      rating: 4.7,
-      reviews: 432,
-      price: 'Desde $120.000',
-      category: 'Senderismo',
-      slug: 'cocora',
-    },
-  ];
+  // Destino destacado - Solo Villavieja
+  const featuredDestination = {
+    id: 1,
+    name: 'Desierto de la Tatacoa',
+    location: 'Villavieja, Huila',
+    image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&h=400&fit=crop',
+    rating: 4.9,
+    reviews: 234,
+    price: 'Desde $150.000',
+    category: 'Astronomía',
+    slug: 'villavieja',
+  };
 
   // Testimonios
   const testimonials = [
@@ -157,7 +133,7 @@ const Home: React.FC = () => {
                 className="text-lg px-8 py-4"
                 asChild
               >
-                <Link to="/destinos">
+                <Link to="/villavieja">
                   {heroSlides[currentSlide].cta}
                 </Link>
               </Button>
@@ -254,86 +230,69 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Featured Destinations */}
+      {/* Featured Destination - Villavieja */}
       <section className="py-20 px-6 bg-gradient-to-br from-gray-50 to-primary-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
-              Destinos Destacados
+              Descubre Villavieja
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Descubre los lugares más espectaculares de Colombia con nuestras experiencias cuidadosamente curadas.
+              Vive una experiencia única en el Desierto de la Tatacoa, donde la magia del universo se encuentra con la belleza de la naturaleza.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredDestinations.map((destination, index) => (
-              <div key={destination.id}>
-                <Link to={destination.slug === 'villavieja' ? '/villavieja' : `/destinos/${destination.slug}`}>
-                  <Card variant="elevated" hover className="overflow-hidden group">
-                    <div className="relative h-64">
-                      <img
-                        src={destination.image}
-                        alt={destination.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="max-w-2xl mx-auto">
+            <Link to="/villavieja">
+              <Card variant="elevated" hover className="overflow-hidden group">
+                <div className="relative h-80">
+                  <img
+                    src={featuredDestination.image}
+                    alt={featuredDestination.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-white/90 backdrop-blur-sm text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
-                          {destination.category}
-                        </span>
-                      </div>
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-white/90 backdrop-blur-sm text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
+                      {featuredDestination.category}
+                    </span>
+                  </div>
 
-                      <div className="absolute top-4 right-4">
-                        <button className="bg-white/90 backdrop-blur-sm hover:bg-white transition-colors p-2 rounded-full">
-                          <Heart className="w-5 h-5 text-gray-600 hover:text-red-500 transition-colors" />
-                        </button>
-                      </div>
+                  <div className="absolute top-4 right-4">
+                    <button className="bg-white/90 backdrop-blur-sm hover:bg-white transition-colors p-2 rounded-full">
+                      <Heart className="w-5 h-5 text-gray-600 hover:text-red-500 transition-colors" />
+                    </button>
+                  </div>
 
-                      <div className="absolute bottom-4 left-4 right-4 text-white">
-                        <h3 className="text-xl font-bold mb-1">{destination.name}</h3>
-                        <div className="flex items-center text-sm opacity-90">
-                          <MapPin className="w-4 h-4 mr-1" />
-                          {destination.location}
-                        </div>
-                      </div>
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <h3 className="text-2xl font-bold mb-2">{featuredDestination.name}</h3>
+                    <div className="flex items-center text-sm opacity-90">
+                      <MapPin className="w-4 h-4 mr-1" />
+                      {featuredDestination.location}
                     </div>
+                  </div>
+                </div>
 
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center">
-                          <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
-                          <span className="font-semibold text-gray-900">{destination.rating}</span>
-                          <span className="text-gray-600 ml-1">({destination.reviews} reseñas)</span>
-                        </div>
-                        <span className="text-lg font-bold text-primary-600">
-                          {destination.price}
-                        </span>
-                      </div>
+                <CardContent className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center">
+                      <Star className="w-5 h-5 text-yellow-400 fill-current mr-2" />
+                      <span className="font-semibold text-gray-900 text-lg">{featuredDestination.rating}</span>
+                      <span className="text-gray-600 ml-2">({featuredDestination.reviews} reseñas)</span>
+                    </div>
+                    <span className="text-2xl font-bold text-primary-600">
+                      {featuredDestination.price}
+                    </span>
+                  </div>
 
-                      <Button variant="outline" fullWidth className="group-hover:bg-primary-50 group-hover:border-primary-300">
-                        Ver Detalles
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button
-              size="lg"
-              variant="primary"
-              rightIcon={<Compass className="w-5 h-5" />}
-              asChild
-            >
-              <Link to="/destinos">
-                Explorar Todos los Destinos
-              </Link>
-            </Button>
+                  <Button variant="primary" size="lg" fullWidth className="group-hover:bg-primary-600">
+                    Explorar Villavieja
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
@@ -404,7 +363,7 @@ const Home: React.FC = () => {
                 className="text-lg px-8 py-4"
                 asChild
               >
-                <Link to="/destinos">
+                <Link to="/villavieja">
                   Planifica tu Viaje
                 </Link>
               </Button>

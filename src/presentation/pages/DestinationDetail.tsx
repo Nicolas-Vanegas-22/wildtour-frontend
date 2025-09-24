@@ -88,10 +88,10 @@ export default function DestinationDetail() {
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Destino no encontrado</h1>
           <p className="text-gray-600 mb-4">El destino que buscas no existe o ha sido removido.</p>
           <Link
-            to="/destinos"
+            to="/villavieja"
             className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
-            Ver todos los destinos
+            Ir a Villavieja
           </Link>
         </div>
       </div>
