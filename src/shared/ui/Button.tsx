@@ -18,11 +18,11 @@ const buttonVariants = cva(
         danger: 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg hover:from-red-700 hover:to-red-600 hover:shadow-xl focus-visible:ring-red-500',
       },
       size: {
-        sm: 'h-9 px-3 text-xs',
-        md: 'h-11 px-6 text-sm',
-        lg: 'h-13 px-8 text-base',
+        sm: 'h-10 px-4 text-xs',
+        md: 'h-12 px-6 text-sm',
+        lg: 'h-14 px-8 text-base',
         xl: 'h-16 px-10 text-lg',
-        icon: 'h-11 w-11',
+        icon: 'h-12 w-12',
       },
       fullWidth: {
         true: 'w-full',

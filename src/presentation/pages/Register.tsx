@@ -140,25 +140,29 @@ export default function Register() {
               <button
                 type="button"
                 onClick={() => setFormData(prev => ({ ...prev, role: 'user' }))}
-                className={`p-4 rounded-xl border-2 transition-all ${
+                className={`p-4 rounded-xl border-2 transition-all text-neutral-800 ${
                   formData.role === 'user'
-                    ? 'border-primary-500 bg-primary-50 text-primary-700'
-                    : 'border-neutral-200 hover:border-neutral-300'
+                    ? 'border-primary-500 bg-primary-50 shadow-md'
+                    : 'border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
                 }`}
               >
-                <User className="w-6 h-6 mx-auto mb-2" />
+                <User className={`w-6 h-6 mx-auto mb-2 ${
+                  formData.role === 'user' ? 'text-primary-600' : 'text-neutral-600'
+                }`} />
                 <span className="text-sm font-medium">Turista</span>
               </button>
               <button
                 type="button"
                 onClick={() => setFormData(prev => ({ ...prev, role: 'provider' }))}
-                className={`p-4 rounded-xl border-2 transition-all ${
+                className={`p-4 rounded-xl border-2 transition-all text-neutral-800 ${
                   formData.role === 'provider'
-                    ? 'border-primary-500 bg-primary-50 text-primary-700'
-                    : 'border-neutral-200 hover:border-neutral-300'
+                    ? 'border-primary-500 bg-primary-50 shadow-md'
+                    : 'border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50'
                 }`}
               >
-                <Mountain className="w-6 h-6 mx-auto mb-2" />
+                <Mountain className={`w-6 h-6 mx-auto mb-2 ${
+                  formData.role === 'provider' ? 'text-primary-600' : 'text-neutral-600'
+                }`} />
                 <span className="text-sm font-medium">Prestador</span>
               </button>
             </div>
