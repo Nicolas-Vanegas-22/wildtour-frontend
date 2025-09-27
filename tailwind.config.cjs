@@ -4,65 +4,103 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Primary - Marrón rojizo oscuro (#5C2D2D)
         primary: {
+          50: '#FBF7F7',   // Muy claro para fondos sutiles
+          100: '#F7EFEF',  // Fondos de tarjetas claras
+          200: '#EBDADA',  // Bordes y elementos decorativos
+          300: '#D4B8B8',  // Estados hover suaves
+          400: '#B8908E',  // Elementos interactivos suaves
+          500: '#5C2D2D',  // Color principal ⭐
+          600: '#4A2424',  // Hover de botones principales
+          700: '#3C1D1D',  // Texto sobre fondos claros
+          800: '#2E1616',  // Títulos y texto de alta jerarquía
+          900: '#1F0F0F',  // Máximo contraste
+          950: '#140A0A',  // Negro alternativo
+        },
+        // Secondary - Rojo terracota (#A34C3E)
+        secondary: {
+          50: '#FDF9F8',   // Muy claro
+          100: '#FBF2F0',  // Fondos sutiles
+          200: '#F5DDD8',  // Elementos decorativos
+          300: '#E8BAB0',  // Estados hover suaves
+          400: '#D18D7E',  // Elementos interactivos
+          500: '#A34C3E',  // Color secundario ⭐
+          600: '#8B3F33',  // Hover de botones secundarios
+          700: '#723328',  // Texto sobre fondos claros
+          800: '#5A281E',  // Texto de énfasis
+          900: '#3D1B14',  // Máximo contraste
+          950: '#2A120E',  // Negro alternativo
+        },
+        // Accent - Naranja anaranjado (#FFB74C)
+        accent: {
+          50: '#FFFCF5',   // Muy claro
+          100: '#FFF8E6',  // Fondos sutiles
+          200: '#FFECB8',  // Elementos decorativos
+          300: '#FFDB85',  // Estados hover suaves
+          400: '#FFC952',  // Elementos interactivos
+          500: '#FFB74C',  // Color de acento ⭐
+          600: '#E6A343',  // Hover de elementos de acento
+          700: '#CC8F3A',  // Texto sobre fondos claros
+          800: '#B37B31',  // Texto de énfasis
+          900: '#805728',  // Contraste alto
+          950: '#4D341A',  // Negro alternativo
+        },
+        // Neutral - Gris claro (#F0F0F0) y variaciones
+        neutral: {
+          50: '#FAFAFA',   // Casi blanco
+          100: '#F0F0F0',  // Color neutro principal ⭐
+          200: '#E5E5E5',  // Bordes y divisores
+          300: '#D4D4D4',  // Estados deshabilitados
+          400: '#A3A3A3',  // Texto placeholder
+          500: '#737373',  // Texto secundario
+          600: '#525252',  // Texto del cuerpo
+          700: '#404040',  // Encabezados
+          800: '#262626',  // Texto de alta jerarquía
+          900: '#171717',  // Texto de máximo contraste
+          950: '#0A0A0A',  // Negro puro
+        },
+        // Success - Usando tonos verdes compatibles
+        success: {
           50: '#F0FDF4',
           100: '#DCFCE7',
           200: '#BBF7D0',
           300: '#86EFAC',
           400: '#4ADE80',
-          500: '#10B981',
-          600: '#059669',
-          700: '#047857',
-          800: '#065F46',
-          900: '#064E3B',
+          500: '#22C55E',
+          600: '#16A34A',
+          700: '#15803D',
+          800: '#166534',
+          900: '#14532D',
+          950: '#052E16',
         },
-        secondary: {
-          50: '#FEF2F2',
-          100: '#FEE2E2',
-          200: '#FECACA',
-          300: '#FCA5A5',
-          400: '#F87171',
-          500: '#DC2626',
-          600: '#B91C1C',
-          700: '#991B1B',
-          800: '#7F1D1D',
-          900: '#7C2D12',
+        // Warning - Usando la paleta de acento para advertencias
+        warning: {
+          50: '#FFFCF5',
+          100: '#FFF8E6',
+          200: '#FFECB8',
+          300: '#FFDB85',
+          400: '#FFC952',
+          500: '#FFB74C',  // Mismo que accent
+          600: '#E6A343',
+          700: '#CC8F3A',
+          800: '#B37B31',
+          900: '#805728',
+          950: '#4D341A',
         },
-        accent: {
-          50: '#FFFBEB',
-          100: '#FEF3C7',
-          200: '#FDE68A',
-          300: '#FCD34D',
-          400: '#FBBF24',
-          500: '#F59E0B',
-          600: '#D97706',
-          700: '#B45309',
-          800: '#92400E',
-          900: '#78350F',
-        },
-        coral: {
-          50: '#FFF7ED',
-          100: '#FFEDD5',
-          200: '#FED7AA',
-          300: '#FDBA74',
-          400: '#FB923C',
-          500: '#F97316',
-          600: '#EA580C',
-          700: '#C2410C',
-          800: '#9A3412',
-          900: '#7C2D12',
-        },
-        sky: {
-          50: '#F0F9FF',
-          100: '#E0F2FE',
-          200: '#BAE6FD',
-          300: '#7DD3FC',
-          400: '#38BDF8',
-          500: '#0EA5E9',
-          600: '#0284C7',
-          700: '#0369A1',
-          800: '#075985',
-          900: '#0C4A6E',
+        // Error - Usando la paleta secundaria para errores
+        error: {
+          50: '#FDF9F8',
+          100: '#FBF2F0',
+          200: '#F5DDD8',
+          300: '#E8BAB0',
+          400: '#D18D7E',
+          500: '#A34C3E',  // Mismo que secondary
+          600: '#8B3F33',
+          700: '#723328',
+          800: '#5A281E',
+          900: '#3D1B14',
+          950: '#2A120E',
         },
       },
       fontFamily: {

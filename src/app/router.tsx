@@ -26,6 +26,11 @@ const VillaviejaModule = React.lazy(() => import('../presentation/pages/Villavie
 const ServiceFeed = React.lazy(() => import('../presentation/pages/ServiceFeed'));
 const ServiceBooking = React.lazy(() => import('../presentation/pages/ServiceBooking'));
 const PaymentReturn = React.lazy(() => import('../presentation/pages/PaymentReturn'));
+const MyBookings = React.lazy(() => import('../presentation/pages/MyBookings'));
+const UserSettings = React.lazy(() => import('../presentation/pages/UserSettings'));
+const Favorites = React.lazy(() => import('../presentation/pages/Favorites'));
+const Destinations = React.lazy(() => import('../presentation/pages/Destinations'));
+const DestinationDetail = React.lazy(() => import('../presentation/pages/DestinationDetail'));
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
   const token = useAuthStore((s) => s.token);
@@ -49,6 +54,8 @@ export function AppRouter() {
         <Routes>
           {/* Rutas públicas */}
           <Route path="/" element={<Home />} />
+          <Route path="/destinos" element={<Destinations />} />
+          <Route path="/destinos/:id" element={<DestinationDetail />} />
           <Route path="/villavieja" element={<VillaviejaModule />} />
           <Route path="/servicios" element={<ServiceFeed />} />
           <Route path="/servicios/:serviceId/reservar" element={<PrivateRoute><ServiceBooking /></PrivateRoute>} />
@@ -60,6 +67,9 @@ export function AppRouter() {
 
           {/* Rutas privadas para usuarios autenticados */}
           <Route path="/perfil" element={<PrivateRoute><Profile /></PrivateRoute>} />
+          <Route path="/mis-reservas" element={<PrivateRoute><MyBookings /></PrivateRoute>} />
+          <Route path="/configuracion" element={<PrivateRoute><UserSettings /></PrivateRoute>} />
+          <Route path="/favoritos" element={<PrivateRoute><Favorites /></PrivateRoute>} />
           <Route path="/configuracion-cuenta" element={<PrivateRoute><AccountSettings /></PrivateRoute>} />
           <Route path="/notificaciones" element={<PrivateRoute><Notifications /></PrivateRoute>} />
           <Route path="/notificaciones/configuracion" element={<PrivateRoute><NotificationSettings /></PrivateRoute>} />
@@ -79,11 +89,11 @@ export function AppRouter() {
           <Route path="/admin/reportes" element={<AdminRoute><ReportsAnalytics /></AdminRoute>} />
 
           {/* Ruta 404 */}
-          <Route path="*" element={<div className="flex items-center justify-center min-h-screen bg-gray-50">
+          <Route path="*" element={<div className="flex items-center justify-center min-h-screen bg-neutral-100">
             <div className="text-center">
-              <h1 className="text-6xl font-bold text-gray-900">404</h1>
-              <p className="text-xl text-gray-600 mt-4">Página no encontrada</p>
-              <a href="/" className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+              <h1 className="text-6xl font-bold text-primary-700">404</h1>
+              <p className="text-xl text-neutral-600 mt-4">Página no encontrada</p>
+              <a href="/" className="mt-6 inline-block bg-primary-500 text-white px-6 py-3 rounded-lg hover:bg-primary-600 transition-colors">
                 Volver al inicio
               </a>
             </div>

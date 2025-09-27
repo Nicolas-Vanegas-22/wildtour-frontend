@@ -182,13 +182,13 @@ export default function Destinations() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-accent-50">
       {/* Header de búsqueda */}
-      <div className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-40">
+      <div className="bg-white/80 backdrop-blur-md border-b border-neutral-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="mb-6">
             <h1 className="text-3xl lg:text-4xl font-bold animated-text-gradient mb-2">
               Descubre Colombia
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-neutral-600 text-lg">
               Encuentra tu próxima aventura en los destinos más increíbles del país
             </p>
           </div>
@@ -196,13 +196,13 @@ export default function Destinations() {
           {/* Barra de búsqueda */}
           <form onSubmit={handleSearch} className="flex gap-3 mb-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar destinos, actividades, ciudades..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white/70 backdrop-blur-sm"
+                className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white/70 backdrop-blur-sm"
               />
             </div>
             <button
@@ -212,7 +212,7 @@ export default function Destinations() {
                 'px-6 py-3 rounded-xl border-2 font-medium transition-all duration-300 flex items-center space-x-2',
                 showFilters
                   ? 'bg-primary-600 text-white border-primary-600'
-                  : 'bg-white border-gray-300 text-gray-700 hover:border-primary-300'
+                  : 'bg-white border-neutral-300 text-neutral-700 hover:border-primary-300'
               )}
             >
               <SlidersHorizontal className="w-5 h-5" />
@@ -228,18 +228,18 @@ export default function Destinations() {
 
           {/* Controles de vista */}
           <div className="flex items-center justify-between">
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-neutral-600">
               <span className="font-medium">{totalCount}</span> destinos encontrados
             </div>
 
             <div className="flex items-center space-x-3">
               {/* Ordenamiento */}
               <div className="flex items-center space-x-2">
-                <ArrowUpDown className="w-4 h-4 text-gray-500" />
+                <ArrowUpDown className="w-4 h-4 text-neutral-500" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="text-sm border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="text-sm border border-neutral-300 rounded-lg px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="popularity">Popularidad</option>
                   <option value="rating">Calificación</option>
@@ -249,12 +249,12 @@ export default function Destinations() {
               </div>
 
               {/* Botones de vista */}
-              <div className="flex bg-gray-100 rounded-lg p-1">
+              <div className="flex bg-neutral-100 rounded-lg p-1">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={cn(
                     'p-2 rounded-md transition-colors',
-                    viewMode === 'grid' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
+                    viewMode === 'grid' ? 'bg-white shadow-sm' : 'hover:bg-neutral-200'
                   )}
                   title="Vista en cuadrícula"
                 >
@@ -264,7 +264,7 @@ export default function Destinations() {
                   onClick={() => setViewMode('list')}
                   className={cn(
                     'p-2 rounded-md transition-colors',
-                    viewMode === 'list' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
+                    viewMode === 'list' ? 'bg-white shadow-sm' : 'hover:bg-neutral-200'
                   )}
                   title="Vista en lista"
                 >
@@ -274,7 +274,7 @@ export default function Destinations() {
                   onClick={() => setViewMode('map')}
                   className={cn(
                     'p-2 rounded-md transition-colors',
-                    viewMode === 'map' ? 'bg-white shadow-sm' : 'hover:bg-gray-200'
+                    viewMode === 'map' ? 'bg-white shadow-sm' : 'hover:bg-neutral-200'
                   )}
                   title="Vista de mapa"
                 >
@@ -287,12 +287,12 @@ export default function Destinations() {
 
         {/* Panel de filtros */}
         {showFilters && (
-          <div className="border-t border-gray-200 bg-white/90 backdrop-blur-md">
+          <div className="border-t border-neutral-200 bg-white/90 backdrop-blur-md">
             <div className="max-w-7xl mx-auto px-4 py-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Categorías */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Categorías</h3>
+                  <h3 className="font-semibold text-neutral-900 mb-3">Categorías</h3>
                   <div className="space-y-2">
                     {tourismCategories.map(category => (
                       <label key={category.id} className="flex items-center space-x-2 cursor-pointer">
@@ -306,9 +306,9 @@ export default function Destinations() {
                               : current.filter(id => id !== category.id);
                             setFilters({ ...filters, category: updated });
                           }}
-                          className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                          className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
                         />
-                        <span className="text-sm text-gray-700">
+                        <span className="text-sm text-neutral-700">
                           {category.icon} {category.name}
                         </span>
                       </label>
@@ -318,7 +318,7 @@ export default function Destinations() {
 
                 {/* Tipo de turismo */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Tipo de Turismo</h3>
+                  <h3 className="font-semibold text-neutral-900 mb-3">Tipo de Turismo</h3>
                   <div className="space-y-2">
                     {Object.keys(tourismIcons).map(type => {
                       const Icon = tourismIcons[type as keyof typeof tourismIcons];
@@ -334,10 +334,10 @@ export default function Destinations() {
                                 : current.filter(t => t !== type);
                               setFilters({ ...filters, tourismType: updated });
                             }}
-                            className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                            className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
                           />
-                          <Icon className="w-4 h-4 text-gray-500" />
-                          <span className="text-sm text-gray-700">{type}</span>
+                          <Icon className="w-4 h-4 text-neutral-500" />
+                          <span className="text-sm text-neutral-700">{type}</span>
                         </label>
                       );
                     })}
@@ -346,10 +346,10 @@ export default function Destinations() {
 
                 {/* Precio */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Rango de Precio</h3>
+                  <h3 className="font-semibold text-neutral-900 mb-3">Rango de Precio</h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Precio mínimo</label>
+                      <label className="block text-xs text-neutral-600 mb-1">Precio mínimo</label>
                       <input
                         type="number"
                         value={filters.priceMin || ''}
@@ -358,11 +358,11 @@ export default function Destinations() {
                           priceMin: e.target.value ? Number(e.target.value) : undefined
                         })}
                         placeholder="0"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Precio máximo</label>
+                      <label className="block text-xs text-neutral-600 mb-1">Precio máximo</label>
                       <input
                         type="number"
                         value={filters.priceMax || ''}
@@ -371,7 +371,7 @@ export default function Destinations() {
                           priceMax: e.target.value ? Number(e.target.value) : undefined
                         })}
                         placeholder="1000000"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
                     </div>
                   </div>
@@ -379,17 +379,17 @@ export default function Destinations() {
 
                 {/* Otros filtros */}
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Otros</h3>
+                  <h3 className="font-semibold text-neutral-900 mb-3">Otros</h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Departamento</label>
+                      <label className="block text-xs text-neutral-600 mb-1">Departamento</label>
                       <select
                         value={filters.location?.department || ''}
                         onChange={(e) => setFilters({
                           ...filters,
                           location: { ...filters.location, department: e.target.value || undefined }
                         })}
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       >
                         <option value="">Todos</option>
                         {colombianDepartments.map(dept => (
@@ -399,14 +399,14 @@ export default function Destinations() {
                     </div>
 
                     <div>
-                      <label className="block text-xs text-gray-600 mb-1">Calificación mínima</label>
+                      <label className="block text-xs text-neutral-600 mb-1">Calificación mínima</label>
                       <select
                         value={filters.rating || ''}
                         onChange={(e) => setFilters({
                           ...filters,
                           rating: e.target.value ? Number(e.target.value) : undefined
                         })}
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                        className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       >
                         <option value="">Cualquiera</option>
                         <option value="3">3+ ⭐</option>
@@ -418,7 +418,7 @@ export default function Destinations() {
                 </div>
               </div>
 
-              <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200">
+              <div className="flex justify-between items-center mt-6 pt-4 border-t border-neutral-200">
                 <Button
                   onClick={clearFilters}
                   variant="ghost"
@@ -465,12 +465,12 @@ export default function Destinations() {
         {filteredDestinations.length === 0 && !isLoading && (
           <div className="text-center py-12">
             <div className="mb-4">
-              <Compass className="w-16 h-16 text-gray-400 mx-auto" />
+              <Compass className="w-16 h-16 text-neutral-400 mx-auto" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-xl font-semibold text-neutral-900 mb-2">
               No se encontraron destinos
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-neutral-600 mb-4">
               Intenta ajustar tus filtros o buscar con otros términos
             </p>
             <Button
@@ -519,8 +519,8 @@ function DestinationCard({ destination, viewMode, animationDelay = 0 }: Destinat
           <div className="flex-1 p-6">
             <div className="flex justify-between items-start mb-3">
               <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-1">{destination.name}</h3>
-                <div className="flex items-center text-gray-600 text-sm mb-2">
+                <h3 className="text-xl font-bold text-neutral-900 mb-1">{destination.name}</h3>
+                <div className="flex items-center text-neutral-600 text-sm mb-2">
                   <MapPin className="w-4 h-4 mr-1" />
                   {destination.location.city}, {destination.location.department}
                 </div>
@@ -532,7 +532,7 @@ function DestinationCard({ destination, viewMode, animationDelay = 0 }: Destinat
               )}
             </div>
 
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+            <p className="text-neutral-600 text-sm mb-4 line-clamp-2">
               {destination.shortDescription}
             </p>
 
@@ -540,7 +540,7 @@ function DestinationCard({ destination, viewMode, animationDelay = 0 }: Destinat
               {destination.categories.slice(0, 2).map(category => (
                 <span
                   key={category.id}
-                  className="bg-gray-100 text-gray-700 px-2 py-1 rounded-lg text-xs"
+                  className="bg-neutral-100 text-neutral-700 px-2 py-1 rounded-lg text-xs"
                 >
                   {category.icon} {category.name}
                 </span>
@@ -552,15 +552,15 @@ function DestinationCard({ destination, viewMode, animationDelay = 0 }: Destinat
                 <div className="flex items-center">
                   <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
                   <span className="text-sm font-medium">{destination.rating.toFixed(1)}</span>
-                  <span className="text-xs text-gray-500 ml-1">({destination.totalReviews})</span>
+                  <span className="text-xs text-neutral-500 ml-1">({destination.totalReviews})</span>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-neutral-600">
                   {destination.duration.recommended}
                 </div>
               </div>
 
               <div className="text-right">
-                <div className="text-lg font-bold text-gray-900">
+                <div className="text-lg font-bold text-neutral-900">
                   Desde {formatPrice(destination.priceRange.min)}
                 </div>
                 <Button
@@ -610,14 +610,14 @@ function DestinationCard({ destination, viewMode, animationDelay = 0 }: Destinat
 
       <div className="p-5">
         <div className="mb-3">
-          <h3 className="text-lg font-bold text-gray-900 mb-1 line-clamp-1">{destination.name}</h3>
-          <div className="flex items-center text-gray-600 text-sm">
+          <h3 className="text-lg font-bold text-neutral-900 mb-1 line-clamp-1">{destination.name}</h3>
+          <div className="flex items-center text-neutral-600 text-sm">
             <MapPin className="w-3 h-3 mr-1" />
             {destination.location.city}, {destination.location.department}
           </div>
         </div>
 
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+        <p className="text-neutral-600 text-sm mb-4 line-clamp-2">
           {destination.shortDescription}
         </p>
 
@@ -625,7 +625,7 @@ function DestinationCard({ destination, viewMode, animationDelay = 0 }: Destinat
           {destination.categories.slice(0, 2).map(category => (
             <span
               key={category.id}
-              className="bg-gray-100 text-gray-700 px-2 py-1 rounded-lg text-xs"
+              className="bg-neutral-100 text-neutral-700 px-2 py-1 rounded-lg text-xs"
             >
               {category.icon}
             </span>
@@ -636,21 +636,21 @@ function DestinationCard({ destination, viewMode, animationDelay = 0 }: Destinat
         </div>
 
         <div className="flex items-center justify-between mb-4">
-          <div className="text-sm text-gray-600 flex items-center">
+          <div className="text-sm text-neutral-600 flex items-center">
             <Clock className="w-3 h-3 mr-1" />
             {destination.duration.recommended}
           </div>
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-neutral-600">
             {destination.totalReviews} reviews
           </div>
         </div>
 
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-lg font-bold text-gray-900">
+            <div className="text-lg font-bold text-neutral-900">
               {formatPrice(destination.priceRange.min)}
             </div>
-            <div className="text-xs text-gray-500">por persona</div>
+            <div className="text-xs text-neutral-500">por persona</div>
           </div>
 
           <Button
@@ -683,13 +683,13 @@ function MapView({ destinations }: MapViewProps) {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <Map className="w-16 h-16 text-primary-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-xl font-semibold text-neutral-900 mb-2">
               Vista de Mapa
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-neutral-600 mb-4">
               Aquí se mostraría un mapa interactivo con los {destinations.length} destinos encontrados
             </p>
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-neutral-500">
               Integración con Google Maps próximamente
             </div>
           </div>
@@ -708,18 +708,18 @@ function MapView({ destinations }: MapViewProps) {
 
       {/* Lista de destinos en el mapa */}
       <div className="p-6">
-        <h4 className="text-lg font-semibold text-gray-900 mb-4">
+        <h4 className="text-lg font-semibold text-neutral-900 mb-4">
           Destinos en el mapa
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
           {destinations.map((destination) => (
-            <div key={destination.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+            <div key={destination.id} className="flex items-center space-x-3 p-3 bg-neutral-50 rounded-lg">
               <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></div>
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-gray-900 truncate">
+                <div className="font-medium text-neutral-900 truncate">
                   {destination.name}
                 </div>
-                <div className="text-sm text-gray-600 flex items-center">
+                <div className="text-sm text-neutral-600 flex items-center">
                   <MapPin className="w-3 h-3 mr-1" />
                   {destination.location.city}
                 </div>

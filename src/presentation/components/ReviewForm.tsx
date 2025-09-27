@@ -152,7 +152,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
     return (
       <div className="flex items-center space-x-2">
-        <span className={`font-medium text-gray-700 ${size === 'lg' ? 'text-lg' : 'text-sm'}`}>
+        <span className={`font-medium text-neutral-700 ${size === 'lg' ? 'text-lg' : 'text-sm'}`}>
           {label}:
         </span>
         <div className="flex space-x-1">
@@ -173,7 +173,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
             </button>
           ))}
         </div>
-        <span className="text-sm text-gray-600 ml-2">
+        <span className="text-sm text-neutral-600 ml-2">
           {value > 0 ? `${value}/5` : 'Sin calificar'}
         </span>
       </div>
@@ -182,7 +182,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
           <div className="flex items-center justify-between">
@@ -203,12 +203,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
             {[1, 2, 3].map(stepNum => (
               <div key={stepNum} className="flex items-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                  stepNum <= step ? 'bg-white text-blue-600' : 'bg-blue-400 text-blue-100'
+                  stepNum <= step ? 'bg-neutral-100 text-primary-600' : 'bg-blue-400 text-blue-100'
                 }`}>
                   {stepNum < step ? <Check className="w-4 h-4" /> : stepNum}
                 </div>
                 {stepNum < 3 && (
-                  <div className={`w-12 h-1 ${stepNum < step ? 'bg-white' : 'bg-blue-400'}`} />
+                  <div className={`w-12 h-1 ${stepNum < step ? 'bg-neutral-100' : 'bg-blue-400'}`} />
                 )}
               </div>
             ))}
@@ -221,15 +221,15 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           {step === 1 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">¿Cómo calificarías tu experiencia?</h3>
-                <p className="text-gray-600">Comparte tu opinión para ayudar a otros viajeros</p>
+                <h3 className="text-xl font-bold text-primary-700 mb-2">¿Cómo calificarías tu experiencia?</h3>
+                <p className="text-neutral-600">Comparte tu opinión para ayudar a otros viajeros</p>
               </div>
 
               {/* Calificación General */}
               <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-6 text-center">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Calificación General</h4>
+                <h4 className="text-lg font-semibold text-primary-700 mb-4">Calificación General</h4>
                 {renderStarRating(rating.overall, (value) => handleRatingChange('overall', value), '', 'lg')}
-                <div className="mt-2 text-sm text-gray-600">
+                <div className="mt-2 text-sm text-neutral-600">
                   {rating.overall === 0 && 'Selecciona una calificación'}
                   {rating.overall === 1 && 'Muy malo'}
                   {rating.overall === 2 && 'Malo'}
@@ -241,13 +241,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
               {/* Calificaciones por Categoría */}
               <div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Calificaciones Detalladas</h4>
+                <h4 className="text-lg font-semibold text-primary-700 mb-4">Calificaciones Detalladas</h4>
                 <div className="space-y-4">
                   {categories.map(category => (
-                    <div key={category.key} className="bg-gray-50 rounded-lg p-4">
+                    <div key={category.key} className="bg-neutral-50 rounded-lg p-4">
                       <div className="flex items-center mb-2">
                         <span className="text-xl mr-2">{category.icon}</span>
-                        <span className="font-medium text-gray-900">{category.label}</span>
+                        <span className="font-medium text-primary-700">{category.label}</span>
                       </div>
                       {renderStarRating(
                         rating.categories[category.key as keyof ReviewRating['categories']],
@@ -265,12 +265,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           {step === 2 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Cuéntanos tu experiencia</h3>
-                <p className="text-gray-600">Describe tu visita con detalles que ayuden a otros viajeros</p>
+                <h3 className="text-xl font-bold text-primary-700 mb-2">Cuéntanos tu experiencia</h3>
+                <p className="text-neutral-600">Describe tu visita con detalles que ayuden a otros viajeros</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Título de tu reseña *
                 </label>
                 <input
@@ -278,16 +278,16 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Ej: Experiencia increíble en San Agustín"
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   maxLength={100}
                 />
-                <div className="text-right text-xs text-gray-500 mt-1">
+                <div className="text-right text-xs text-neutral-500 mt-1">
                   {title.length}/100
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Tu reseña *
                 </label>
                 <textarea
@@ -295,17 +295,17 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Describe tu experiencia: ¿qué te gustó más? ¿qué mejorarías? ¿recomendarías este destino?"
                   rows={6}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   maxLength={2000}
                 />
-                <div className="text-right text-xs text-gray-500 mt-1">
+                <div className="text-right text-xs text-neutral-500 mt-1">
                   {content.length}/2000
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Fecha de tu visita *
                   </label>
                   <input
@@ -313,18 +313,18 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                     value={travelDate}
                     onChange={(e) => setTravelDate(e.target.value)}
                     max={new Date().toISOString().split('T')[0]}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     ¿Con quién viajaste?
                   </label>
                   <select
                     value={travelWith}
                     onChange={(e) => setTravelWith(e.target.value as any)}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full border border-neutral-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   >
                     {travelWithOptions.map(option => (
                       <option key={option.value} value={option.value}>
@@ -341,16 +341,16 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           {step === 3 && (
             <div className="space-y-6">
               <div className="text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Añade fotos y recomendaciones</h3>
-                <p className="text-gray-600">Esto es opcional pero ayuda mucho a otros viajeros</p>
+                <h3 className="text-xl font-bold text-primary-700 mb-2">Añade fotos y recomendaciones</h3>
+                <p className="text-neutral-600">Esto es opcional pero ayuda mucho a otros viajeros</p>
               </div>
 
               {/* Upload de fotos */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Fotos de tu visita (máximo 5)
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                <div className="border-2 border-dashed border-neutral-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
                   <input
                     type="file"
                     multiple
@@ -360,11 +360,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                     id="file-upload"
                   />
                   <label htmlFor="file-upload" className="cursor-pointer">
-                    <Camera className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-600">
+                    <Camera className="w-12 h-12 text-neutral-400 mx-auto mb-2" />
+                    <p className="text-neutral-600">
                       Haz clic para subir fotos o videos
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-neutral-500 mt-1">
                       PNG, JPG, MP4 hasta 10MB cada uno
                     </p>
                   </label>
@@ -375,7 +375,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                     {selectedFiles.map((file, index) => (
                       <div key={index} className="relative">
-                        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                        <div className="aspect-square bg-neutral-100 rounded-lg overflow-hidden">
                           {file.type.startsWith('image/') ? (
                             <img
                               src={URL.createObjectURL(file)}
@@ -384,13 +384,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                              <Upload className="w-8 h-8 text-gray-400" />
+                              <Upload className="w-8 h-8 text-neutral-400" />
                             </div>
                           )}
                         </div>
                         <button
                           onClick={() => removeFile(index)}
-                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                          className="absolute -top-2 -right-2 bg-secondary-500 text-white rounded-full p-1 hover:bg-secondary-600"
                         >
                           <X className="w-3 h-3" />
                         </button>
@@ -402,7 +402,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
               {/* Recomendaciones */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
+                <label className="block text-sm font-medium text-neutral-700 mb-3">
                   ¿Para quién recomendarías este destino?
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -413,8 +413,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                       onClick={() => toggleRecommendedFor(option)}
                       className={`p-3 rounded-lg border-2 text-sm transition-colors ${
                         recommendedFor.includes(option)
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-blue-500 bg-blue-50 text-primary-700'
+                          : 'border-neutral-200 hover:border-neutral-300'
                       }`}
                     >
                       {option}
@@ -427,11 +427,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="border-t border-gray-200 p-6">
+        <div className="border-t border-neutral-200 p-6">
           <div className="flex justify-between">
             <button
               onClick={step > 1 ? () => setStep(step - 1) : onCancel}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-6 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
             >
               {step > 1 ? 'Anterior' : 'Cancelar'}
             </button>
@@ -443,7 +443,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
                   (step === 1 && !canProceedToStep2) ||
                   (step === 2 && !canProceedToStep3)
                 }
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Siguiente
               </button>
@@ -451,7 +451,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
               <button
                 onClick={handleSubmit}
                 disabled={isLoading}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                className="px-6 py-2 bg-success-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
               >
                 {isLoading ? (
                   <>

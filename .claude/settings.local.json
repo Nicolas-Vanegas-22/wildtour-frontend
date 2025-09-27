@@ -8,7 +8,11 @@
       "Bash(npm run build:*)",
       "Bash(grep:*)",
       "Bash(move:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "WebSearch",
+      "WebFetch(domain:color.hailpixel.com)",
+      "WebFetch(domain:webaim.org)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

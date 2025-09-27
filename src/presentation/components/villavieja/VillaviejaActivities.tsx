@@ -35,17 +35,17 @@ const VillaviejaActivities: React.FC = () => {
   };
 
   const difficultyColors = {
-    'Fácil': 'bg-green-100 text-green-800 border-green-200',
-    'Intermedio': 'bg-blue-100 text-blue-800 border-blue-200',
-    'Moderado': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-    'Avanzado': 'bg-red-100 text-red-800 border-red-200'
+    'Fácil': 'bg-success-100 text-success-800 border-success-200',
+    'Intermedio': 'bg-primary-100 text-primary-800 border-primary-200',
+    'Moderado': 'bg-warning-100 text-warning-800 border-warning-200',
+    'Avanzado': 'bg-error-100 text-error-800 border-red-200'
   };
 
   const activityGradients = {
     'Naturaleza': 'from-green-600 to-emerald-600',
     'Ciencia': 'from-purple-600 to-indigo-600',
     'Arte': 'from-pink-600 to-rose-600',
-    'Aventura': 'from-orange-600 to-red-600'
+    'Aventura': 'from-accent-600 to-secondary-600'
   };
 
   const filteredActivities = villaviejaActivities.filter(activity => {
@@ -57,10 +57,10 @@ const VillaviejaActivities: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-8">
           <div className="flex items-center space-x-4 mb-4">
-            <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+            <div className="bg-neutral-100/20 backdrop-blur-sm rounded-full p-3">
               <Activity className="w-8 h-8" />
             </div>
             <div>
@@ -77,47 +77,47 @@ const VillaviejaActivities: React.FC = () => {
         <div className="p-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                <Mountain className="w-8 h-8 text-green-600" />
+              <div className="bg-success-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <Mountain className="w-8 h-8 text-success-600" />
               </div>
-              <h3 className="font-semibold text-gray-900">{villaviejaActivities.filter(a => a.category === 'Naturaleza').length}</h3>
-              <p className="text-sm text-gray-600">Ecoturismo</p>
+              <h3 className="font-semibold text-primary-700">{villaviejaActivities.filter(a => a.category === 'Naturaleza').length}</h3>
+              <p className="text-sm text-neutral-600">Ecoturismo</p>
             </div>
             <div className="text-center">
-              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                <Telescope className="w-8 h-8 text-purple-600" />
+              <div className="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <Telescope className="w-8 h-8 text-primary-600" />
               </div>
-              <h3 className="font-semibold text-gray-900">{villaviejaActivities.filter(a => a.category === 'Ciencia').length}</h3>
-              <p className="text-sm text-gray-600">Astronomía</p>
+              <h3 className="font-semibold text-primary-700">{villaviejaActivities.filter(a => a.category === 'Ciencia').length}</h3>
+              <p className="text-sm text-neutral-600">Astronomía</p>
             </div>
             <div className="text-center">
-              <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                <Bike className="w-8 h-8 text-orange-600" />
+              <div className="bg-accent-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <Bike className="w-8 h-8 text-accent-600" />
               </div>
-              <h3 className="font-semibold text-gray-900">{villaviejaActivities.filter(a => a.category === 'Aventura').length}</h3>
-              <p className="text-sm text-gray-600">Aventura</p>
+              <h3 className="font-semibold text-primary-700">{villaviejaActivities.filter(a => a.category === 'Aventura').length}</h3>
+              <p className="text-sm text-neutral-600">Aventura</p>
             </div>
             <div className="text-center">
               <div className="bg-pink-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                 <Camera className="w-8 h-8 text-pink-600" />
               </div>
-              <h3 className="font-semibold text-gray-900">{villaviejaActivities.filter(a => a.category === 'Arte').length}</h3>
-              <p className="text-sm text-gray-600">Fotografía</p>
+              <h3 className="font-semibold text-primary-700">{villaviejaActivities.filter(a => a.category === 'Arte').length}</h3>
+              <p className="text-sm text-neutral-600">Fotografía</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl shadow-xl p-6">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl p-6">
         <div className="flex items-center space-x-3 mb-6">
-          <Filter className="w-6 h-6 text-gray-600" />
-          <h3 className="text-xl font-bold text-gray-900">Filtros</h3>
+          <Filter className="w-6 h-6 text-neutral-600" />
+          <h3 className="text-xl font-bold text-primary-700">Filtros</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Categoría</label>
+            <label className="block text-sm font-medium text-neutral-700 mb-3">Categoría</label>
             <div className="flex flex-wrap gap-2">
               {(['Todos', 'Naturaleza', 'Ciencia', 'Arte', 'Aventura'] as ActivityCategory[]).map((category) => (
                 <button
@@ -125,8 +125,8 @@ const VillaviejaActivities: React.FC = () => {
                   onClick={() => setSelectedCategory(category)}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg border transition-colors ${
                     selectedCategory === category
-                      ? 'bg-green-100 border-green-300 text-green-800'
-                      : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
+                      ? 'bg-success-100 border-green-300 text-green-800'
+                      : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:bg-neutral-100'
                   }`}
                 >
                   {category !== 'Todos' && categoryIcons[category as keyof typeof categoryIcons]}
@@ -137,7 +137,7 @@ const VillaviejaActivities: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">Dificultad</label>
+            <label className="block text-sm font-medium text-neutral-700 mb-3">Dificultad</label>
             <div className="flex flex-wrap gap-2">
               {(['Todos', 'Fácil', 'Intermedio', 'Moderado', 'Avanzado'] as DifficultyLevel[]).map((difficulty) => (
                 <button
@@ -145,8 +145,8 @@ const VillaviejaActivities: React.FC = () => {
                   onClick={() => setSelectedDifficulty(difficulty)}
                   className={`px-4 py-2 rounded-lg border transition-colors ${
                     selectedDifficulty === difficulty
-                      ? 'bg-blue-100 border-blue-300 text-blue-800'
-                      : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
+                      ? 'bg-primary-100 border-blue-300 text-blue-800'
+                      : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:bg-neutral-100'
                   }`}
                 >
                   {difficulty}
@@ -156,7 +156,7 @@ const VillaviejaActivities: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-4 text-sm text-gray-600">
+        <div className="mt-4 text-sm text-neutral-600">
           Mostrando {filteredActivities.length} de {villaviejaActivities.length} actividades
         </div>
       </div>
@@ -164,11 +164,11 @@ const VillaviejaActivities: React.FC = () => {
       {/* Activities Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {filteredActivities.map((activity) => (
-          <div key={activity.id} className="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div key={activity.id} className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
             <div className={`bg-gradient-to-r ${activityGradients[activity.category as keyof typeof activityGradients]} text-white p-6`}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
+                  <div className="bg-neutral-100/20 backdrop-blur-sm rounded-full p-2">
                     {categoryIcons[activity.category as keyof typeof categoryIcons]}
                   </div>
                   <div>
@@ -178,7 +178,7 @@ const VillaviejaActivities: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setExpandedActivity(expandedActivity === activity.id ? null : activity.id)}
-                  className="bg-white/20 backdrop-blur-sm rounded-full p-2 hover:bg-white/30 transition-colors"
+                  className="bg-neutral-100/20 backdrop-blur-sm rounded-full p-2 hover:bg-neutral-100/30 transition-colors"
                 >
                   <ArrowRight className={`w-5 h-5 transition-transform ${expandedActivity === activity.id ? 'rotate-90' : ''}`} />
                 </button>
@@ -192,10 +192,10 @@ const VillaviejaActivities: React.FC = () => {
                 <span className={`px-3 py-1 rounded-full text-sm font-medium border ${difficultyColors[activity.difficulty as keyof typeof difficultyColors]}`}>
                   {activity.difficulty}
                 </span>
-                <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-neutral-100/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
                   {activity.duration}
                 </span>
-                <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-neutral-100/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium">
                   ${activity.price.toLocaleString()} COP
                 </span>
               </div>
@@ -204,26 +204,26 @@ const VillaviejaActivities: React.FC = () => {
             <div className="p-6">
               <div className="grid grid-cols-3 gap-4 mb-6">
                 <div className="text-center">
-                  <Clock className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">{activity.duration}</p>
-                  <p className="text-xs text-gray-600">Duración</p>
+                  <Clock className="w-6 h-6 text-neutral-400 mx-auto mb-2" />
+                  <p className="text-sm font-medium text-primary-700">{activity.duration}</p>
+                  <p className="text-xs text-neutral-600">Duración</p>
                 </div>
                 <div className="text-center">
-                  <DollarSign className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">${activity.price.toLocaleString()}</p>
-                  <p className="text-xs text-gray-600">Precio COP</p>
+                  <DollarSign className="w-6 h-6 text-neutral-400 mx-auto mb-2" />
+                  <p className="text-sm font-medium text-primary-700">${activity.price.toLocaleString()}</p>
+                  <p className="text-xs text-neutral-600">Precio COP</p>
                 </div>
                 <div className="text-center">
-                  <Users className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-gray-900">{activity.difficulty}</p>
-                  <p className="text-xs text-gray-600">Nivel</p>
+                  <Users className="w-6 h-6 text-neutral-400 mx-auto mb-2" />
+                  <p className="text-sm font-medium text-primary-700">{activity.difficulty}</p>
+                  <p className="text-xs text-neutral-600">Nivel</p>
                 </div>
               </div>
 
               {expandedActivity === activity.id && (
                 <div className="space-y-6 border-t pt-6">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <h4 className="font-semibold text-primary-700 mb-3 flex items-center">
                       <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                       Incluye
                     </h4>
@@ -231,14 +231,14 @@ const VillaviejaActivities: React.FC = () => {
                       {activity.included.map((item, index) => (
                         <li key={index} className="flex items-start space-x-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{item}</span>
+                          <span className="text-neutral-700 text-sm">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <h4 className="font-semibold text-primary-700 mb-3 flex items-center">
                       <AlertTriangle className="w-5 h-5 text-amber-500 mr-2" />
                       Requisitos
                     </h4>
@@ -246,22 +246,22 @@ const VillaviejaActivities: React.FC = () => {
                       {activity.requirements.map((req, index) => (
                         <li key={index} className="flex items-start space-x-2">
                           <div className="w-2 h-2 bg-amber-500 rounded-full mt-2 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{req}</span>
+                          <span className="text-neutral-700 text-sm">{req}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h5 className="font-medium text-gray-900 mb-2">Información adicional</h5>
+                  <div className="bg-neutral-50 rounded-lg p-4">
+                    <h5 className="font-medium text-primary-700 mb-2">Información adicional</h5>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                       <div className="flex items-center space-x-2">
                         <Calendar className="w-4 h-4 text-blue-500" />
-                        <span className="text-gray-600">Disponible todo el año</span>
+                        <span className="text-neutral-600">Disponible todo el año</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <MapPin className="w-4 h-4 text-red-500" />
-                        <span className="text-gray-600">Punto de encuentro en centro</span>
+                        <MapPin className="w-4 h-4 text-secondary-500" />
+                        <span className="text-neutral-600">Punto de encuentro en centro</span>
                       </div>
                     </div>
                   </div>
@@ -278,8 +278,8 @@ const VillaviejaActivities: React.FC = () => {
       </div>
 
       {/* Activity Packages */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-gradient-to-r from-primary-600 to-secondary-600 text-white p-6">
           <div className="flex items-center space-x-3">
             <Tent className="w-6 h-6" />
             <h3 className="text-xl font-bold">Paquetes de Actividades</h3>
@@ -289,41 +289,41 @@ const VillaviejaActivities: React.FC = () => {
 
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
-              <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                <Mountain className="w-5 h-5 text-green-600 mr-2" />
+            <div className="bg-gradient-to-br from-success-50 to-primary-50 rounded-xl p-6 border border-success-200">
+              <h4 className="text-lg font-semibold text-primary-700 mb-3 flex items-center">
+                <Mountain className="w-5 h-5 text-success-600 mr-2" />
                 Paquete Ecoturismo
               </h4>
-              <ul className="space-y-2 text-sm text-gray-700 mb-4">
+              <ul className="space-y-2 text-sm text-neutral-700 mb-4">
                 <li>• Senderismo Ecológico (4h)</li>
                 <li>• Fotografía de Paisajes (6h)</li>
                 <li>• Observación Astronómica (3h)</li>
               </ul>
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-2xl font-bold text-green-600">$220.000</span>
-                  <span className="text-sm text-gray-500 line-through ml-2">$270.000</span>
+                  <span className="text-2xl font-bold text-success-600">$220.000</span>
+                  <span className="text-sm text-neutral-500 line-through ml-2">$270.000</span>
                 </div>
-                <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Ahorra $50.000</span>
+                <span className="bg-success-100 text-success-800 px-2 py-1 rounded-full text-xs">Ahorra $50.000</span>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-200">
-              <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                <Bike className="w-5 h-5 text-orange-600 mr-2" />
+            <div className="bg-gradient-to-br from-accent-50 to-secondary-50 rounded-xl p-6 border border-accent-200">
+              <h4 className="text-lg font-semibold text-primary-700 mb-3 flex items-center">
+                <Bike className="w-5 h-5 text-accent-600 mr-2" />
                 Paquete Aventura
               </h4>
-              <ul className="space-y-2 text-sm text-gray-700 mb-4">
+              <ul className="space-y-2 text-sm text-neutral-700 mb-4">
                 <li>• Ciclismo de Montaña (5h)</li>
                 <li>• Camping bajo las Estrellas (12h)</li>
                 <li>• Senderismo Ecológico (4h)</li>
               </ul>
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-2xl font-bold text-orange-600">$280.000</span>
-                  <span className="text-sm text-gray-500 line-through ml-2">$310.000</span>
+                  <span className="text-2xl font-bold text-accent-600">$280.000</span>
+                  <span className="text-sm text-neutral-500 line-through ml-2">$310.000</span>
                 </div>
-                <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">Ahorra $30.000</span>
+                <span className="bg-accent-100 text-accent-800 px-2 py-1 rounded-full text-xs">Ahorra $30.000</span>
               </div>
             </div>
           </div>
@@ -331,7 +331,7 @@ const VillaviejaActivities: React.FC = () => {
       </div>
 
       {/* Safety Tips */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-amber-600 to-orange-600 text-white p-6">
           <div className="flex items-center space-x-3">
             <AlertTriangle className="w-6 h-6" />
@@ -342,8 +342,8 @@ const VillaviejaActivities: React.FC = () => {
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-semibold text-gray-900 mb-3">Antes de la Actividad</h4>
-              <ul className="space-y-2 text-sm text-gray-700">
+              <h4 className="font-semibold text-primary-700 mb-3">Antes de la Actividad</h4>
+              <ul className="space-y-2 text-sm text-neutral-700">
                 <li className="flex items-center space-x-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
                   <span>Hidratarse adecuadamente</span>
@@ -364,8 +364,8 @@ const VillaviejaActivities: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold text-gray-900 mb-3">Durante la Actividad</h4>
-              <ul className="space-y-2 text-sm text-gray-700">
+              <h4 className="font-semibold text-primary-700 mb-3">Durante la Actividad</h4>
+              <ul className="space-y-2 text-sm text-neutral-700">
                 <li className="flex items-center space-x-2">
                   <AlertTriangle className="w-4 h-4 text-amber-500" />
                   <span>Seguir instrucciones del guía</span>

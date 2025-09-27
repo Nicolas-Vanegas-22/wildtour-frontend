@@ -97,7 +97,7 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
           <div className="flex items-center justify-between">
@@ -120,8 +120,8 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
         {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[70vh]">
           {/* Original Review */}
-          <div className="bg-gray-50 rounded-xl p-4 mb-6">
-            <h4 className="text-lg font-semibold text-gray-900 mb-3">Reseña Original</h4>
+          <div className="bg-neutral-50 rounded-xl p-4 mb-6">
+            <h4 className="text-lg font-semibold text-primary-700 mb-3">Reseña Original</h4>
 
             <div className="flex items-start space-x-3">
               <img
@@ -131,12 +131,12 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
               />
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-2">
-                  <span className="font-medium text-gray-900">{userName}</span>
-                  <span className="text-sm text-gray-500">•</span>
-                  <span className="text-sm text-gray-500">Usuario verificado</span>
+                  <span className="font-medium text-primary-700">{userName}</span>
+                  <span className="text-sm text-neutral-500">•</span>
+                  <span className="text-sm text-neutral-500">Usuario verificado</span>
                 </div>
-                <h5 className="font-semibold text-gray-900 mb-2">{reviewTitle}</h5>
-                <p className="text-gray-700 leading-relaxed">{reviewContent}</p>
+                <h5 className="font-semibold text-primary-700 mb-2">{reviewTitle}</h5>
+                <p className="text-neutral-700 leading-relaxed">{reviewContent}</p>
               </div>
             </div>
           </div>
@@ -144,14 +144,14 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
           {/* Response Section */}
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-semibold text-gray-900">
+              <h4 className="text-lg font-semibold text-primary-700">
                 {existingResponse ? 'Tu Respuesta' : 'Escribir Respuesta'}
               </h4>
 
               {existingResponse && !isEditing && canEdit && (
                 <button
                   onClick={handleEdit}
-                  className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors"
+                  className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 transition-colors"
                 >
                   <Edit3 className="w-4 h-4" />
                   <span>Editar</span>
@@ -163,18 +163,18 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
               // View existing response
               <div className="bg-blue-50 rounded-xl p-4">
                 <div className="flex items-center space-x-2 mb-3">
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
                     <User className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <span className="font-medium text-gray-900">{existingResponse.authorName}</span>
-                    <span className="text-sm text-gray-600 ml-2">
+                    <span className="font-medium text-primary-700">{existingResponse.authorName}</span>
+                    <span className="text-sm text-neutral-600 ml-2">
                       ({existingResponse.authorRole === 'provider' ? 'Proveedor' : 'Administrador'})
                     </span>
                   </div>
                 </div>
-                <p className="text-gray-700 leading-relaxed mb-3">{existingResponse.content}</p>
-                <div className="flex items-center text-sm text-gray-500">
+                <p className="text-neutral-700 leading-relaxed mb-3">{existingResponse.content}</p>
+                <div className="flex items-center text-sm text-neutral-500">
                   <Calendar className="w-4 h-4 mr-1" />
                   <span>
                     Respondido el {new Date(existingResponse.createdAt).toLocaleDateString('es-CO')}
@@ -189,7 +189,7 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
               <div className="space-y-4">
                 {/* Quick Response Suggestions */}
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-neutral-700 mb-2 block">
                     Respuestas Sugeridas (opcional)
                   </label>
                   <div className="grid gap-2">
@@ -198,7 +198,7 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
                         key={index}
                         type="button"
                         onClick={() => setContent(suggestion)}
-                        className="text-left p-3 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 text-sm transition-colors"
+                        className="text-left p-3 bg-neutral-50 hover:bg-neutral-100 rounded-lg border border-neutral-200 text-sm transition-colors"
                       >
                         {suggestion}
                       </button>
@@ -208,7 +208,7 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
 
                 {/* Response Text Area */}
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  <label className="text-sm font-medium text-neutral-700 mb-2 block">
                     Tu respuesta *
                   </label>
                   <textarea
@@ -222,17 +222,17 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
                     rows={6}
                     placeholder="Escribe una respuesta profesional y constructiva..."
                     className={`w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 resize-none ${
-                      errors.content ? 'border-red-300 focus:border-red-500' : 'border-gray-300 focus:border-blue-500'
+                      errors.content ? 'border-red-300 focus:border-secondary-500' : 'border-neutral-300 focus:border-blue-500'
                     }`}
                     maxLength={1000}
                   />
 
                   <div className="flex items-center justify-between mt-2">
-                    <div className="text-sm text-gray-500">
+                    <div className="text-sm text-neutral-500">
                       {content.length}/1000 caracteres
                     </div>
                     {errors.content && (
-                      <div className="flex items-center text-red-600 text-sm">
+                      <div className="flex items-center text-secondary-600 text-sm">
                         <AlertCircle className="w-4 h-4 mr-1" />
                         <span>{errors.content}</span>
                       </div>
@@ -241,8 +241,8 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
                 </div>
 
                 {/* Guidelines */}
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <h5 className="font-medium text-yellow-800 mb-2 flex items-center">
+                <div className="bg-warning-50 border border-warning-200 rounded-lg p-4">
+                  <h5 className="font-medium text-warning-800 mb-2 flex items-center">
                     <AlertCircle className="w-4 h-4 mr-2" />
                     Consejos para una buena respuesta
                   </h5>
@@ -261,17 +261,17 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
 
         {/* Footer */}
         {isEditing && (
-          <div className="bg-gray-50 px-6 py-4 flex justify-end space-x-3">
+          <div className="bg-neutral-50 px-6 py-4 flex justify-end space-x-3">
             <button
               onClick={handleCancelEdit}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
             >
               Cancelar
             </button>
             <button
               onClick={handleSubmit}
               disabled={isLoading || !content.trim()}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+              className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
             >
               {isLoading ? (
                 <>
@@ -289,10 +289,10 @@ const ReviewResponse: React.FC<ReviewResponseProps> = ({
         )}
 
         {!isEditing && existingResponse && (
-          <div className="bg-gray-50 px-6 py-4 flex justify-end">
+          <div className="bg-neutral-50 px-6 py-4 flex justify-end">
             <button
               onClick={onCancel}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
             >
               Cerrar
             </button>

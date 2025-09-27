@@ -1,6 +1,8 @@
 // Datos completos del módulo de Villavieja para Wild Tour Colombia
 
 import { Destination, Activity, Accommodation, TourismCategory } from '../domain/models/Destination';
+import { GuideProfile, GuideReview, GuideStats } from '../domain/models/GuideReview';
+import { ServiceWithReviews, ServiceReview, ServiceStats } from '../domain/models/ServiceReview';
 
 // Información general de Villavieja
 export const villaviejaInfo = {
@@ -482,35 +484,7 @@ export const villaviejaServices = {
     }
   ],
 
-  guides: [
-    {
-      name: 'Carlos Mendoza',
-      specialty: 'Astronomía y Geología',
-      experience: '15 años',
-      languages: ['Español', 'Inglés'],
-      certifications: ['Guía certificado SENA', 'Especialista en astronomía'],
-      contact: '+57 312 345 6789',
-      pricePerDay: 80000
-    },
-    {
-      name: 'Ana Lucía Torres',
-      specialty: 'Ecoturismo y Flora Desértica',
-      experience: '10 años',
-      languages: ['Español', 'Francés'],
-      certifications: ['Bióloga', 'Guía de naturaleza'],
-      contact: '+57 300 987 6543',
-      pricePerDay: 75000
-    },
-    {
-      name: 'José Ramírez',
-      specialty: 'Historia y Paleontología',
-      experience: '20 años',
-      languages: ['Español'],
-      certifications: ['Historiador', 'Especialista en paleontología'],
-      contact: '+57 311 567 8901',
-      pricePerDay: 70000
-    }
-  ],
+  guides: [] as any[], // Reemplazado por villaviejaGuides más abajo
 
   equipment: [
     {
@@ -819,9 +793,9 @@ export const villaviejaDestination: Destination = {
     ]
   },
   categories: [
-    { id: '1', name: 'Naturaleza', icon: '🌿', description: 'Desierto único en Colombia' },
-    { id: '2', name: 'Ciencia', icon: '🔭', description: 'Astronomía y paleontología' },
-    { id: '3', name: 'Aventura', icon: '🏃‍♂️', description: 'Actividades en el desierto' }
+    { id: '1', name: 'Naturaleza', icon: 'Leaf', description: 'Desierto único en Colombia' },
+    { id: '2', name: 'Ciencia', icon: 'Telescope', description: 'Astronomía y paleontología' },
+    { id: '3', name: 'Aventura', icon: 'Mountain', description: 'Actividades en el desierto' }
   ],
   tourismType: 'Naturaleza',
   difficulty: 'Moderado',
@@ -858,4 +832,698 @@ export const villaviejaDestination: Destination = {
   tags: ['desierto', 'astronomía', 'paleontología', 'ciencia', 'aventura', 'tatacoa', 'estrellas', 'fósiles'],
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString()
+};
+
+// Datos completos de los guías con reviews y estadísticas
+export const villaviejaGuides: GuideProfile[] = [
+  {
+    id: 'guide-1',
+    name: 'Carlos Mendoza',
+    specialty: 'Astronomía y Geología',
+    experience: '15 años',
+    languages: ['Español', 'Inglés'],
+    certifications: ['Guía certificado SENA', 'Especialista en astronomía', 'Certificación internacional de astronomía'],
+    contact: '+57 312 345 6789',
+    pricePerDay: 80000,
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    bio: 'Guía especializado con 15 años de experiencia en astronomía y geología del desierto de la Tatacoa. Apasionado por compartir los secretos del universo y la historia geológica de esta región única.',
+    location: 'Villavieja, Huila',
+    availableDays: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    maxGroupSize: 12,
+    equipmentIncluded: ['Telescopio profesional', 'Linterna roja', 'Material educativo', 'Binoculares'],
+    isActive: true,
+    isVerified: true,
+    joinedDate: '2019-03-15',
+    lastActiveDate: '2024-01-20',
+    stats: {
+      totalReviews: 94,
+      averageRating: 4.8,
+      categoryAverages: {
+        knowledge: 4.9,
+        communication: 4.8,
+        punctuality: 4.7,
+        professionalism: 4.8,
+        overall: 4.8
+      },
+      ratingDistribution: {
+        1: 1,
+        2: 2,
+        3: 5,
+        4: 18,
+        5: 68
+      },
+      verifiedReviews: 89,
+      responseRate: 95,
+      recommendationRate: 96,
+      recentActivity: {
+        lastReview: '2024-01-18',
+        reviewsThisMonth: 8,
+        reviewsThisYear: 94
+      }
+    },
+    reviews: [
+      {
+        id: 'review-1',
+        userId: 'user-1',
+        userName: 'María González',
+        userAvatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b167?w=50&h=50&fit=crop&crop=face',
+        guideId: 'guide-1',
+        guideName: 'Carlos Mendoza',
+        tourDate: '2024-01-15',
+        tourType: 'Astronomía y Geología',
+        tourDuration: 4,
+        groupSize: 6,
+        title: 'Una experiencia astronómica increíble',
+        comment: 'Carlos es un guía excepcional. Su conocimiento sobre astronomía es impresionante y sabe cómo transmitir su pasión de manera que todos entendamos. La observación nocturna fue mágica, nos mostró nebulosas y galaxias que nunca habíamos visto. Definitivamente recomendado.',
+        rating: {
+          knowledge: 5,
+          communication: 5,
+          punctuality: 5,
+          professionalism: 5,
+          overall: 5
+        },
+        media: [],
+        travelWith: 'family',
+        recommendedFor: ['Familias con niños', 'Principiantes', 'Estudiantes'],
+        helpfulVotes: 12,
+        reportedCount: 0,
+        verified: true,
+        status: 'approved',
+        createdAt: '2024-01-16T09:30:00Z',
+        guideResponse: {
+          id: 'response-1',
+          content: '¡Muchas gracias María! Me alegra mucho que hayan disfrutado la experiencia. Es un placer compartir mi pasión por las estrellas con familias tan entusiastas como la suya.',
+          createdAt: '2024-01-16T14:20:00Z'
+        }
+      },
+      {
+        id: 'review-2',
+        userId: 'user-2',
+        userName: 'Juan Pérez',
+        userAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face',
+        guideId: 'guide-1',
+        guideName: 'Carlos Mendoza',
+        tourDate: '2024-01-10',
+        tourType: 'Geología del Desierto',
+        tourDuration: 6,
+        groupSize: 4,
+        title: 'Excelente conocimiento geológico',
+        comment: 'Como geólogo profesional, puedo decir que Carlos tiene un conocimiento sólido sobre la formación del desierto. Sus explicaciones son precisas y fascinantes. El tour superó mis expectativas.',
+        rating: {
+          knowledge: 5,
+          communication: 4,
+          punctuality: 5,
+          professionalism: 5,
+          overall: 5
+        },
+        media: [],
+        travelWith: 'couple',
+        recommendedFor: ['Aventureros experimentados', 'Estudiantes'],
+        helpfulVotes: 8,
+        reportedCount: 0,
+        verified: true,
+        status: 'approved',
+        createdAt: '2024-01-11T16:45:00Z'
+      }
+    ]
+  },
+  {
+    id: 'guide-2',
+    name: 'Ana Lucía Torres',
+    specialty: 'Ecoturismo y Flora Desértica',
+    experience: '10 años',
+    languages: ['Español', 'Francés'],
+    certifications: ['Bióloga', 'Guía de naturaleza', 'Especialista en flora desértica'],
+    contact: '+57 300 987 6543',
+    pricePerDay: 75000,
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+    bio: 'Bióloga especializada en ecosistemas desérticos con 10 años de experiencia guiando turistas por la flora única del desierto de la Tatacoa. Apasionada por la conservación y educación ambiental.',
+    location: 'Villavieja, Huila',
+    availableDays: ['Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+    maxGroupSize: 10,
+    equipmentIncluded: ['Lupas de campo', 'Guías de flora', 'Kit de primeros auxilios', 'Protección solar'],
+    isActive: true,
+    isVerified: true,
+    joinedDate: '2020-05-20',
+    lastActiveDate: '2024-01-19',
+    stats: {
+      totalReviews: 67,
+      averageRating: 4.7,
+      categoryAverages: {
+        knowledge: 4.8,
+        communication: 4.9,
+        punctuality: 4.5,
+        professionalism: 4.7,
+        overall: 4.7
+      },
+      ratingDistribution: {
+        1: 0,
+        2: 1,
+        3: 8,
+        4: 22,
+        5: 36
+      },
+      verifiedReviews: 62,
+      responseRate: 88,
+      recommendationRate: 94,
+      recentActivity: {
+        lastReview: '2024-01-17',
+        reviewsThisMonth: 5,
+        reviewsThisYear: 67
+      }
+    },
+    reviews: [
+      {
+        id: 'review-3',
+        userId: 'user-3',
+        userName: 'Sophie Dubois',
+        userAvatar: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=50&h=50&fit=crop&crop=face',
+        guideId: 'guide-2',
+        guideName: 'Ana Lucía Torres',
+        tourDate: '2024-01-12',
+        tourType: 'Flora Desértica',
+        tourDuration: 5,
+        groupSize: 8,
+        title: 'Une expérience éducative magnifique',
+        comment: 'Ana Lucía es increíble. Aunque hablo francés, ella se comunicó perfectamente en mi idioma y me enseñó muchas plantas que nunca había visto. Su pasión por la naturaleza es contagiosa. ¡Muy recomendada!',
+        rating: {
+          knowledge: 5,
+          communication: 5,
+          punctuality: 4,
+          professionalism: 5,
+          overall: 5
+        },
+        media: [],
+        travelWith: 'solo',
+        recommendedFor: ['Viajeros solitarios', 'Estudiantes', 'Fotógrafos'],
+        helpfulVotes: 15,
+        reportedCount: 0,
+        verified: true,
+        status: 'approved',
+        createdAt: '2024-01-13T11:20:00Z',
+        guideResponse: {
+          id: 'response-2',
+          content: 'Merci beaucoup Sophie! It was a pleasure sharing the desert flora with you. Your enthusiasm and questions made the tour even more enjoyable.',
+          createdAt: '2024-01-13T18:45:00Z'
+        }
+      }
+    ]
+  },
+  {
+    id: 'guide-3',
+    name: 'José Ramírez',
+    specialty: 'Historia y Paleontología',
+    experience: '20 años',
+    languages: ['Español'],
+    certifications: ['Historiador', 'Especialista en paleontología', 'Guía cultural certificado'],
+    contact: '+57 311 567 8901',
+    pricePerDay: 70000,
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    bio: 'Historiador con 20 años de experiencia en la región. Especializado en paleontología y cultura precolombina del desierto de la Tatacoa. Conoce cada rincón histórico y cada hallazgo paleontológico importante.',
+    location: 'Villavieja, Huila',
+    availableDays: ['Lunes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    maxGroupSize: 15,
+    equipmentIncluded: ['Material educativo', 'Mapas históricos', 'Réplicas de fósiles', 'Audioguía'],
+    isActive: true,
+    isVerified: true,
+    joinedDate: '2018-08-10',
+    lastActiveDate: '2024-01-18',
+    stats: {
+      totalReviews: 128,
+      averageRating: 4.6,
+      categoryAverages: {
+        knowledge: 4.9,
+        communication: 4.4,
+        punctuality: 4.3,
+        professionalism: 4.5,
+        overall: 4.6
+      },
+      ratingDistribution: {
+        1: 2,
+        2: 5,
+        3: 15,
+        4: 38,
+        5: 68
+      },
+      verifiedReviews: 115,
+      responseRate: 75,
+      recommendationRate: 89,
+      recentActivity: {
+        lastReview: '2024-01-16',
+        reviewsThisMonth: 11,
+        reviewsThisYear: 128
+      }
+    },
+    reviews: [
+      {
+        id: 'review-4',
+        userId: 'user-4',
+        userName: 'Diego Morales',
+        userAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&h=50&fit=crop&crop=face',
+        guideId: 'guide-3',
+        guideName: 'José Ramírez',
+        tourDate: '2024-01-08',
+        tourType: 'Historia y Paleontología',
+        tourDuration: 7,
+        groupSize: 12,
+        title: 'Un viaje a través del tiempo',
+        comment: 'José es una enciclopedia viviente. Su conocimiento sobre la historia de la región y los fósiles es increíble. Aunque a veces se extiende demasiado en las explicaciones, la información que comparte es fascinante.',
+        rating: {
+          knowledge: 5,
+          communication: 4,
+          punctuality: 4,
+          professionalism: 4,
+          overall: 4
+        },
+        media: [],
+        travelWith: 'friends',
+        recommendedFor: ['Estudiantes', 'Familias con niños', 'Adultos mayores'],
+        helpfulVotes: 9,
+        reportedCount: 0,
+        verified: true,
+        status: 'approved',
+        createdAt: '2024-01-09T13:15:00Z'
+      }
+    ]
+  }
+];
+
+// Actualizar la referencia en villaviejaServices
+villaviejaServices.guides = villaviejaGuides.map(guide => ({
+  name: guide.name,
+  specialty: guide.specialty,
+  experience: guide.experience,
+  languages: guide.languages,
+  certifications: guide.certifications,
+  contact: guide.contact,
+  pricePerDay: guide.pricePerDay,
+  // Agregar campos adicionales para compatibilidad
+  id: guide.id,
+  avatar: guide.avatar,
+  rating: guide.stats.averageRating,
+  totalReviews: guide.stats.totalReviews,
+  verified: guide.isVerified
+}));
+
+// Servicios con sistema de reviews integrado
+export const villaviejaServicesWithReviews: { [key: string]: ServiceWithReviews[] } = {
+  transportation: [
+    {
+      id: 'transport-1',
+      name: 'Bus Intermunicipal Neiva-Villavieja',
+      type: 'transportation',
+      provider: 'Cooperativa Magdalena',
+      description: 'Servicio de transporte público entre Neiva y Villavieja con frecuencia cada 30 minutos',
+      baseInfo: {
+        route: 'Neiva - Villavieja',
+        frequency: 'Cada 30 minutos',
+        price: 8000,
+        duration: '45 minutos',
+        schedule: '5:00 AM - 10:00 PM'
+      },
+      stats: {
+        totalReviews: 47,
+        averageRating: 4.2,
+        categoryAverages: {
+          punctuality: 4.0,
+          comfort: 3.8,
+          safety: 4.5,
+          driverService: 4.3,
+          overall: 4.2
+        },
+        ratingDistribution: { 1: 2, 2: 3, 3: 8, 4: 18, 5: 16 },
+        verifiedReviews: 35,
+        responseRate: 15,
+        recentActivity: {
+          lastReview: '2024-01-15T09:30:00Z',
+          reviewsThisMonth: 12,
+          reviewsThisYear: 47
+        }
+      },
+      reviews: [
+        {
+          id: 'rev-t1',
+          userId: 'user-21',
+          userName: 'Sandra López',
+          serviceId: 'transport-1',
+          serviceName: 'Bus Intermunicipal Neiva-Villavieja',
+          serviceType: 'transportation',
+          providerName: 'Cooperativa Magdalena',
+          serviceDate: '2024-01-10T08:00:00Z',
+          duration: 45,
+          title: 'Servicio confiable y puntual',
+          comment: 'He usado este bus varias veces para ir al desierto. Generalmente es puntual y los conductores son amables. Los asientos podrían ser más cómodos pero por el precio está bien.',
+          rating: {
+            punctuality: 4,
+            comfort: 3,
+            safety: 5,
+            driverService: 4,
+            overall: 4
+          },
+          media: [],
+          usedFor: 'tourism',
+          groupSize: 2,
+          recommendedFor: ['Turistas nacionales', 'Viajeros con presupuesto limitado'],
+          helpfulVotes: 8,
+          reportedCount: 0,
+          verified: true,
+          status: 'approved',
+          createdAt: '2024-01-10T16:45:00Z'
+        }
+      ],
+      isActive: true,
+      isVerified: true
+    },
+    {
+      id: 'transport-2',
+      name: 'Taxi Local Villavieja',
+      type: 'transportation',
+      provider: 'Asociación de Taxistas',
+      description: 'Servicio de taxi local para movilizarse dentro del casco urbano y hacia el desierto',
+      baseInfo: {
+        coverage: 'Casco urbano y desierto',
+        pricePerKm: 2500,
+        contact: '+57 318 456 7890',
+        available: '24 horas'
+      },
+      stats: {
+        totalReviews: 23,
+        averageRating: 4.6,
+        categoryAverages: {
+          punctuality: 4.4,
+          comfort: 4.2,
+          safety: 4.8,
+          driverService: 4.9,
+          overall: 4.6
+        },
+        ratingDistribution: { 1: 0, 2: 1, 3: 2, 4: 8, 5: 12 },
+        verifiedReviews: 18,
+        responseRate: 30,
+        recentActivity: {
+          lastReview: '2024-01-12T14:20:00Z',
+          reviewsThisMonth: 7,
+          reviewsThisYear: 23
+        }
+      },
+      reviews: [
+        {
+          id: 'rev-t2',
+          userId: 'user-22',
+          userName: 'Miguel Torres',
+          serviceId: 'transport-2',
+          serviceName: 'Taxi Local Villavieja',
+          serviceType: 'transportation',
+          providerName: 'Asociación de Taxistas',
+          serviceDate: '2024-01-08T19:30:00Z',
+          duration: 25,
+          title: 'Excelente servicio y conductores conocedores',
+          comment: 'Los taxistas son muy amables y conocen bien la zona. Nos llevaron al desierto y nos esperaron durante toda la actividad. Precios justos y servicio de calidad.',
+          rating: {
+            punctuality: 5,
+            comfort: 4,
+            safety: 5,
+            driverService: 5,
+            overall: 5
+          },
+          media: [],
+          usedFor: 'tourism',
+          groupSize: 4,
+          recommendedFor: ['Familias con niños', 'Grupos grandes', 'Turistas extranjeros'],
+          helpfulVotes: 12,
+          reportedCount: 0,
+          verified: true,
+          status: 'approved',
+          createdAt: '2024-01-08T22:15:00Z'
+        }
+      ],
+      isActive: true,
+      isVerified: true
+    }
+  ],
+
+  equipment: [
+    {
+      id: 'equip-1',
+      name: 'Telescopio Profesional',
+      type: 'equipment',
+      provider: 'Observatorio Tatacoa',
+      description: 'Telescopio refractor para observación astronómica con calidad profesional',
+      baseInfo: {
+        pricePerDay: 25000,
+        description: 'Telescopio refractor para observación astronómica',
+        specifications: 'Apertura 80mm, Focal 900mm, Oculares incluidos'
+      },
+      stats: {
+        totalReviews: 34,
+        averageRating: 4.7,
+        categoryAverages: {
+          quality: 4.8,
+          condition: 4.5,
+          functionality: 4.9,
+          valueForMoney: 4.6,
+          overall: 4.7
+        },
+        ratingDistribution: { 1: 0, 2: 1, 3: 3, 4: 12, 5: 18 },
+        verifiedReviews: 28,
+        responseRate: 25,
+        recentActivity: {
+          lastReview: '2024-01-14T11:30:00Z',
+          reviewsThisMonth: 8,
+          reviewsThisYear: 34
+        }
+      },
+      reviews: [
+        {
+          id: 'rev-e1',
+          userId: 'user-23',
+          userName: 'Laura Gómez',
+          serviceId: 'equip-1',
+          serviceName: 'Telescopio Profesional',
+          serviceType: 'equipment',
+          providerName: 'Observatorio Tatacoa',
+          serviceDate: '2024-01-12T20:00:00Z',
+          title: 'Telescopio de excelente calidad',
+          comment: 'Pudimos ver Júpiter y sus lunas con una claridad increíble. El telescopio está en perfecto estado y el personal del observatorio nos ayudó con la configuración. Una experiencia astronómica inolvidable.',
+          rating: {
+            quality: 5,
+            condition: 5,
+            functionality: 5,
+            valueForMoney: 4,
+            overall: 5
+          },
+          media: [],
+          usedFor: 'tourism',
+          groupSize: 3,
+          recommendedFor: ['Parejas', 'Aventureros', 'Principiantes'],
+          helpfulVotes: 15,
+          reportedCount: 0,
+          verified: true,
+          status: 'approved',
+          createdAt: '2024-01-13T08:45:00Z'
+        }
+      ],
+      isActive: true,
+      isVerified: true
+    },
+    {
+      id: 'equip-2',
+      name: 'Equipo de Camping Completo',
+      type: 'equipment',
+      provider: 'Aventura Extrema',
+      description: 'Equipo completo de camping para 4 personas con carpa, sleeping bags y accesorios',
+      baseInfo: {
+        pricePerDay: 40000,
+        capacity: '4 personas',
+        includes: ['Carpa 4 personas', 'Sleeping bags', 'Colchonetas', 'Lámpara', 'Mesa plegable']
+      },
+      stats: {
+        totalReviews: 19,
+        averageRating: 4.3,
+        categoryAverages: {
+          quality: 4.2,
+          condition: 4.0,
+          functionality: 4.5,
+          valueForMoney: 4.4,
+          overall: 4.3
+        },
+        ratingDistribution: { 1: 0, 2: 2, 3: 3, 4: 9, 5: 5 },
+        verifiedReviews: 16,
+        responseRate: 40,
+        recentActivity: {
+          lastReview: '2024-01-11T07:15:00Z',
+          reviewsThisMonth: 5,
+          reviewsThisYear: 19
+        }
+      },
+      reviews: [
+        {
+          id: 'rev-e2',
+          userId: 'user-24',
+          userName: 'Roberto Silva',
+          serviceId: 'equip-2',
+          serviceName: 'Equipo de Camping Completo',
+          serviceType: 'equipment',
+          providerName: 'Aventura Extrema',
+          serviceDate: '2024-01-09T17:00:00Z',
+          title: 'Buena experiencia de camping',
+          comment: 'El equipo funcionó bien durante nuestra noche en el desierto. La carpa resistió el viento y los sleeping bags eran cómodos. Algunas colchonetas estaban un poco desgastadas pero en general cumplió su función.',
+          rating: {
+            quality: 4,
+            condition: 3,
+            functionality: 5,
+            valueForMoney: 4,
+            overall: 4
+          },
+          media: [],
+          usedFor: 'tourism',
+          groupSize: 4,
+          recommendedFor: ['Aventureros', 'Grupos grandes', 'Familias con niños'],
+          helpfulVotes: 7,
+          reportedCount: 0,
+          verified: true,
+          status: 'approved',
+          createdAt: '2024-01-10T09:30:00Z',
+          providerResponse: {
+            id: 'resp-e2',
+            content: 'Gracias por tu comentario Roberto. Hemos tomado nota sobre las colchonetas y las reemplazaremos próximamente. ¡Esperamos verte de nuevo!',
+            createdAt: '2024-01-10T14:20:00Z'
+          }
+        }
+      ],
+      isActive: true,
+      isVerified: true
+    }
+  ],
+
+  health: [
+    {
+      id: 'health-1',
+      name: 'Centro de Salud Villavieja',
+      type: 'health',
+      provider: 'Centro de Salud Villavieja',
+      description: 'Puesto de salud con atención 24 horas para emergencias y consulta médica general',
+      baseInfo: {
+        address: 'Carrera 4 # 5-67',
+        phone: '+57 8 8390123',
+        schedule: '24 horas emergencias, 7:00 AM - 5:00 PM consulta',
+        services: ['Urgencias', 'Medicina general', 'Primeros auxilios']
+      },
+      stats: {
+        totalReviews: 12,
+        averageRating: 4.1,
+        categoryAverages: {
+          attention: 4.3,
+          facilities: 3.7,
+          professionalism: 4.5,
+          availability: 4.0,
+          overall: 4.1
+        },
+        ratingDistribution: { 1: 1, 2: 0, 3: 2, 4: 6, 5: 3 },
+        verifiedReviews: 10,
+        responseRate: 0,
+        recentActivity: {
+          lastReview: '2024-01-08T16:45:00Z',
+          reviewsThisMonth: 3,
+          reviewsThisYear: 12
+        }
+      },
+      reviews: [
+        {
+          id: 'rev-h1',
+          userId: 'user-25',
+          userName: 'Ana Ruiz',
+          serviceId: 'health-1',
+          serviceName: 'Centro de Salud Villavieja',
+          serviceType: 'health',
+          providerName: 'Centro de Salud Villavieja',
+          serviceDate: '2024-01-05T14:30:00Z',
+          title: 'Atención médica cuando más la necesitábamos',
+          comment: 'Mi esposo se sintió mal durante nuestra visita al desierto y el personal médico fue muy atento. Las instalaciones son básicas pero funcionales, y el doctor fue muy profesional en su diagnóstico.',
+          rating: {
+            attention: 5,
+            facilities: 3,
+            professionalism: 5,
+            availability: 4,
+            overall: 4
+          },
+          media: [],
+          usedFor: 'emergency',
+          recommendedFor: ['Turistas nacionales', 'Turistas extranjeros', 'Personas mayores'],
+          helpfulVotes: 6,
+          reportedCount: 0,
+          verified: true,
+          status: 'approved',
+          createdAt: '2024-01-05T18:20:00Z'
+        }
+      ],
+      isActive: true,
+      isVerified: true
+    }
+  ],
+
+  fuel: [
+    {
+      id: 'fuel-1',
+      name: 'Estación Terpel Villavieja',
+      type: 'fuel',
+      provider: 'Estación de Servicio Terpel',
+      description: 'Estación de servicio con combustibles y servicios básicos para vehículos',
+      baseInfo: {
+        address: 'Entrada principal Villavieja',
+        fuels: ['Gasolina corriente', 'ACPM'],
+        services: ['Lubricantes', 'Llantería básica', 'Tienda'],
+        schedule: '6:00 AM - 8:00 PM'
+      },
+      stats: {
+        totalReviews: 15,
+        averageRating: 4.0,
+        categoryAverages: {
+          serviceSpeed: 4.1,
+          fuelQuality: 4.2,
+          facilities: 3.6,
+          priceCompetitive: 3.9,
+          overall: 4.0
+        },
+        ratingDistribution: { 1: 0, 2: 2, 3: 4, 4: 7, 5: 2 },
+        verifiedReviews: 12,
+        responseRate: 20,
+        recentActivity: {
+          lastReview: '2024-01-13T12:10:00Z',
+          reviewsThisMonth: 4,
+          reviewsThisYear: 15
+        }
+      },
+      reviews: [
+        {
+          id: 'rev-f1',
+          userId: 'user-26',
+          userName: 'Carlos Mendez',
+          serviceId: 'fuel-1',
+          serviceName: 'Estación Terpel Villavieja',
+          serviceType: 'fuel',
+          providerName: 'Estación de Servicio Terpel',
+          serviceDate: '2024-01-11T15:45:00Z',
+          title: 'Servicio estándar de combustible',
+          comment: 'Paré aquí antes de ir al desierto para tanquear. El servicio fue rápido y el combustible de buena calidad. Los precios son similares a otras estaciones de la región. Tienen una pequeña tienda con lo básico.',
+          rating: {
+            serviceSpeed: 4,
+            fuelQuality: 4,
+            facilities: 3,
+            priceCompetitive: 4,
+            overall: 4
+          },
+          media: [],
+          usedFor: 'tourism',
+          recommendedFor: ['Turistas nacionales', 'Viajeros con presupuesto limitado'],
+          helpfulVotes: 5,
+          reportedCount: 0,
+          verified: true,
+          status: 'approved',
+          createdAt: '2024-01-11T16:30:00Z'
+        }
+      ],
+      isActive: true,
+      isVerified: true
+    }
+  ]
 };

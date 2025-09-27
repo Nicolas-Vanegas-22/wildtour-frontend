@@ -31,11 +31,11 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   const content = (
     <div className={`flex flex-col items-center justify-center space-y-3 ${className}`}>
       <Loader2
-        className={`${sizeClasses[size]} text-blue-600 animate-spin`}
+        className={`${sizeClasses[size]} text-primary-600 animate-spin`}
         aria-label="Cargando contenido"
       />
       {message && (
-        <p className={`${textSizeClasses[size]} text-gray-600 font-medium`}>
+        <p className={`${textSizeClasses[size]} text-neutral-600 font-medium`}>
           {message}
         </p>
       )}
@@ -45,7 +45,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   if (fullScreen) {
     return (
       <div
-        className="fixed inset-0 bg-white bg-opacity-90 backdrop-blur-sm flex items-center justify-center z-50"
+        className="fixed inset-0 bg-neutral-100 bg-opacity-90 backdrop-blur-sm flex items-center justify-center z-50"
         role="status"
         aria-live="polite"
         aria-label="Cargando página"

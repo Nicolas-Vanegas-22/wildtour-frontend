@@ -68,25 +68,25 @@ const BrowserCompatibilityWarning: React.FC = () => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-neutral-100 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-neutral-200">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-              <AlertTriangle className="w-6 h-6 text-orange-600" />
+            <div className="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center">
+              <AlertTriangle className="w-6 h-6 text-accent-600" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-xl font-semibold text-primary-700">
                 Navegador No Compatible
               </h2>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-neutral-600">
                 Para una mejor experiencia, actualiza tu navegador
               </p>
             </div>
           </div>
           <button
             onClick={handleDismiss}
-            className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-1"
+            className="text-neutral-400 hover:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-1"
             aria-label="Cerrar advertencia"
           >
             <X className="w-6 h-6" />
@@ -95,9 +95,9 @@ const BrowserCompatibilityWarning: React.FC = () => {
 
         <div className="p-6">
           {/* Información del navegador actual */}
-          <div className="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
-            <h3 className="font-medium text-orange-800 mb-2">Tu navegador actual:</h3>
-            <div className="text-sm text-orange-700">
+          <div className="mb-6 p-4 bg-accent-50 border border-accent-200 rounded-lg">
+            <h3 className="font-medium text-accent-800 mb-2">Tu navegador actual:</h3>
+            <div className="text-sm text-accent-700">
               <p><strong>Navegador:</strong> {browserInfo.name} {browserInfo.version}</p>
               <p><strong>Sistema:</strong> {browserInfo.os}</p>
               <p className="mt-2">{getBrowserUpdateMessage()}</p>
@@ -106,42 +106,42 @@ const BrowserCompatibilityWarning: React.FC = () => {
 
           {/* Características no soportadas */}
           <div className="mb-6">
-            <h3 className="font-medium text-gray-900 mb-3">
+            <h3 className="font-medium text-primary-700 mb-3">
               Características que podrían no funcionar correctamente:
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {!browserInfo.features.cssGrid && (
-                <div className="flex items-center text-sm text-red-600">
+                <div className="flex items-center text-sm text-secondary-600">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Diseño de cuadrícula CSS
                 </div>
               )}
               {!browserInfo.features.cssFlexbox && (
-                <div className="flex items-center text-sm text-red-600">
+                <div className="flex items-center text-sm text-secondary-600">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Diseño flexible CSS
                 </div>
               )}
               {!browserInfo.features.fetch && (
-                <div className="flex items-center text-sm text-red-600">
+                <div className="flex items-center text-sm text-secondary-600">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Carga de datos moderna
                 </div>
               )}
               {!browserInfo.features.intersectionObserver && (
-                <div className="flex items-center text-sm text-red-600">
+                <div className="flex items-center text-sm text-secondary-600">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Carga perezosa de imágenes
                 </div>
               )}
               {!browserInfo.features.serviceWorker && (
-                <div className="flex items-center text-sm text-red-600">
+                <div className="flex items-center text-sm text-secondary-600">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Funcionalidad offline
                 </div>
               )}
               {!browserInfo.features.webp && (
-                <div className="flex items-center text-sm text-red-600">
+                <div className="flex items-center text-sm text-secondary-600">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Imágenes optimizadas WebP
                 </div>
@@ -151,7 +151,7 @@ const BrowserCompatibilityWarning: React.FC = () => {
 
           {/* Navegadores recomendados */}
           <div className="mb-6">
-            <h3 className="font-medium text-gray-900 mb-4">
+            <h3 className="font-medium text-primary-700 mb-4">
               Navegadores recomendados para WildTour:
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -161,27 +161,27 @@ const BrowserCompatibilityWarning: React.FC = () => {
                   href={browser.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors group"
+                  className="flex items-center p-4 border border-neutral-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors group"
                 >
-                  <div className="text-blue-600 mr-4 group-hover:text-blue-700">
+                  <div className="text-primary-600 mr-4 group-hover:text-primary-700">
                     {browser.icon}
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900 group-hover:text-blue-700">
+                    <h4 className="font-medium text-primary-700 group-hover:text-primary-700">
                       {browser.name}
                     </h4>
-                    <p className="text-sm text-gray-600">{browser.description}</p>
+                    <p className="text-sm text-neutral-600">{browser.description}</p>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-blue-500" />
+                  <ExternalLink className="w-4 h-4 text-neutral-400 group-hover:text-blue-500" />
                 </a>
               ))}
             </div>
           </div>
 
           {/* Información adicional */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="bg-blue-50 border border-primary-200 rounded-lg p-4">
             <h4 className="font-medium text-blue-800 mb-2">¿Por qué actualizar?</h4>
-            <ul className="text-sm text-blue-700 space-y-1">
+            <ul className="text-sm text-primary-700 space-y-1">
               <li>• Mayor velocidad y rendimiento</li>
               <li>• Mejor seguridad y protección</li>
               <li>• Acceso a las últimas características</li>
@@ -192,14 +192,14 @@ const BrowserCompatibilityWarning: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200 bg-gray-50">
-          <p className="text-sm text-gray-600">
+        <div className="flex items-center justify-between p-6 border-t border-neutral-200 bg-neutral-50">
+          <p className="text-sm text-neutral-600">
             Puedes continuar, pero algunas funciones podrían no estar disponibles.
           </p>
           <div className="flex space-x-3">
             <button
               onClick={handleDismiss}
-              className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+              className="px-4 py-2 text-neutral-700 bg-neutral-100 border border-neutral-300 rounded-lg hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
             >
               Continuar de todos modos
             </button>
@@ -207,7 +207,7 @@ const BrowserCompatibilityWarning: React.FC = () => {
               href="https://www.google.com/chrome/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+              className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
             >
               Actualizar navegador
             </a>

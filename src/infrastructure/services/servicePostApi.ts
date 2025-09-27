@@ -2,7 +2,7 @@ import { ServicePost, Review, PostComment, CreateServicePostData } from '../../d
 import { mockServicePosts, mockReviews, mockComments } from '../../data/mockServicePosts';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-const USE_MOCK_DATA = true; // Cambiar a false cuando el backend esté listo
+const USE_MOCK_DATA = false; // Cambiar a false cuando el backend esté listo
 
 class ServicePostApi {
   private getAuthHeaders() {

@@ -84,15 +84,15 @@ const VillaviejaInfo: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Introduction Card */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white p-8">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-gradient-to-r from-accent-600 to-secondary-600 text-white p-8">
           <div className="flex items-center space-x-4 mb-4">
-            <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+            <div className="bg-neutral-100/20 backdrop-blur-sm rounded-full p-3">
               <Mountain className="w-8 h-8" />
             </div>
             <div>
               <h2 className="text-3xl font-bold">Villavieja, Huila</h2>
-              <p className="text-orange-100">Capital Paleontológica de Colombia</p>
+              <p className="text-accent-100">Capital Paleontológica de Colombia</p>
             </div>
           </div>
           <p className="text-lg leading-relaxed opacity-90">
@@ -102,36 +102,36 @@ const VillaviejaInfo: React.FC = () => {
 
         {/* Quick Facts */}
         <div className="p-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-6">Datos Rápidos</h3>
+          <h3 className="text-xl font-bold text-primary-700 mb-6">Datos Rápidos</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-orange-50 rounded-xl p-4">
+            <div className="bg-accent-50 rounded-xl p-4">
               <div className="flex items-center space-x-3 mb-2">
-                <Ruler className="w-5 h-5 text-orange-600" />
-                <span className="font-semibold text-gray-900">Área</span>
+                <Ruler className="w-5 h-5 text-accent-600" />
+                <span className="font-semibold text-primary-700">Área</span>
               </div>
-              <p className="text-orange-700">{villaviejaInfo.location.area}</p>
+              <p className="text-accent-700">{villaviejaInfo.location.area}</p>
             </div>
 
             <div className="bg-blue-50 rounded-xl p-4">
               <div className="flex items-center space-x-3 mb-2">
-                <Mountain className="w-5 h-5 text-blue-600" />
-                <span className="font-semibold text-gray-900">Altitud</span>
+                <Mountain className="w-5 h-5 text-primary-600" />
+                <span className="font-semibold text-primary-700">Altitud</span>
               </div>
-              <p className="text-blue-700">{villaviejaInfo.location.altitude}</p>
+              <p className="text-primary-700">{villaviejaInfo.location.altitude}</p>
             </div>
 
             <div className="bg-green-50 rounded-xl p-4">
               <div className="flex items-center space-x-3 mb-2">
-                <Navigation className="w-5 h-5 text-green-600" />
-                <span className="font-semibold text-gray-900">Desde Neiva</span>
+                <Navigation className="w-5 h-5 text-success-600" />
+                <span className="font-semibold text-primary-700">Desde Neiva</span>
               </div>
               <p className="text-green-700">{villaviejaInfo.location.distanceFromNeiva}</p>
             </div>
 
             <div className="bg-purple-50 rounded-xl p-4">
               <div className="flex items-center space-x-3 mb-2">
-                <MapPin className="w-5 h-5 text-purple-600" />
-                <span className="font-semibold text-gray-900">Coordenadas</span>
+                <MapPin className="w-5 h-5 text-primary-600" />
+                <span className="font-semibold text-primary-700">Coordenadas</span>
               </div>
               <p className="text-purple-700 text-sm">
                 {villaviejaInfo.location.coordinates.latitude}°N, {Math.abs(villaviejaInfo.location.coordinates.longitude)}°W
@@ -144,13 +144,13 @@ const VillaviejaInfo: React.FC = () => {
       {/* Information Sections */}
       <div className="space-y-4">
         {infoSections.map((section) => (
-          <div key={section.id} className="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div key={section.id} className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
             <button
               onClick={() => toggleSection(section.id)}
               className={`w-full p-6 bg-gradient-to-r ${section.color} text-white flex items-center justify-between hover:opacity-90 transition-opacity`}
             >
               <div className="flex items-center space-x-4">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-2">
+                <div className="bg-neutral-100/20 backdrop-blur-sm rounded-full p-2">
                   {section.icon}
                 </div>
                 <h3 className="text-xl font-bold">{section.title}</h3>
@@ -164,7 +164,7 @@ const VillaviejaInfo: React.FC = () => {
 
             {expandedSection === section.id && (
               <div className="p-6">
-                <div className="prose prose-lg max-w-none text-gray-700">
+                <div className="prose prose-lg max-w-none text-neutral-700">
                   {section.content.split('\n\n').map((paragraph, index) => (
                     <p key={index} className="mb-4 leading-relaxed">
                       {paragraph.trim()}
@@ -178,8 +178,8 @@ const VillaviejaInfo: React.FC = () => {
       </div>
 
       {/* Access Routes */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-green-600 to-teal-600 text-white p-6">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-gradient-to-r from-success-600 to-primary-600 text-white p-6">
           <div className="flex items-center space-x-3">
             <Navigation className="w-6 h-6" />
             <h3 className="text-xl font-bold">Cómo Llegar</h3>
@@ -192,7 +192,7 @@ const VillaviejaInfo: React.FC = () => {
               <div key={index} className="bg-green-50 rounded-xl p-4">
                 <div className="flex items-center space-x-2 mb-2">
                   <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="font-semibold text-gray-900">Ruta {index + 1}</span>
+                  <span className="font-semibold text-primary-700">Ruta {index + 1}</span>
                 </div>
                 <p className="text-green-700">{route}</p>
               </div>
@@ -202,7 +202,7 @@ const VillaviejaInfo: React.FC = () => {
       </div>
 
       {/* Photo Gallery */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6">
           <div className="flex items-center space-x-3">
             <Camera className="w-6 h-6" />
@@ -233,7 +233,7 @@ const VillaviejaInfo: React.FC = () => {
       </div>
 
       {/* Climate Details */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-6">
           <div className="flex items-center space-x-3">
             <Thermometer className="w-6 h-6" />
@@ -244,38 +244,38 @@ const VillaviejaInfo: React.FC = () => {
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-red-50 rounded-xl p-4 text-center">
-              <Sun className="w-8 h-8 text-red-500 mx-auto mb-3" />
-              <h4 className="font-semibold text-gray-900 mb-2">Temperatura Máxima</h4>
-              <p className="text-2xl font-bold text-red-600">35-40°C</p>
-              <p className="text-sm text-gray-600">Durante el día</p>
+              <Sun className="w-8 h-8 text-secondary-500 mx-auto mb-3" />
+              <h4 className="font-semibold text-primary-700 mb-2">Temperatura Máxima</h4>
+              <p className="text-2xl font-bold text-secondary-600">35-40°C</p>
+              <p className="text-sm text-neutral-600">Durante el día</p>
             </div>
 
             <div className="bg-blue-50 rounded-xl p-4 text-center">
               <Clock className="w-8 h-8 text-blue-500 mx-auto mb-3" />
-              <h4 className="font-semibold text-gray-900 mb-2">Temperatura Mínima</h4>
-              <p className="text-2xl font-bold text-blue-600">15-20°C</p>
-              <p className="text-sm text-gray-600">Durante la noche</p>
+              <h4 className="font-semibold text-primary-700 mb-2">Temperatura Mínima</h4>
+              <p className="text-2xl font-bold text-primary-600">15-20°C</p>
+              <p className="text-sm text-neutral-600">Durante la noche</p>
             </div>
 
             <div className="bg-green-50 rounded-xl p-4 text-center">
               <CloudRain className="w-8 h-8 text-green-500 mx-auto mb-3" />
-              <h4 className="font-semibold text-gray-900 mb-2">Precipitaciones</h4>
-              <p className="text-2xl font-bold text-green-600">500-600mm</p>
-              <p className="text-sm text-gray-600">Anuales</p>
+              <h4 className="font-semibold text-primary-700 mb-2">Precipitaciones</h4>
+              <p className="text-2xl font-bold text-success-600">500-600mm</p>
+              <p className="text-sm text-neutral-600">Anuales</p>
             </div>
 
             <div className="bg-purple-50 rounded-xl p-4 text-center">
               <Wind className="w-8 h-8 text-purple-500 mx-auto mb-3" />
-              <h4 className="font-semibold text-gray-900 mb-2">Humedad</h4>
-              <p className="text-2xl font-bold text-purple-600">40-60%</p>
-              <p className="text-sm text-gray-600">Relativa</p>
+              <h4 className="font-semibold text-primary-700 mb-2">Humedad</h4>
+              <p className="text-2xl font-bold text-primary-600">40-60%</p>
+              <p className="text-sm text-neutral-600">Relativa</p>
             </div>
           </div>
 
-          <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+          <div className="mt-6 bg-warning-50 border border-warning-200 rounded-xl p-4">
             <div className="flex items-center space-x-2 mb-2">
-              <Calendar className="w-5 h-5 text-yellow-600" />
-              <span className="font-semibold text-yellow-800">Mejor época para visitar</span>
+              <Calendar className="w-5 h-5 text-warning-600" />
+              <span className="font-semibold text-warning-800">Mejor época para visitar</span>
             </div>
             <p className="text-yellow-700">
               La época seca (Diciembre a Marzo) es ideal para todas las actividades, especialmente la observación astronómica. Los cielos están despejados el 80% del tiempo durante estos meses.

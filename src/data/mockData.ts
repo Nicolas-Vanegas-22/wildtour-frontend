@@ -9,31 +9,31 @@ export const tourismCategories: TourismCategory[] = [
   {
     id: '1',
     name: 'Aventura',
-    icon: '🏃‍♂️',
+    icon: 'Mountain',
     description: 'Actividades emocionantes y deportes extremos'
   },
   {
     id: '2',
     name: 'Naturaleza',
-    icon: '🌿',
+    icon: 'Leaf',
     description: 'Ecoturismo y observación de vida silvestre'
   },
   {
     id: '3',
     name: 'Cultural',
-    icon: '🎭',
+    icon: 'Theater',
     description: 'Historia, arte y tradiciones locales'
   },
   {
     id: '4',
     name: 'Gastronomía',
-    icon: '🍽️',
+    icon: 'Utensils',
     description: 'Experiencias culinarias regionales'
   },
   {
     id: '5',
     name: 'Relajación',
-    icon: '🧘‍♀️',
+    icon: 'Heart',
     description: 'Spa, termas y bienestar'
   }
 ];

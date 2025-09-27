@@ -31,7 +31,15 @@ const Login: React.FC = () => {
       const response = await authApi.login({ email, password });
       setAuth(response.token, response.user);
       showToast('¡Bienvenido de vuelta!', 'success');
-      navigate('/');
+
+      // Redirigir según el rol del usuario
+      if (response.user.role === 'provider') {
+        navigate('/panel-proveedor');
+      } else if (response.user.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       showToast(error instanceof Error ? error.message : 'Error al iniciar sesión', 'error');
     } finally {
@@ -57,7 +65,7 @@ const Login: React.FC = () => {
         <div className="text-center mb-8">
           <Link
             to="/"
-            className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-6"
+            className="inline-flex items-center text-neutral-600 hover:text-primary-600 transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Volver al inicio
@@ -72,7 +80,7 @@ const Login: React.FC = () => {
           <h1 className="text-3xl font-display font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent mb-2">
             Bienvenido de vuelta
           </h1>
-          <p className="text-gray-600">
+          <p className="text-neutral-600">
             Inicia sesión para continuar tu aventura
           </p>
         </div>
@@ -80,16 +88,16 @@ const Login: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-neutral-700 mb-2">
               Correo electrónico
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                className="w-full pl-11 pr-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                 placeholder="tu@email.com"
                 required
               />
@@ -98,23 +106,23 @@ const Login: React.FC = () => {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-neutral-700 mb-2">
               Contraseña
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-11 pr-12 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                className="w-full pl-11 pr-12 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                 placeholder="••••••••"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -141,12 +149,12 @@ const Login: React.FC = () => {
           </Link>
 
           <div className="flex items-center">
-            <div className="flex-1 border-t border-gray-200" />
-            <span className="px-4 text-sm text-gray-500">o</span>
-            <div className="flex-1 border-t border-gray-200" />
+            <div className="flex-1 border-t border-neutral-200" />
+            <span className="px-4 text-sm text-neutral-500">o</span>
+            <div className="flex-1 border-t border-neutral-200" />
           </div>
 
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-neutral-600">
             ¿No tienes cuenta?{' '}
             <Link
               to="/registro"

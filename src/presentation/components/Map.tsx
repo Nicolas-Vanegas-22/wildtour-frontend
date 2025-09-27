@@ -25,19 +25,19 @@ interface MapProps {
 
 // Iconos personalizados para diferentes categorías
 const categoryIcons = {
-  hospedaje: '🏨',
-  tours: '🎯',
-  transporte: '🚗',
-  gastronomia: '🍽️',
-  entretenimiento: '🎪'
+  hospedaje: 'Building',
+  tours: 'Target',
+  transporte: 'Car',
+  gastronomia: 'Utensils',
+  entretenimiento: 'Music'
 };
 
 const categoryColors = {
-  hospedaje: '#3B82F6',
-  tours: '#10B981',
-  transporte: '#F59E0B',
-  gastronomia: '#EF4444',
-  entretenimiento: '#8B5CF6'
+  hospedaje: '#5C2D2D',
+  tours: '#A34C3E',
+  transporte: '#FFB74C',
+  gastronomia: '#A34C3E',
+  entretenimiento: '#5C2D2D'
 };
 
 export default function Map({
@@ -127,13 +127,13 @@ export default function Map({
       const popupContent = `
         <div class="p-3 min-w-[250px]">
           ${location.image ? `<img src="${location.image}" alt="${location.title}" class="w-full h-32 object-cover rounded-lg mb-2"/>` : ''}
-          <h3 class="font-bold text-lg text-gray-800 mb-1">${location.title}</h3>
-          ${location.description ? `<p class="text-gray-600 text-sm mb-2">${location.description}</p>` : ''}
+          <h3 class="font-bold text-lg text-neutral-800 mb-1">${location.title}</h3>
+          ${location.description ? `<p class="text-neutral-600 text-sm mb-2">${location.description}</p>` : ''}
           <div class="flex items-center justify-between">
             <div class="flex items-center">
               ${location.rating ? `
                 <div class="flex items-center mr-2">
-                  <span class="text-yellow-500">★</span>
+                  <span class="text-warning-500">★</span>
                   <span class="text-sm font-medium ml-1">${location.rating}</span>
                 </div>
               ` : ''}
@@ -141,11 +141,11 @@ export default function Map({
                 ${location.category}
               </span>
             </div>
-            ${location.price ? `<span class="font-bold text-green-600">${location.price}</span>` : ''}
+            ${location.price ? `<span class="font-bold text-success-600">${location.price}</span>` : ''}
           </div>
           <button
             onclick="window.selectLocation('${location.id}')"
-            class="w-full mt-3 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+            class="w-full mt-3 bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
           >
             Ver detalles
           </button>
@@ -193,15 +193,15 @@ export default function Map({
     <div className={`relative ${className}`}>
       {/* Controles de filtro */}
       {showControls && locations.length > 0 && (
-        <div className="absolute top-4 left-4 z-[1000] bg-white rounded-lg shadow-lg p-3">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Filtrar por categoría:</h4>
+        <div className="absolute top-4 left-4 z-[1000] bg-neutral-100 rounded-lg shadow-lg p-3">
+          <h4 className="text-sm font-medium text-primary-700 mb-2">Filtrar por categoría:</h4>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory('all')}
               className={`px-3 py-1 text-xs rounded-full transition-colors ${
                 selectedCategory === 'all'
-                  ? 'bg-green-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
               }`}
             >
               Todos ({locations.length})
@@ -217,7 +217,7 @@ export default function Map({
                   className={`px-3 py-1 text-xs rounded-full transition-colors flex items-center gap-1 ${
                     selectedCategory === category
                       ? 'text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                   }`}
                   style={{
                     backgroundColor: selectedCategory === category ? categoryColors[category as keyof typeof categoryColors] : undefined
@@ -237,13 +237,13 @@ export default function Map({
       <div
         ref={mapContainerRef}
         style={{ height, width: '100%' }}
-        className="rounded-lg border border-gray-200 shadow-sm"
+        className="rounded-lg border border-neutral-200 shadow-sm"
       />
 
       {/* Leyenda */}
       {showControls && locations.length > 0 && (
-        <div className="absolute bottom-4 right-4 z-[1000] bg-white rounded-lg shadow-lg p-3 max-w-xs">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Leyenda:</h4>
+        <div className="absolute bottom-4 right-4 z-[1000] bg-neutral-100 rounded-lg shadow-lg p-3 max-w-xs">
+          <h4 className="text-sm font-medium text-primary-700 mb-2">Leyenda:</h4>
           <div className="space-y-1">
             {Object.entries(categoryIcons).map(([category, icon]) => {
               const count = locations.filter(loc => loc.category === category).length;
@@ -257,7 +257,7 @@ export default function Map({
                   >
                     {icon}
                   </div>
-                  <span className="capitalize text-gray-700">{category}</span>
+                  <span className="capitalize text-neutral-600">{category}</span>
                 </div>
               );
             })}

@@ -62,7 +62,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           isScrolled || !isHomePage
-            ? 'bg-white/95 backdrop-blur-lg shadow-soft border-b border-gray-100'
+            ? 'bg-neutral-100/95 backdrop-blur-lg shadow-soft border-b border-neutral-200'
             : 'bg-transparent'
         )}
       >
@@ -79,15 +79,15 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center shadow-lg">
                     <Mountain className="w-6 h-6 text-white" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-coral-500 rounded-full animate-pulse" />
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent-500 rounded-full animate-pulse" />
                 </div>
                 <div className="hidden sm:block">
-                  <h1 className="text-2xl font-display font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
+                  <h1 className="text-2xl font-display font-bold bg-gradient-to-r from-primary-700 to-accent-600 bg-clip-text text-transparent">
                     Wild Tour
                   </h1>
                   <p className={cn(
                     'text-xs font-medium -mt-1',
-                    isScrolled || !isHomePage ? 'text-gray-500' : 'text-white/80'
+                    isScrolled || !isHomePage ? 'text-neutral-600' : 'text-white/80'
                   )}>
                     Colombia
                   </p>
@@ -110,8 +110,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                       isActive
                         ? 'bg-primary-50 text-primary-700 shadow-sm'
                         : isScrolled || !isHomePage
-                        ? 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
-                        : 'text-white/90 hover:text-white hover:bg-white/10'
+                        ? 'text-neutral-700 hover:text-primary-600 hover:bg-primary-50'
+                        : 'text-white/90 hover:text-white hover:bg-neutral-100/10'
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -134,18 +134,20 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               {isAuthenticated ? (
                 <div className="flex items-center space-x-3">
                   {/* Botón de favoritos */}
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={cn(
-                      'p-2 rounded-xl transition-colors',
-                      isScrolled || !isHomePage
-                        ? 'text-gray-600 hover:text-red-500 hover:bg-red-50'
-                        : 'text-white/80 hover:text-white hover:bg-white/10'
-                    )}
-                  >
-                    <Heart className="w-5 h-5" />
-                  </motion.button>
+                  <Link to="/favoritos">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={cn(
+                        'p-2 rounded-xl transition-colors',
+                        isScrolled || !isHomePage
+                          ? 'text-neutral-600 hover:text-secondary-500 hover:bg-secondary-50'
+                          : 'text-white/80 hover:text-white hover:bg-neutral-100/10'
+                      )}
+                    >
+                      <Heart className="w-5 h-5" />
+                    </motion.button>
+                  </Link>
 
                   {/* Botón de notificaciones */}
                   <motion.button
@@ -154,12 +156,12 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     className={cn(
                       'relative p-2 rounded-xl transition-colors',
                       isScrolled || !isHomePage
-                        ? 'text-gray-600 hover:text-primary-600 hover:bg-primary-50'
-                        : 'text-white/80 hover:text-white hover:bg-white/10'
+                        ? 'text-neutral-600 hover:text-primary-600 hover:bg-primary-50'
+                        : 'text-white/80 hover:text-white hover:bg-neutral-100/10'
                     )}
                   >
                     <Bell className="w-5 h-5" />
-                    <div className="absolute top-1 right-1 w-2 h-2 bg-coral-500 rounded-full" />
+                    <div className="absolute top-1 right-1 w-2 h-2 bg-accent-500 rounded-full" />
                   </motion.button>
 
                   {/* Menú de usuario */}
@@ -178,7 +180,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                       </div>
                       <span className={cn(
                         'hidden sm:block text-sm font-medium',
-                        isScrolled || !isHomePage ? 'text-gray-700' : 'text-white'
+                        isScrolled || !isHomePage ? 'text-neutral-700' : 'text-white'
                       )}>
                         {user?.name?.split(' ')[0] || 'Usuario'}
                       </span>
@@ -190,45 +192,45 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-strong border border-gray-100 py-2"
+                        className="absolute right-0 mt-2 w-56 bg-neutral-100 rounded-2xl shadow-strong border border-neutral-200 py-2"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <div className="px-4 py-3 border-b border-gray-100">
-                          <p className="text-sm font-medium text-gray-900">{user?.name || 'Usuario'}</p>
-                          <p className="text-xs text-gray-500">{user?.email}</p>
+                        <div className="px-4 py-3 border-b border-neutral-200">
+                          <p className="text-sm font-medium text-primary-700">{user?.name || 'Usuario'}</p>
+                          <p className="text-xs text-neutral-600">{user?.email}</p>
                         </div>
 
                         <div className="py-2">
                           <Link
                             to="/perfil"
-                            className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            className="flex items-center space-x-3 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
                           >
                             <User className="w-4 h-4" />
                             <span>Mi Perfil</span>
                           </Link>
                           <Link
                             to="/mis-reservas"
-                            className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            className="flex items-center space-x-3 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
                           >
                             <Calendar className="w-4 h-4" />
                             <span>Mis Reservas</span>
                           </Link>
                           <Link
                             to="/configuracion"
-                            className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                            className="flex items-center space-x-3 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
                           >
                             <Settings className="w-4 h-4" />
                             <span>Configuración</span>
                           </Link>
                         </div>
 
-                        <div className="border-t border-gray-100 py-2">
+                        <div className="border-t border-neutral-200 py-2">
                           <button
                             onClick={() => {
                               logout();
                               setShowUserMenu(false);
                             }}
-                            className="flex items-center space-x-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors w-full text-left"
+                            className="flex items-center space-x-3 px-4 py-2 text-sm text-secondary-600 hover:bg-secondary-50 transition-colors w-full text-left"
                           >
                             <LogOut className="w-4 h-4" />
                             <span>Cerrar Sesión</span>
@@ -246,8 +248,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     asChild
                     className={cn(
                       isScrolled || !isHomePage
-                        ? 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
-                        : 'text-white hover:bg-white/10'
+                        ? 'text-neutral-700 hover:text-primary-600 hover:bg-primary-50'
+                        : 'text-white hover:bg-neutral-100/10'
                     )}
                   >
                     <Link to="/login">Iniciar Sesión</Link>
@@ -273,8 +275,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 className={cn(
                   'lg:hidden p-2 rounded-xl transition-colors',
                   isScrolled || !isHomePage
-                    ? 'text-gray-600 hover:text-primary-600 hover:bg-primary-50'
-                    : 'text-white hover:bg-white/10'
+                    ? 'text-neutral-600 hover:text-primary-600 hover:bg-primary-50'
+                    : 'text-white hover:bg-neutral-100/10'
                 )}
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -290,7 +292,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t border-gray-100"
+            className="lg:hidden bg-neutral-100 border-t border-neutral-200"
           >
             <div className="px-4 py-4 space-y-2">
               {navigation.map((item) => {
@@ -306,7 +308,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                       'flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors',
                       isActive
                         ? 'bg-primary-50 text-primary-700'
-                        : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
+                        : 'text-neutral-700 hover:text-primary-600 hover:bg-primary-50'
                     )}
                   >
                     <Icon className="w-5 h-5" />
@@ -316,7 +318,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               })}
 
               {!isAuthenticated && (
-                <div className="pt-4 border-t border-gray-100 space-y-2">
+                <div className="pt-4 border-t border-neutral-200 space-y-2">
                   <Button variant="outline" fullWidth asChild>
                     <Link to="/login">Iniciar Sesión</Link>
                   </Button>

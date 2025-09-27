@@ -18,6 +18,7 @@ import {
 import { Button } from '../../shared/ui';
 import { Card, CardContent } from '../../shared/ui';
 import { cn } from '../../shared/utils/cn';
+import { ServiceCardFavoriteButton } from '../components/FavoriteButton';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

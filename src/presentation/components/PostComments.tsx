@@ -74,9 +74,9 @@ export default function PostComments({ postId, isOpen, onClose }: PostCommentsPr
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-neutral-200">
           <div className="flex space-x-4">
             <button
               onClick={() => setActiveTab('comments')}
@@ -84,7 +84,7 @@ export default function PostComments({ postId, isOpen, onClose }: PostCommentsPr
                 'flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-colors',
                 activeTab === 'comments'
                   ? 'bg-primary-100 text-primary-700'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-neutral-600 hover:text-primary-700'
               )}
             >
               <MessageCircle className="w-5 h-5" />
@@ -96,7 +96,7 @@ export default function PostComments({ postId, isOpen, onClose }: PostCommentsPr
                 'flex items-center space-x-2 px-4 py-2 rounded-xl font-medium transition-colors',
                 activeTab === 'reviews'
                   ? 'bg-primary-100 text-primary-700'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-neutral-600 hover:text-primary-700'
               )}
             >
               <Star className="w-5 h-5" />
@@ -105,7 +105,7 @@ export default function PostComments({ postId, isOpen, onClose }: PostCommentsPr
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
@@ -174,7 +174,7 @@ function CommentsTab({
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Escribe un comentario..."
                 rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+                className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
               />
               <div className="flex justify-end mt-2">
                 <Button
@@ -202,7 +202,7 @@ function CommentsTab({
             <CommentItem key={comment.id} comment={comment} />
           ))
         ) : (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-neutral-500">
             <MessageCircle className="w-12 h-12 mx-auto mb-2 text-gray-300" />
             <p>No hay comentarios aún</p>
             <p className="text-sm">Sé el primero en comentar</p>
@@ -272,7 +272,7 @@ function ReviewsTab({
             <ReviewItem key={review.id} review={review} />
           ))
         ) : (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-neutral-500">
             <Star className="w-12 h-12 mx-auto mb-2 text-gray-300" />
             <p>No hay reseñas aún</p>
             <p className="text-sm">Comparte tu experiencia</p>
@@ -296,14 +296,14 @@ function CommentItem({ comment }: { comment: PostComment }) {
         className="w-10 h-10 rounded-full object-cover"
       />
       <div className="flex-1">
-        <div className="bg-gray-50 rounded-2xl px-4 py-3">
+        <div className="bg-neutral-50 rounded-2xl px-4 py-3">
           <div className="flex items-center space-x-2 mb-1">
-            <span className="font-semibold text-gray-900">{comment.user.name}</span>
-            <span className="text-xs text-gray-500">
+            <span className="font-semibold text-primary-700">{comment.user.name}</span>
+            <span className="text-xs text-neutral-500">
               {new Date(comment.createdAt).toLocaleDateString('es-CO')}
             </span>
           </div>
-          <p className="text-gray-700">{comment.content}</p>
+          <p className="text-neutral-700">{comment.content}</p>
         </div>
 
         <div className="flex items-center space-x-4 mt-2 ml-4">
@@ -314,13 +314,13 @@ function CommentItem({ comment }: { comment: PostComment }) {
             }}
             className={cn(
               'flex items-center space-x-1 text-sm',
-              liked ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
+              liked ? 'text-secondary-500' : 'text-neutral-500 hover:text-secondary-500'
             )}
           >
             <Heart className={cn('w-4 h-4', liked && 'fill-current')} />
             <span>{likes}</span>
           </button>
-          <button className="text-sm text-gray-500 hover:text-gray-700">
+          <button className="text-sm text-neutral-500 hover:text-neutral-700">
             Responder
           </button>
         </div>
@@ -342,7 +342,7 @@ function ReviewItem({ review }: { review: Review }) {
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
             <div>
-              <h4 className="font-semibold text-gray-900">{review.user.name}</h4>
+              <h4 className="font-semibold text-primary-700">{review.user.name}</h4>
               <div className="flex items-center space-x-2">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
@@ -357,17 +357,17 @@ function ReviewItem({ review }: { review: Review }) {
                     />
                   ))}
                 </div>
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-neutral-500">
                   {new Date(review.createdAt).toLocaleDateString('es-CO')}
                 </span>
               </div>
             </div>
-            <button className="p-1 hover:bg-gray-100 rounded">
-              <MoreVertical className="w-4 h-4 text-gray-400" />
+            <button className="p-1 hover:bg-neutral-100 rounded">
+              <MoreVertical className="w-4 h-4 text-neutral-400" />
             </button>
           </div>
 
-          <p className="text-gray-700 mb-3">{review.comment}</p>
+          <p className="text-neutral-700 mb-3">{review.comment}</p>
 
           {/* Imágenes de la reseña */}
           {review.images && review.images.length > 0 && (
@@ -389,7 +389,7 @@ function ReviewItem({ review }: { review: Review }) {
                 'flex items-center space-x-1 text-sm',
                 review.isHelpful
                   ? 'text-primary-600'
-                  : 'text-gray-500 hover:text-primary-600'
+                  : 'text-neutral-500 hover:text-primary-600'
               )}
             >
               <ThumbsUp className={cn('w-4 h-4', review.isHelpful && 'fill-current')} />
@@ -434,12 +434,12 @@ function ReviewForm({ postId, onClose, onReviewCreated }: ReviewFormProps) {
   };
 
   return (
-    <div className="bg-gray-50 rounded-2xl p-4 mb-6">
-      <h3 className="font-semibold text-gray-900 mb-4">Escribir Reseña</h3>
+    <div className="bg-neutral-50 rounded-2xl p-4 mb-6">
+      <h3 className="font-semibold text-primary-700 mb-4">Escribir Reseña</h3>
 
       {/* Rating */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-neutral-700 mb-2">
           Calificación
         </label>
         <div className="flex items-center space-x-1">
@@ -464,7 +464,7 @@ function ReviewForm({ postId, onClose, onReviewCreated }: ReviewFormProps) {
 
       {/* Comentario */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-neutral-700 mb-2">
           Tu experiencia
         </label>
         <textarea
@@ -472,7 +472,7 @@ function ReviewForm({ postId, onClose, onReviewCreated }: ReviewFormProps) {
           onChange={(e) => setComment(e.target.value)}
           placeholder="Comparte tu experiencia con este servicio..."
           rows={4}
-          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+          className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
         />
       </div>
 

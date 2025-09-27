@@ -192,13 +192,13 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   const getMethodIcon = () => {
     switch (method) {
       case 'sms':
-        return <Smartphone className="w-6 h-6 text-blue-600" />;
+        return <Smartphone className="w-6 h-6 text-primary-600" />;
       case 'email':
-        return <Mail className="w-6 h-6 text-blue-600" />;
+        return <Mail className="w-6 h-6 text-primary-600" />;
       case 'app':
-        return <Key className="w-6 h-6 text-blue-600" />;
+        return <Key className="w-6 h-6 text-primary-600" />;
       default:
-        return <Shield className="w-6 h-6 text-blue-600" />;
+        return <Shield className="w-6 h-6 text-primary-600" />;
     }
   };
 
@@ -224,18 +224,18 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
       aria-modal="true"
       aria-labelledby="2fa-title"
     >
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+      <div className="bg-neutral-100 rounded-lg shadow-xl max-w-md w-full mx-4">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-neutral-200">
           <div className="flex items-center space-x-3">
             {getMethodIcon()}
-            <h2 id="2fa-title" className="text-xl font-semibold text-gray-900">
+            <h2 id="2fa-title" className="text-xl font-semibold text-primary-700">
               Verificación en Dos Pasos
             </h2>
           </div>
           <button
             onClick={onCancel}
-            className="text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-1"
+            className="text-neutral-400 hover:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-1"
             aria-label="Cerrar verificación"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,17 +247,17 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
         <div className="p-6">
           {/* Descripción */}
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Shield className="w-8 h-8 text-blue-600" />
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Shield className="w-8 h-8 text-primary-600" />
             </div>
-            <p className="text-gray-600 text-sm">
+            <p className="text-neutral-600 text-sm">
               {getMethodDescription()}
             </p>
           </div>
 
           {/* Campos de código */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-3 text-center">
+            <label className="block text-sm font-medium text-neutral-700 mb-3 text-center">
               Código de Verificación
             </label>
             <div className="flex justify-center space-x-3" onPaste={handlePaste}>
@@ -272,7 +272,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
                   onChange={e => handleCodeChange(index, e.target.value)}
                   onKeyDown={e => handleKeyDown(index, e)}
                   className={`w-12 h-12 text-center text-xl font-semibold border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    error ? 'border-red-500' : 'border-gray-300'
+                    error ? 'border-secondary-500' : 'border-neutral-300'
                   } ${digit ? 'bg-blue-50 border-blue-500' : ''}`}
                   disabled={isVerifying}
                   aria-label={`Dígito ${index + 1} del código de verificación`}
@@ -284,32 +284,32 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
           {/* Error */}
           {error && (
             <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center">
-              <AlertCircle className="w-5 h-5 text-red-500 mr-2 flex-shrink-0" />
-              <span className="text-red-700 text-sm">{error}</span>
+              <AlertCircle className="w-5 h-5 text-secondary-500 mr-2 flex-shrink-0" />
+              <span className="text-secondary-700 text-sm">{error}</span>
             </div>
           )}
 
           {/* Estado de verificación */}
           {isVerifying && (
-            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-center">
+            <div className="mb-4 p-3 bg-blue-50 border border-primary-200 rounded-lg flex items-center justify-center">
               <RefreshCw className="w-5 h-5 text-blue-500 mr-2 animate-spin" />
-              <span className="text-blue-700 text-sm">Verificando código...</span>
+              <span className="text-primary-700 text-sm">Verificando código...</span>
             </div>
           )}
 
           {/* Temporizador y reenvío */}
           <div className="text-center">
             {timeRemaining > 0 ? (
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-neutral-600">
                 El código expira en <span className="font-semibold">{formatTime(timeRemaining)}</span>
               </p>
             ) : (
               <div>
-                <p className="text-sm text-red-600 mb-2">El código ha expirado</p>
+                <p className="text-sm text-secondary-600 mb-2">El código ha expirado</p>
                 {canResend && (
                   <button
                     onClick={resendCode}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none focus:underline"
+                    className="text-primary-600 hover:text-blue-800 text-sm font-medium focus:outline-none focus:underline"
                   >
                     Reenviar código
                   </button>
@@ -320,8 +320,8 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
-          <div className="flex items-center justify-center text-sm text-gray-500">
+        <div className="px-6 py-4 border-t border-neutral-200 bg-neutral-50">
+          <div className="flex items-center justify-center text-sm text-neutral-500">
             <Shield className="w-4 h-4 mr-2" />
             <span>Tu cuenta está protegida con verificación en dos pasos</span>
           </div>

@@ -23,6 +23,7 @@ import { cn } from '../../shared/utils/cn';
 import { useAuthStore } from '../../application/state/useAuthStore';
 import CreateServicePost from '../components/CreateServicePost';
 import PostComments from '../components/PostComments';
+import { ServiceCardFavoriteButton } from '../components/FavoriteButton';
 
 export default function ServiceFeed() {
   const [posts, setPosts] = useState<ServicePost[]>([]);
@@ -342,6 +343,12 @@ function ServicePostCard({
                 alt={post.title}
                 className="w-full h-64 object-cover"
               />
+              {/* Botón de favoritos */}
+              <ServiceCardFavoriteButton
+                serviceId={post.id}
+                className="absolute top-4 left-4"
+              />
+
               {post.images.length > 1 && (
                 <>
                   <div className="absolute top-4 right-4 bg-black/50 text-white px-2 py-1 rounded-lg text-sm">

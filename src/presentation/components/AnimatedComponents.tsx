@@ -397,7 +397,7 @@ export const LoadingAnimation: React.FC<{
   if (prefersReducedMotion) {
     return (
       <div
-        className={`${sizeClasses[size]} border-2 border-gray-300 border-t-current rounded-full`}
+        className={`${sizeClasses[size]} border-2 border-neutral-300 border-t-current rounded-full`}
         style={{ borderTopColor: color }}
       />
     );
@@ -407,7 +407,7 @@ export const LoadingAnimation: React.FC<{
     case 'spinner':
       return (
         <div
-          className={`${sizeClasses[size]} border-2 border-gray-300 border-t-current rounded-full animate-spin`}
+          className={`${sizeClasses[size]} border-2 border-neutral-300 border-t-current rounded-full animate-spin`}
           style={{ borderTopColor: color }}
         />
       );

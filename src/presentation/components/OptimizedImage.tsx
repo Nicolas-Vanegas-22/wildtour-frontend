@@ -66,16 +66,16 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       style={{ width, height }}
     >
       {loading && shouldLoad && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+        <div className="absolute inset-0 flex items-center justify-center bg-neutral-100">
           <LoadingSpinner size="sm" message="" fullScreen={false} />
         </div>
       )}
 
       {error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
+        <div className="absolute inset-0 flex items-center justify-center bg-neutral-100 text-neutral-500">
           <div className="text-center">
             <svg
-              className="w-8 h-8 mx-auto mb-2 text-gray-400"
+              className="w-8 h-8 mx-auto mb-2 text-neutral-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -90,7 +90,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
             <p className="text-sm">Error al cargar imagen</p>
             <button
               onClick={retry}
-              className="text-xs text-blue-600 hover:text-blue-800 mt-1"
+              className="text-xs text-primary-600 hover:text-blue-800 mt-1"
             >
               Reintentar
             </button>
@@ -116,7 +116,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       )}
 
       {!shouldLoad && (
-        <div className="w-full h-full bg-gray-200 animate-pulse" />
+        <div className="w-full h-full bg-neutral-200 animate-pulse" />
       )}
     </div>
   );

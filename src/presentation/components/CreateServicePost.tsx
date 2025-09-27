@@ -159,23 +159,23 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-neutral-200">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Crear Publicación de Servicio</h2>
-            <p className="text-gray-600">Paso {currentStep} de 3</p>
+            <h2 className="text-2xl font-bold text-primary-700">Crear Publicación de Servicio</h2>
+            <p className="text-neutral-600">Paso {currentStep} de 3</p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-neutral-100 rounded-lg transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Progress */}
-        <div className="px-6 py-4 bg-gray-50">
+        <div className="px-6 py-4 bg-neutral-50">
           <div className="flex items-center">
             {[1, 2, 3].map((step) => (
               <React.Fragment key={step}>
@@ -184,7 +184,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                     'w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium',
                     step <= currentStep
                       ? 'bg-primary-600 text-white'
-                      : 'bg-gray-300 text-gray-600'
+                      : 'bg-neutral-300 text-neutral-600'
                   )}
                 >
                   {step}
@@ -193,7 +193,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                   <div
                     className={cn(
                       'flex-1 h-1 mx-4',
-                      step < currentStep ? 'bg-primary-600' : 'bg-gray-300'
+                      step < currentStep ? 'bg-primary-600' : 'bg-neutral-300'
                     )}
                   />
                 )}
@@ -213,7 +213,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
           {currentStep === 1 && (
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Título del Servicio *
                 </label>
                 <input
@@ -221,12 +221,12 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   placeholder="Ej: Tour guiado por el Desierto de la Tatacoa"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Descripción *
                 </label>
                 <textarea
@@ -234,18 +234,18 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe tu servicio, qué incluye, qué pueden esperar los turistas..."
                   rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Tipo de Servicio *
                 </label>
                 <select
                   value={formData.serviceType}
                   onChange={(e) => setFormData({ ...formData, serviceType: e.target.value as any })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="guia">Guía Turístico</option>
                   <option value="transporte">Transporte</option>
@@ -258,10 +258,10 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
 
               {/* Upload de Imágenes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Imágenes del Servicio
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
+                <div className="border-2 border-dashed border-neutral-300 rounded-xl p-6 text-center">
                   <input
                     type="file"
                     multiple
@@ -271,9 +271,9 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                     id="image-upload"
                   />
                   <label htmlFor="image-upload" className="cursor-pointer">
-                    <ImageIcon className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-600">Haz clic para subir imágenes</p>
-                    <p className="text-sm text-gray-500">PNG, JPG hasta 10MB cada una</p>
+                    <ImageIcon className="w-12 h-12 text-neutral-400 mx-auto mb-2" />
+                    <p className="text-neutral-600">Haz clic para subir imágenes</p>
+                    <p className="text-sm text-neutral-500">PNG, JPG hasta 10MB cada una</p>
                   </label>
                 </div>
 
@@ -289,7 +289,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                         />
                         <button
                           onClick={() => removeImage(index)}
-                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
+                          className="absolute -top-2 -right-2 bg-secondary-500 text-white rounded-full p-1"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -306,7 +306,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Precio *
                   </label>
                   <div className="flex">
@@ -318,7 +318,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                         price: { ...formData.price, amount: Number(e.target.value) }
                       })}
                       placeholder="50000"
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="flex-1 px-4 py-3 border border-neutral-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
                     <select
                       value={formData.price.unit}
@@ -326,7 +326,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                         ...formData,
                         price: { ...formData.price, unit: e.target.value }
                       })}
-                      className="px-4 py-3 border border-l-0 border-gray-300 rounded-r-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                      className="px-4 py-3 border border-l-0 border-neutral-300 rounded-r-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     >
                       <option value="por persona">por persona</option>
                       <option value="por grupo">por grupo</option>
@@ -337,7 +337,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Capacidad Máxima *
                   </label>
                   <input
@@ -349,13 +349,13 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                     })}
                     placeholder="8"
                     min="1"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Ubicación del Servicio *
                 </label>
                 <input
@@ -366,7 +366,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                     location: { ...formData.location, name: e.target.value }
                   })}
                   placeholder="Ej: Desierto de la Tatacoa, Villavieja, Huila"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-4 py-3 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                 />
               </div>
             </div>
@@ -377,7 +377,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
             <div className="space-y-6">
               {/* Características */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Características del Servicio
                 </label>
                 <div className="flex space-x-2 mb-3">
@@ -386,7 +386,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                     value={newFeature}
                     onChange={(e) => setNewFeature(e.target.value)}
                     placeholder="Ej: Incluye transporte, Guía certificado..."
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="flex-1 px-4 py-2 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onKeyPress={(e) => e.key === 'Enter' && addFeature()}
                   />
                   <Button onClick={addFeature} size="sm" leftIcon={<Plus className="w-4 h-4" />}>
@@ -414,7 +414,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
 
               {/* Tags */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Etiquetas (Tags)
                 </label>
                 <div className="flex space-x-2 mb-3">
@@ -423,7 +423,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                     value={newTag}
                     onChange={(e) => setNewTag(e.target.value)}
                     placeholder="Ej: aventura, naturaleza, astronomía..."
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    className="flex-1 px-4 py-2 border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
                     onKeyPress={(e) => e.key === 'Enter' && addTag()}
                   />
                   <Button onClick={addTag} size="sm" leftIcon={<Tag className="w-4 h-4" />}>
@@ -435,12 +435,12 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
                   {formData.tags.map((tag, index) => (
                     <span
                       key={index}
-                      className="inline-flex items-center space-x-2 bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                      className="inline-flex items-center space-x-2 bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full text-sm"
                     >
                       <span>#{tag}</span>
                       <button
                         onClick={() => removeTag(index)}
-                        className="hover:bg-gray-200 rounded-full p-1"
+                        className="hover:bg-neutral-200 rounded-full p-1"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -453,7 +453,7 @@ export default function CreateServicePost({ isOpen, onClose, onPostCreated }: Cr
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-gray-200">
+        <div className="flex items-center justify-between p-6 border-t border-neutral-200">
           <Button
             onClick={prevStep}
             variant="outline"

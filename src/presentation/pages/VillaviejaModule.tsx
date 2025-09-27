@@ -28,6 +28,7 @@ import VillaviejaGastronomy from '../components/villavieja/VillaviejaGastronomy'
 import VillaviejaServices from '../components/villavieja/VillaviejaServices';
 import VillaviejaPackages from '../components/villavieja/VillaviejaPackages';
 import VillaviajaPracticalInfo from '../components/villavieja/VillaviajaPracticalInfo';
+import VillaviejaReservationModal from '../components/villavieja/VillaviejaReservationModal';
 
 type VillaviajaSectionType =
   | 'home'
@@ -49,6 +50,7 @@ interface SectionTab {
 
 const VillaviejaModule: React.FC = () => {
   const [activeSection, setActiveSection] = useState<VillaviajaSectionType>('home');
+  const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
 
   const sections: SectionTab[] = [
     {
@@ -128,7 +130,7 @@ const VillaviejaModule: React.FC = () => {
   const renderActiveSection = () => {
     switch (activeSection) {
       case 'home':
-        return <VillaviejaHome onNavigateToSection={setActiveSection} />;
+        return <VillaviejaHome onNavigateToSection={setActiveSection} onReserve={() => setIsReservationModalOpen(true)} />;
       case 'info':
         return <VillaviejaInfo />;
       case 'attractions':
@@ -146,12 +148,12 @@ const VillaviejaModule: React.FC = () => {
       case 'practical':
         return <VillaviajaPracticalInfo />;
       default:
-        return <VillaviejaHome onNavigateToSection={setActiveSection} />;
+        return <VillaviejaHome onNavigateToSection={setActiveSection} onReserve={() => setIsReservationModalOpen(true)} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-coral-50 via-secondary-50 to-accent-50">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-accent-50 to-accent-50">
       {/* Header Hero Section - Only show full hero on non-home sections */}
       {activeSection !== 'home' && (
         <div className="relative h-64 overflow-hidden">
@@ -159,7 +161,7 @@ const VillaviejaModule: React.FC = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${villaviejaDestination.images.main})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-coral-900/70 via-secondary-900/60 to-accent-900/70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-accent-900/60 to-accent-900/70" />
           </div>
 
           <div className="relative h-full flex items-center justify-center">
@@ -191,7 +193,7 @@ const VillaviejaModule: React.FC = () => {
       )}
 
       {/* Navigation Tabs */}
-      <div className="bg-white shadow-lg sticky top-0 z-40 border-b border-gray-200">
+      <div className="bg-white shadow-lg sticky top-0 z-40 border-b border-neutral-200">
         <div className="max-w-7xl mx-auto">
           <div className="flex overflow-x-auto scrollbar-hide">
             {sections.map((section) => (
@@ -201,14 +203,14 @@ const VillaviejaModule: React.FC = () => {
                 className={cn(
                   'flex-shrink-0 px-6 py-4 flex items-center space-x-3 border-b-2 transition-colors duration-200',
                   activeSection === section.id
-                    ? 'border-coral-500 text-coral-600 bg-coral-50'
-                    : 'border-transparent text-gray-600 hover:text-coral-600 hover:bg-coral-50'
+                    ? 'border-primary-500 text-primary-600 bg-primary-50'
+                    : 'border-transparent text-neutral-600 hover:text-primary-600 hover:bg-primary-50'
                 )}
               >
                 {section.icon}
                 <div className="text-left">
                   <div className="font-medium">{section.name}</div>
-                  <div className="text-xs text-gray-500">{section.description}</div>
+                  <div className="text-xs text-neutral-500">{section.description}</div>
                 </div>
               </button>
             ))}
@@ -217,7 +219,7 @@ const VillaviejaModule: React.FC = () => {
       </div>
 
       {/* Quick Stats Bar */}
-      <div className="bg-gradient-to-r from-coral-600 to-secondary-600 text-white py-4">
+      <div className="bg-gradient-to-r from-primary-600 to-accent-600 text-white py-4">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div className="flex flex-col items-center">
@@ -250,11 +252,11 @@ const VillaviejaModule: React.FC = () => {
       </div>
 
       {/* Footer Navigation */}
-      <div className="bg-gray-900 text-white py-12">
+      <div className="bg-neutral-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold mb-4">Explora Más de Villavieja</h3>
-            <p className="text-gray-300 max-w-2xl mx-auto">
+            <p className="text-neutral-300 max-w-2xl mx-auto">
               Descubre todos los secretos de la Capital Paleontológica de Colombia y planifica tu aventura perfecta.
             </p>
           </div>
@@ -264,19 +266,37 @@ const VillaviejaModule: React.FC = () => {
               <button
                 key={section.id}
                 onClick={() => setActiveSection(section.id)}
-                className="bg-gray-800 hover:bg-gray-700 rounded-xl p-6 text-left transition-colors duration-200 group"
+                className="bg-neutral-800 hover:bg-neutral-700 rounded-xl p-6 text-left transition-colors duration-200 group"
               >
                 <div className="flex items-center justify-between mb-3">
                   {section.icon}
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
                 <h4 className="font-semibold mb-2">{section.name}</h4>
-                <p className="text-sm text-gray-400">{section.description}</p>
+                <p className="text-sm text-neutral-400">{section.description}</p>
               </button>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Floating Reservation Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          onClick={() => setIsReservationModalOpen(true)}
+          variant="primary"
+          className="bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 shadow-2xl rounded-full px-8 py-4 text-lg font-semibold transform hover:scale-105 transition-all duration-300"
+        >
+          <Calendar className="w-5 h-5 mr-2" />
+          Reservar Ahora
+        </Button>
+      </div>
+
+      {/* Reservation Modal */}
+      <VillaviejaReservationModal
+        isOpen={isReservationModalOpen}
+        onClose={() => setIsReservationModalOpen(false)}
+      />
     </div>
   );
 };

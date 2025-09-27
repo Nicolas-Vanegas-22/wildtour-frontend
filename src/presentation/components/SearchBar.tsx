@@ -69,15 +69,15 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 space-y-4">
+    <div className="bg-neutral-100 rounded-lg shadow-lg p-6 space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Search Query */}
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-neutral-700 mb-1">
             ¿Qué buscas?
           </label>
           <input
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="Destino, actividad, hospedaje..."
             value={filters.query}
             onChange={(e) => updateFilter('query', e.target.value)}
@@ -86,11 +86,11 @@ export default function SearchBar() {
 
         {/* Location */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium text-neutral-700 mb-1">
             Ubicación
           </label>
           <input
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
             placeholder="Ciudad, región..."
             value={filters.location}
             onChange={(e) => updateFilter('location', e.target.value)}
@@ -101,7 +101,7 @@ export default function SearchBar() {
         <div className="flex items-end">
           <button
             onClick={handleSearch}
-            className="w-full bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="w-full bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
           >
             <svg className="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -115,7 +115,7 @@ export default function SearchBar() {
       <div className="border-t pt-4">
         <button
           onClick={() => setShowAdvanced(!showAdvanced)}
-          className="text-green-600 hover:text-green-700 font-medium text-sm flex items-center"
+          className="text-primary-600 hover:text-primary-700 font-medium text-sm flex items-center"
         >
           <svg className={`w-4 h-4 mr-1 transition-transform ${showAdvanced ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -129,11 +129,11 @@ export default function SearchBar() {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4 border-t">
           {/* Category */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               Categoría
             </label>
             <select
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               value={filters.category}
               onChange={(e) => updateFilter('category', e.target.value)}
             >
@@ -148,11 +148,11 @@ export default function SearchBar() {
 
           {/* Tourism Type */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               Tipo de turismo
             </label>
             <select
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               value={filters.tourismType}
               onChange={(e) => updateFilter('tourismType', e.target.value)}
             >
@@ -170,11 +170,11 @@ export default function SearchBar() {
 
           {/* Budget Range */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               Presupuesto
             </label>
             <select
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               value={filters.budget}
               onChange={(e) => updateFilter('budget', e.target.value)}
             >
@@ -188,11 +188,11 @@ export default function SearchBar() {
 
           {/* Rating */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               Calificación mínima
             </label>
             <select
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               value={filters.rating}
               onChange={(e) => updateFilter('rating', e.target.value)}
             >
@@ -207,7 +207,7 @@ export default function SearchBar() {
           <div className="flex items-end">
             <button
               onClick={clearFilters}
-              className="w-full border border-gray-300 text-gray-700 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors text-sm"
+              className="w-full border border-neutral-300 text-neutral-700 px-3 py-2 rounded-lg hover:bg-neutral-50 transition-colors text-sm"
             >
               Limpiar filtros
             </button>
@@ -219,23 +219,23 @@ export default function SearchBar() {
       {showAdvanced && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               Fecha de entrada
             </label>
             <input
               type="date"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               value={filters.dates.checkIn}
               onChange={(e) => updateDates('checkIn', e.target.value)}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-neutral-700 mb-1">
               Fecha de salida
             </label>
             <input
               type="date"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="w-full border border-neutral-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               value={filters.dates.checkOut}
               onChange={(e) => updateDates('checkOut', e.target.value)}
               min={filters.dates.checkIn}

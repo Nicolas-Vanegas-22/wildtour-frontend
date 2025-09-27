@@ -128,30 +128,30 @@ const ToastItem: React.FC<ToastItemProps> = ({ toast, onRemove }) => {
   const getColorClasses = () => {
     switch (toast.type) {
       case 'success':
-        return 'bg-green-50 text-green-800 border-green-200';
+        return 'bg-success-50 text-success-800 border-success-200';
       case 'error':
-        return 'bg-red-50 text-red-800 border-red-200';
+        return 'bg-error-50 text-error-800 border-error-200';
       case 'warning':
-        return 'bg-yellow-50 text-yellow-800 border-yellow-200';
+        return 'bg-warning-50 text-warning-800 border-warning-200';
       case 'info':
-        return 'bg-blue-50 text-blue-800 border-blue-200';
+        return 'bg-primary-50 text-primary-800 border-primary-200';
       default:
-        return 'bg-gray-50 text-gray-800 border-gray-200';
+        return 'bg-neutral-50 text-neutral-800 border-neutral-200';
     }
   };
 
   const getIconColorClasses = () => {
     switch (toast.type) {
       case 'success':
-        return 'text-green-400';
+        return 'text-success-400';
       case 'error':
-        return 'text-red-400';
+        return 'text-error-400';
       case 'warning':
-        return 'text-yellow-400';
+        return 'text-warning-400';
       case 'info':
-        return 'text-blue-400';
+        return 'text-primary-400';
       default:
-        return 'text-gray-400';
+        return 'text-neutral-400';
     }
   };
 
@@ -173,7 +173,7 @@ const ToastItem: React.FC<ToastItemProps> = ({ toast, onRemove }) => {
         <div className="ml-4 flex-shrink-0 flex">
           <button
             onClick={() => onRemove(toast.id)}
-            className="inline-flex text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 transition ease-in-out duration-150"
+            className="inline-flex text-neutral-400 hover:text-neutral-600 focus:outline-none focus:text-neutral-600 transition ease-in-out duration-150"
           >
             <X className="w-4 h-4" />
           </button>

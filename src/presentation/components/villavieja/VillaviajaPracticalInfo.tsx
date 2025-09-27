@@ -45,10 +45,10 @@ const VillaviajaPracticalInfo: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-8">
           <div className="flex items-center space-x-4 mb-4">
-            <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+            <div className="bg-neutral-100/20 backdrop-blur-sm rounded-full p-3">
               <Navigation className="w-8 h-8" />
             </div>
             <div>
@@ -71,7 +71,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
                 className={`flex items-center space-x-2 px-6 py-3 rounded-lg border transition-colors ${
                   activeCategory === category
                     ? 'bg-teal-100 border-teal-300 text-teal-800'
-                    : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100'
+                    : 'bg-neutral-50 border-neutral-200 text-neutral-700 hover:bg-neutral-100'
                 }`}
               >
                 {category !== 'Todos' && categoryIcons[category as keyof typeof categoryIcons]}
@@ -84,7 +84,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
 
       {/* What to Pack */}
       {(activeCategory === 'Todos' || activeCategory === 'Equipaje') && (
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
           <button
             onClick={() => toggleSection('packing')}
             className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white p-6 flex items-center justify-between hover:opacity-90 transition-opacity"
@@ -100,7 +100,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
             <div className="p-6">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+                  <h4 className="font-semibold text-primary-700 mb-4 flex items-center">
                     <Sun className="w-5 h-5 text-yellow-500 mr-2" />
                     Ropa y Calzado
                   </h4>
@@ -108,29 +108,29 @@ const VillaviajaPracticalInfo: React.FC = () => {
                     {practicalInfo.whatToPack.clothing.map((item, index) => (
                       <li key={index} className="flex items-start space-x-2">
                         <CheckCircle className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{item}</span>
+                        <span className="text-neutral-700 text-sm">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
-                    <Heart className="w-5 h-5 text-red-500 mr-2" />
+                  <h4 className="font-semibold text-primary-700 mb-4 flex items-center">
+                    <Heart className="w-5 h-5 text-secondary-500 mr-2" />
                     Artículos Personales
                   </h4>
                   <ul className="space-y-3">
                     {practicalInfo.whatToPack.personalItems.map((item, index) => (
                       <li key={index} className="flex items-start space-x-2">
                         <CheckCircle className="w-4 h-4 text-green-500 mt-1 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{item}</span>
+                        <span className="text-neutral-700 text-sm">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+                  <h4 className="font-semibold text-primary-700 mb-4 flex items-center">
                     <Camera className="w-5 h-5 text-blue-500 mr-2" />
                     Opcionales
                   </h4>
@@ -138,17 +138,17 @@ const VillaviajaPracticalInfo: React.FC = () => {
                     {practicalInfo.whatToPack.optional.map((item, index) => (
                       <li key={index} className="flex items-start space-x-2">
                         <Info className="w-4 h-4 text-blue-500 mt-1 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{item}</span>
+                        <span className="text-neutral-700 text-sm">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
 
-              <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+              <div className="mt-6 bg-warning-50 border border-warning-200 rounded-xl p-4">
                 <div className="flex items-center space-x-2 mb-2">
-                  <Thermometer className="w-5 h-5 text-yellow-600" />
-                  <span className="font-semibold text-yellow-800">Recordatorio Climático</span>
+                  <Thermometer className="w-5 h-5 text-warning-600" />
+                  <span className="font-semibold text-warning-800">Recordatorio Climático</span>
                 </div>
                 <p className="text-yellow-700 text-sm">
                   Villavieja tiene un clima desértico con temperaturas que varían de 15°C en la noche a 40°C durante el día.
@@ -162,10 +162,10 @@ const VillaviajaPracticalInfo: React.FC = () => {
 
       {/* Safety Recommendations */}
       {(activeCategory === 'Todos' || activeCategory === 'Seguridad') && (
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
           <button
             onClick={() => toggleSection('safety')}
-            className="w-full bg-gradient-to-r from-orange-600 to-red-600 text-white p-6 flex items-center justify-between hover:opacity-90 transition-opacity"
+            className="w-full bg-gradient-to-r from-accent-600 to-secondary-600 text-white p-6 flex items-center justify-between hover:opacity-90 transition-opacity"
           >
             <div className="flex items-center space-x-3">
               <Shield className="w-6 h-6" />
@@ -178,10 +178,10 @@ const VillaviajaPracticalInfo: React.FC = () => {
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {practicalInfo.safetyRecommendations.map((recommendation, index) => (
-                  <div key={index} className="bg-orange-50 rounded-lg p-4 border border-orange-200">
+                  <div key={index} className="bg-accent-50 rounded-lg p-4 border border-accent-200">
                     <div className="flex items-start space-x-3">
-                      <AlertTriangle className="w-5 h-5 text-orange-600 mt-1 flex-shrink-0" />
-                      <p className="text-orange-800 text-sm font-medium">{recommendation}</p>
+                      <AlertTriangle className="w-5 h-5 text-accent-600 mt-1 flex-shrink-0" />
+                      <p className="text-accent-800 text-sm font-medium">{recommendation}</p>
                     </div>
                   </div>
                 ))}
@@ -195,7 +195,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h5 className="font-medium text-red-800 mb-2">Hidratación</h5>
-                    <ul className="space-y-1 text-sm text-red-700">
+                    <ul className="space-y-1 text-sm text-secondary-700">
                       <li>• Beber agua cada 15-20 minutos</li>
                       <li>• Evitar bebidas alcohólicas</li>
                       <li>• Reconocer signos de deshidratación</li>
@@ -203,7 +203,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
                   </div>
                   <div>
                     <h5 className="font-medium text-red-800 mb-2">Protección Solar</h5>
-                    <ul className="space-y-1 text-sm text-red-700">
+                    <ul className="space-y-1 text-sm text-secondary-700">
                       <li>• Reaplicar protector cada 2 horas</li>
                       <li>• Usar ropa de manga larga</li>
                       <li>• Buscar sombra regularmente</li>
@@ -218,7 +218,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
 
       {/* Emergency Contacts */}
       {(activeCategory === 'Todos' || activeCategory === 'Emergencias') && (
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
           <button
             onClick={() => toggleSection('emergency')}
             className="w-full bg-gradient-to-r from-red-600 to-pink-600 text-white p-6 flex items-center justify-between hover:opacity-90 transition-opacity"
@@ -237,29 +237,29 @@ const VillaviajaPracticalInfo: React.FC = () => {
                   <div key={index} className="bg-red-50 rounded-xl p-4 border border-red-200">
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="bg-red-100 rounded-full p-2">
-                        <Phone className="w-4 h-4 text-red-600" />
+                        <Phone className="w-4 h-4 text-secondary-600" />
                       </div>
                       <h4 className="font-semibold text-red-800">{contact.service}</h4>
                     </div>
                     <div className="space-y-2">
-                      <div className="text-2xl font-bold text-red-600">{contact.number}</div>
+                      <div className="text-2xl font-bold text-secondary-600">{contact.number}</div>
                       {contact.local && (
-                        <div className="text-sm text-red-700">Local: {contact.local}</div>
+                        <div className="text-sm text-secondary-700">Local: {contact.local}</div>
                       )}
                       {contact.hours && (
-                        <div className="text-sm text-red-700">{contact.hours}</div>
+                        <div className="text-sm text-secondary-700">{contact.hours}</div>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4">
+              <div className="mt-6 bg-blue-50 border border-primary-200 rounded-xl p-4">
                 <div className="flex items-center space-x-2 mb-2">
-                  <Info className="w-5 h-5 text-blue-600" />
+                  <Info className="w-5 h-5 text-primary-600" />
                   <span className="font-semibold text-blue-800">Importante</span>
                 </div>
-                <p className="text-blue-700 text-sm">
+                <p className="text-primary-700 text-sm">
                   Guarda estos números en tu teléfono antes de viajar. En caso de emergencia en áreas remotas del desierto,
                   dirígete al punto de encuentro más cercano o busca a un guía certificado.
                 </p>
@@ -271,7 +271,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
 
       {/* Banking and Services */}
       {(activeCategory === 'Todos' || activeCategory === 'Servicios') && (
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
           <button
             onClick={() => toggleSection('services')}
             className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 flex items-center justify-between hover:opacity-90 transition-opacity"
@@ -287,14 +287,14 @@ const VillaviajaPracticalInfo: React.FC = () => {
             <div className="p-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {practicalInfo.banking.map((bank, index) => (
-                  <div key={index} className="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                  <div key={index} className="bg-blue-50 rounded-xl p-6 border border-primary-200">
                     <div className="flex items-center space-x-3 mb-4">
-                      <div className="bg-blue-100 rounded-full p-3">
-                        <CreditCard className="w-6 h-6 text-blue-600" />
+                      <div className="bg-primary-100 rounded-full p-3">
+                        <CreditCard className="w-6 h-6 text-primary-600" />
                       </div>
                       <div>
                         <h4 className="font-bold text-blue-800">{bank.name}</h4>
-                        <p className="text-sm text-blue-600">{bank.location}</p>
+                        <p className="text-sm text-primary-600">{bank.location}</p>
                       </div>
                     </div>
 
@@ -303,14 +303,14 @@ const VillaviajaPracticalInfo: React.FC = () => {
                         <h5 className="font-semibold text-blue-800 mb-2">Servicios disponibles</h5>
                         <div className="flex flex-wrap gap-2">
                           {bank.services.map((service, idx) => (
-                            <span key={idx} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">
+                            <span key={idx} className="bg-primary-100 text-primary-800 px-2 py-1 rounded-full text-sm">
                               {service}
                             </span>
                           ))}
                         </div>
                       </div>
 
-                      <div className="flex items-center space-x-2 text-sm text-blue-700">
+                      <div className="flex items-center space-x-2 text-sm text-primary-700">
                         <Clock className="w-4 h-4" />
                         <span>{bank.hours}</span>
                       </div>
@@ -319,10 +319,10 @@ const VillaviajaPracticalInfo: React.FC = () => {
                 ))}
               </div>
 
-              <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+              <div className="mt-6 bg-warning-50 border border-warning-200 rounded-xl p-4">
                 <div className="flex items-center space-x-2 mb-2">
-                  <AlertTriangle className="w-5 h-5 text-yellow-600" />
-                  <span className="font-semibold text-yellow-800">Consejos Financieros</span>
+                  <AlertTriangle className="w-5 h-5 text-warning-600" />
+                  <span className="font-semibold text-warning-800">Consejos Financieros</span>
                 </div>
                 <ul className="space-y-1 text-sm text-yellow-700">
                   <li>• Lleva efectivo suficiente para pequeños comercios</li>
@@ -338,7 +338,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
 
       {/* Connectivity */}
       {(activeCategory === 'Todos' || activeCategory === 'Conectividad') && (
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
           <button
             onClick={() => toggleSection('connectivity')}
             className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6 flex items-center justify-between hover:opacity-90 transition-opacity"
@@ -354,27 +354,27 @@ const VillaviajaPracticalInfo: React.FC = () => {
             <div className="p-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+                  <h4 className="font-semibold text-primary-700 mb-4 flex items-center">
                     <Signal className="w-5 h-5 text-purple-500 mr-2" />
                     Cobertura Móvil
                   </h4>
                   <div className="space-y-3">
                     {practicalInfo.connectivity.mobile.map((provider, index) => (
-                      <div key={index} className="bg-purple-50 rounded-lg p-3 border border-purple-200">
-                        <p className="text-purple-800 text-sm">{provider}</p>
+                      <div key={index} className="bg-purple-50 rounded-lg p-3 border border-primary-200">
+                        <p className="text-primary-800 text-sm">{provider}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+                  <h4 className="font-semibold text-primary-700 mb-4 flex items-center">
                     <Wifi className="w-5 h-5 text-blue-500 mr-2" />
                     Internet
                   </h4>
                   <div className="space-y-3">
                     {practicalInfo.connectivity.internet.map((info, index) => (
-                      <div key={index} className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                      <div key={index} className="bg-blue-50 rounded-lg p-3 border border-primary-200">
                         <p className="text-blue-800 text-sm">{info}</p>
                       </div>
                     ))}
@@ -383,15 +383,15 @@ const VillaviajaPracticalInfo: React.FC = () => {
               </div>
 
               <div className="mt-6">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center">
+                <h4 className="font-semibold text-primary-700 mb-4 flex items-center">
                   <Smartphone className="w-5 h-5 text-green-500 mr-2" />
                   Recomendaciones de Conectividad
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {practicalInfo.connectivity.recommendations.map((recommendation, index) => (
-                    <div key={index} className="bg-green-50 rounded-lg p-4 border border-green-200">
+                    <div key={index} className="bg-green-50 rounded-lg p-4 border border-success-200">
                       <div className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-success-600 mt-1 flex-shrink-0" />
                         <p className="text-green-800 text-sm">{recommendation}</p>
                       </div>
                     </div>
@@ -405,15 +405,15 @@ const VillaviajaPracticalInfo: React.FC = () => {
                   Aplicaciones Recomendadas (Descarga Offline)
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-white rounded-lg p-3">
+                  <div className="bg-neutral-100 rounded-lg p-3">
                     <h5 className="font-medium text-indigo-800 mb-1">Mapas</h5>
                     <p className="text-sm text-indigo-600">Google Maps, Maps.me</p>
                   </div>
-                  <div className="bg-white rounded-lg p-3">
+                  <div className="bg-neutral-100 rounded-lg p-3">
                     <h5 className="font-medium text-indigo-800 mb-1">Clima</h5>
                     <p className="text-sm text-indigo-600">Weather Underground</p>
                   </div>
-                  <div className="bg-white rounded-lg p-3">
+                  <div className="bg-neutral-100 rounded-lg p-3">
                     <h5 className="font-medium text-indigo-800 mb-1">Traducción</h5>
                     <p className="text-sm text-indigo-600">Google Translate</p>
                   </div>
@@ -425,7 +425,7 @@ const VillaviajaPracticalInfo: React.FC = () => {
       )}
 
       {/* Quick Reference Card */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-neutral-100 rounded-2xl shadow-xl overflow-hidden">
         <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6">
           <div className="flex items-center space-x-3">
             <Info className="w-6 h-6" />
@@ -438,38 +438,38 @@ const VillaviajaPracticalInfo: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                <Phone className="w-8 h-8 text-red-600" />
+                <Phone className="w-8 h-8 text-secondary-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Emergencias</h4>
-              <p className="text-2xl font-bold text-red-600">123</p>
-              <p className="text-sm text-gray-600">Policía Nacional</p>
+              <h4 className="font-semibold text-primary-700 mb-1">Emergencias</h4>
+              <p className="text-2xl font-bold text-secondary-600">123</p>
+              <p className="text-sm text-neutral-600">Policía Nacional</p>
             </div>
 
             <div className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                <Heart className="w-8 h-8 text-blue-600" />
+              <div className="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <Heart className="w-8 h-8 text-primary-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Centro de Salud</h4>
-              <p className="text-lg font-bold text-blue-600">8390123</p>
-              <p className="text-sm text-gray-600">24 horas</p>
+              <h4 className="font-semibold text-primary-700 mb-1">Centro de Salud</h4>
+              <p className="text-lg font-bold text-primary-600">8390123</p>
+              <p className="text-sm text-neutral-600">24 horas</p>
             </div>
 
             <div className="text-center">
-              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                <Thermometer className="w-8 h-8 text-green-600" />
+              <div className="bg-success-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <Thermometer className="w-8 h-8 text-success-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Temperatura</h4>
-              <p className="text-lg font-bold text-green-600">15° - 40°C</p>
-              <p className="text-sm text-gray-600">Noche - Día</p>
+              <h4 className="font-semibold text-primary-700 mb-1">Temperatura</h4>
+              <p className="text-lg font-bold text-success-600">15° - 40°C</p>
+              <p className="text-sm text-neutral-600">Noche - Día</p>
             </div>
 
             <div className="text-center">
-              <div className="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                <MapPin className="w-8 h-8 text-purple-600" />
+              <div className="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                <MapPin className="w-8 h-8 text-primary-600" />
               </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Desde Neiva</h4>
-              <p className="text-lg font-bold text-purple-600">45 min</p>
-              <p className="text-sm text-gray-600">En vehículo</p>
+              <h4 className="font-semibold text-primary-700 mb-1">Desde Neiva</h4>
+              <p className="text-lg font-bold text-primary-600">45 min</p>
+              <p className="text-sm text-neutral-600">En vehículo</p>
             </div>
           </div>
         </div>

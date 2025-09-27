@@ -233,7 +233,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
           ))}
         </div>
         {showNumber && (
-          <span className="ml-2 text-sm font-medium text-gray-700">
+          <span className="ml-2 text-sm font-medium text-neutral-700">
             {rating.toFixed(1)}
           </span>
         )}
@@ -250,13 +250,13 @@ const ReviewList: React.FC<ReviewListProps> = ({
           <span className="text-sm font-medium">{rating}</span>
           <Star className="w-3 h-3 text-yellow-400 fill-current" />
         </div>
-        <div className="flex-1 bg-gray-200 rounded-full h-2">
+        <div className="flex-1 bg-neutral-200 rounded-full h-2">
           <div
             className="bg-yellow-400 h-2 rounded-full transition-all duration-300"
             style={{ width: `${percentage}%` }}
           />
         </div>
-        <span className="text-sm text-gray-600 w-8">{count}</span>
+        <span className="text-sm text-neutral-600 w-8">{count}</span>
       </div>
     );
   };
@@ -273,19 +273,19 @@ const ReviewList: React.FC<ReviewListProps> = ({
     <div className="space-y-6">
       {/* Estadísticas de Reseñas */}
       {stats && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
+        <div className="bg-neutral-100 rounded-xl border border-neutral-200 p-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Resumen General */}
             <div className="text-center">
-              <div className="text-4xl font-bold text-gray-900 mb-2">
+              <div className="text-4xl font-bold text-primary-700 mb-2">
                 {stats.averageRating.toFixed(1)}
               </div>
               {renderStars(stats.averageRating, false)}
-              <div className="text-sm text-gray-600 mt-2">
+              <div className="text-sm text-neutral-600 mt-2">
                 Basado en {stats.totalReviews} reseñas
               </div>
               {stats.verifiedReviews > 0 && (
-                <div className="flex items-center justify-center mt-2 text-green-600 text-sm">
+                <div className="flex items-center justify-center mt-2 text-success-600 text-sm">
                   <CheckCircle className="w-4 h-4 mr-1" />
                   {stats.verifiedReviews} verificadas
                 </div>
@@ -294,7 +294,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
 
             {/* Distribución de Calificaciones */}
             <div className="space-y-2">
-              <h4 className="font-semibold text-gray-900 mb-3">Distribución de calificaciones</h4>
+              <h4 className="font-semibold text-primary-700 mb-3">Distribución de calificaciones</h4>
               {[5, 4, 3, 2, 1].map(rating => (
                 <div key={rating}>
                   {renderRatingBar(rating, stats.ratingDistribution[rating as keyof typeof stats.ratingDistribution], stats.totalReviews)}
@@ -304,34 +304,34 @@ const ReviewList: React.FC<ReviewListProps> = ({
 
             {/* Calificaciones por Categoría */}
             <div className="space-y-3">
-              <h4 className="font-semibold text-gray-900 mb-3">Por categorías</h4>
+              <h4 className="font-semibold text-primary-700 mb-3">Por categorías</h4>
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Servicio</span>
+                  <span className="text-sm text-neutral-600">Servicio</span>
                   <div className="flex items-center">
                     {renderStars(stats.categoryAverages.service)}
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Limpieza</span>
+                  <span className="text-sm text-neutral-600">Limpieza</span>
                   <div className="flex items-center">
                     {renderStars(stats.categoryAverages.cleanliness)}
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Ubicación</span>
+                  <span className="text-sm text-neutral-600">Ubicación</span>
                   <div className="flex items-center">
                     {renderStars(stats.categoryAverages.location)}
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Precio/Calidad</span>
+                  <span className="text-sm text-neutral-600">Precio/Calidad</span>
                   <div className="flex items-center">
                     {renderStars(stats.categoryAverages.valueForMoney)}
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Instalaciones</span>
+                  <span className="text-sm text-neutral-600">Instalaciones</span>
                   <div className="flex items-center">
                     {renderStars(stats.categoryAverages.facilities)}
                   </div>
@@ -345,11 +345,11 @@ const ReviewList: React.FC<ReviewListProps> = ({
       {/* Header con botón de escribir reseña */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
         <div>
-          <h3 className="text-xl font-bold text-gray-900">
+          <h3 className="text-xl font-bold text-primary-700">
             Reseñas de viajeros ({filteredReviews.length})
           </h3>
           {stats && stats.recentReviews > 0 && (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-neutral-600">
               {stats.recentReviews} reseñas en los últimos 30 días
             </p>
           )}
@@ -358,7 +358,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
         {showWriteButton && (
           <button
             onClick={() => setShowReviewForm(true)}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+            className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
           >
             <MessageCircle className="w-4 h-4" />
             <span>Escribir reseña</span>
@@ -367,12 +367,12 @@ const ReviewList: React.FC<ReviewListProps> = ({
       </div>
 
       {/* Filtros y Ordenamiento */}
-      <div className="bg-white rounded-lg border border-gray-200 p-4">
+      <div className="bg-neutral-100 rounded-lg border border-neutral-200 p-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center space-x-2 text-neutral-600 hover:text-primary-700"
             >
               <Filter className="w-4 h-4" />
               <span>Filtros</span>
@@ -385,7 +385,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
                   setFilterRating(null);
                   setFilterVerified(null);
                 }}
-                className="text-sm text-blue-600 hover:text-blue-700"
+                className="text-sm text-primary-600 hover:text-primary-700"
               >
                 Limpiar filtros
               </button>
@@ -393,11 +393,11 @@ const ReviewList: React.FC<ReviewListProps> = ({
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-600">Ordenar por:</span>
+            <span className="text-sm text-neutral-600">Ordenar por:</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="border border-gray-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="border border-neutral-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="newest">Más recientes</option>
               <option value="oldest">Más antiguos</option>
@@ -410,17 +410,17 @@ const ReviewList: React.FC<ReviewListProps> = ({
 
         {/* Panel de Filtros */}
         {showFilters && (
-          <div className="mt-4 pt-4 border-t border-gray-200">
+          <div className="mt-4 pt-4 border-t border-neutral-200">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Calificación
                 </label>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setFilterRating(null)}
                     className={`px-3 py-1 rounded text-sm ${
-                      filterRating === null ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                      filterRating === null ? 'bg-primary-600 text-white' : 'bg-neutral-200 text-neutral-700'
                     }`}
                   >
                     Todas
@@ -430,7 +430,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
                       key={rating}
                       onClick={() => setFilterRating(rating)}
                       className={`px-3 py-1 rounded text-sm flex items-center space-x-1 ${
-                        filterRating === rating ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                        filterRating === rating ? 'bg-primary-600 text-white' : 'bg-neutral-200 text-neutral-700'
                       }`}
                     >
                       <span>{rating}</span>
@@ -441,14 +441,14 @@ const ReviewList: React.FC<ReviewListProps> = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Verificación
                 </label>
                 <div className="flex space-x-2">
                   <button
                     onClick={() => setFilterVerified(null)}
                     className={`px-3 py-1 rounded text-sm ${
-                      filterVerified === null ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                      filterVerified === null ? 'bg-primary-600 text-white' : 'bg-neutral-200 text-neutral-700'
                     }`}
                   >
                     Todas
@@ -456,7 +456,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
                   <button
                     onClick={() => setFilterVerified(true)}
                     className={`px-3 py-1 rounded text-sm flex items-center space-x-1 ${
-                      filterVerified === true ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                      filterVerified === true ? 'bg-primary-600 text-white' : 'bg-neutral-200 text-neutral-700'
                     }`}
                   >
                     <CheckCircle className="w-3 h-3" />
@@ -465,7 +465,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
                   <button
                     onClick={() => setFilterVerified(false)}
                     className={`px-3 py-1 rounded text-sm ${
-                      filterVerified === false ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
+                      filterVerified === false ? 'bg-primary-600 text-white' : 'bg-neutral-200 text-neutral-700'
                     }`}
                   >
                     Sin verificar
@@ -479,12 +479,12 @@ const ReviewList: React.FC<ReviewListProps> = ({
 
       {/* Lista de Reseñas */}
       {filteredReviews.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-          <MessageCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <div className="text-center py-12 bg-neutral-100 rounded-xl border border-neutral-200">
+          <MessageCircle className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-primary-700 mb-2">
             {reviews.length === 0 ? 'Aún no hay reseñas' : 'No se encontraron reseñas con estos filtros'}
           </h3>
-          <p className="text-gray-600 mb-4">
+          <p className="text-neutral-600 mb-4">
             {reviews.length === 0
               ? '¡Sé el primero en compartir tu experiencia!'
               : 'Intenta cambiar los filtros para ver más reseñas'
@@ -493,7 +493,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
           {showWriteButton && reviews.length === 0 && (
             <button
               onClick={() => setShowReviewForm(true)}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Escribir la primera reseña
             </button>
@@ -504,7 +504,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
           {filteredReviews.map((review, index) => (
             <div
               key={review.id}
-              className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              className="bg-neutral-100 rounded-xl border border-neutral-200 p-6 hover:shadow-md transition-shadow"
             >
               {/* Header de la reseña */}
               <div className="flex items-start justify-between mb-4">
@@ -516,9 +516,9 @@ const ReviewList: React.FC<ReviewListProps> = ({
                   />
                   <div>
                     <div className="flex items-center space-x-2">
-                      <h4 className="font-semibold text-gray-900">{review.userName}</h4>
+                      <h4 className="font-semibold text-primary-700">{review.userName}</h4>
                       {review.verified && (
-                        <div className="flex items-center text-green-600 text-sm">
+                        <div className="flex items-center text-success-600 text-sm">
                           <CheckCircle className="w-4 h-4 mr-1" />
                           <span>Verificado</span>
                         </div>
@@ -526,7 +526,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
                     </div>
                     <div className="flex items-center space-x-4 mt-1">
                       {renderStars(review.rating.overall)}
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-neutral-500">
                         {new Date(review.createdAt).toLocaleDateString('es-CO', {
                           year: 'numeric',
                           month: 'long',
@@ -537,30 +537,30 @@ const ReviewList: React.FC<ReviewListProps> = ({
                   </div>
                 </div>
 
-                <button className="text-gray-400 hover:text-gray-600">
+                <button className="text-neutral-400 hover:text-neutral-600">
                   <MoreHorizontal className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Contenido de la reseña */}
               <div className="mb-4">
-                <h5 className="font-semibold text-gray-900 mb-2">{review.title}</h5>
-                <p className="text-gray-700 leading-relaxed">{review.content}</p>
+                <h5 className="font-semibold text-primary-700 mb-2">{review.title}</h5>
+                <p className="text-neutral-700 leading-relaxed">{review.content}</p>
               </div>
 
               {/* Información adicional */}
               <div className="flex flex-wrap gap-2 mb-4">
-                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                <span className="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm">
                   Viajó {review.travelWith === 'family' ? 'en familia' :
                          review.travelWith === 'couple' ? 'en pareja' :
                          review.travelWith === 'friends' ? 'con amigos' :
                          review.travelWith === 'solo' ? 'solo/a' : 'en negocios'}
                 </span>
-                <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                <span className="bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full text-sm">
                   {new Date(review.travelDate).toLocaleDateString('es-CO', { month: 'long', year: 'numeric' })}
                 </span>
                 {review.recommendedFor.map((rec, i) => (
-                  <span key={i} className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                  <span key={i} className="bg-success-100 text-success-800 px-3 py-1 rounded-full text-sm">
                     Para {rec.toLowerCase()}
                   </span>
                 ))}
@@ -571,7 +571,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
                 <div className="mb-4">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     {review.media.slice(0, 4).map((media, i) => (
-                      <div key={i} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                      <div key={i} className="relative aspect-square bg-neutral-100 rounded-lg overflow-hidden">
                         {media.type === 'image' ? (
                           <img
                             src={media.url}
@@ -595,18 +595,18 @@ const ReviewList: React.FC<ReviewListProps> = ({
               )}
 
               {/* Acciones */}
-              <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+              <div className="flex items-center justify-between pt-4 border-t border-neutral-200">
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={() => handleHelpfulVote(review.id)}
-                    className="flex items-center space-x-2 text-gray-600 hover:text-blue-600 transition-colors"
+                    className="flex items-center space-x-2 text-neutral-600 hover:text-primary-600 transition-colors"
                   >
                     <ThumbsUp className="w-4 h-4" />
                     <span className="text-sm">Útil ({review.helpfulVotes})</span>
                   </button>
                   <button
                     onClick={() => handleReportReview(review.id)}
-                    className="flex items-center space-x-2 text-gray-600 hover:text-red-600 transition-colors"
+                    className="flex items-center space-x-2 text-neutral-600 hover:text-secondary-600 transition-colors"
                   >
                     <Flag className="w-4 h-4" />
                     <span className="text-sm">Reportar</span>
@@ -616,7 +616,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
                   {canRespond && !review.response && (
                     <button
                       onClick={() => handleRespond(review)}
-                      className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors"
+                      className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 transition-colors"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span className="text-sm">Responder</span>
@@ -626,7 +626,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
 
                 <div className="flex items-center space-x-2">
                   {review.status === 'flagged' && (
-                    <div className="flex items-center text-orange-600 text-sm">
+                    <div className="flex items-center text-accent-600 text-sm">
                       <AlertTriangle className="w-4 h-4 mr-1" />
                       <span>Reportada</span>
                     </div>
@@ -634,7 +634,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
 
                   {/* Indicador de respuesta */}
                   {review.response && (
-                    <div className="flex items-center text-green-600 text-sm">
+                    <div className="flex items-center text-success-600 text-sm">
                       <CheckCircle className="w-4 h-4 mr-1" />
                       <span>Respondida</span>
                     </div>
@@ -644,21 +644,21 @@ const ReviewList: React.FC<ReviewListProps> = ({
 
               {/* Respuesta del proveedor */}
               {review.response && (
-                <div className="mt-4 bg-gray-50 rounded-lg p-4">
+                <div className="mt-4 bg-neutral-50 rounded-lg p-4">
                   <div className="flex items-center mb-2">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4 text-white" />
                     </div>
                     <div className="ml-3">
-                      <div className="font-semibold text-gray-900 text-sm">
+                      <div className="font-semibold text-primary-700 text-sm">
                         Respuesta del {review.response.authorRole === 'provider' ? 'proveedor' : 'administrador'}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-neutral-500">
                         {new Date(review.response.createdAt).toLocaleDateString('es-CO')}
                       </div>
                     </div>
                   </div>
-                  <p className="text-gray-700 text-sm">{review.response.content}</p>
+                  <p className="text-neutral-700 text-sm">{review.response.content}</p>
                 </div>
               )}
             </div>

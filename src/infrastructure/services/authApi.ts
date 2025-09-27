@@ -12,6 +12,7 @@ export interface RegisterRequest {
   email: string;
   password: string;
   confirmPassword: string;
+  role: 'user' | 'provider';
   person: {
     firstName: string;
     lastName: string;
