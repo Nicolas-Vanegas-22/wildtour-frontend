@@ -138,7 +138,6 @@ export default function AdminDashboard() {
                   ? 'border-primary-500 text-primary-600'
                   : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300'
               }`}>
-            >
               <span>{tab.icon}</span>
               {tab.label}
             </button>

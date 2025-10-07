@@ -17,6 +17,10 @@ import {
 import { useAuthStore } from '../../application/state/useAuthStore';
 import { Button } from '../../shared/ui/Button';
 import { cn } from '../../shared/utils/cn';
+import ConsentBanner from '../../compliance/components/ConsentBanner';
+import ConsentModal from '../../compliance/components/ConsentModal';
+import { AuditProvider } from '../../compliance/components/AuditProvider';
+import { SecurityMonitor } from '../../compliance/components/SecurityMonitor';
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -56,9 +60,10 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const isHomePage = location.pathname === '/';
 
   return (
-    <div className="min-h-screen">
-      {/* Header/Navbar */}
-      <header
+    <AuditProvider>
+      <div className="min-h-screen">
+        {/* Header/Navbar */}
+        <header
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           isScrolled || !isHomePage
@@ -222,6 +227,13 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                             <Settings className="w-4 h-4" />
                             <span>Configuración</span>
                           </Link>
+                          <Link
+                            to="/privacy-center"
+                            className="flex items-center space-x-3 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
+                          >
+                            <Settings className="w-4 h-4" />
+                            <span>Privacidad</span>
+                          </Link>
                         </div>
 
                         <div className="border-t border-neutral-200 py-2">
@@ -336,7 +348,17 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <main className={cn(isHomePage ? 'pt-0' : 'pt-16 lg:pt-20')}>
         {children}
       </main>
-    </div>
+
+        {/* Banner de consentimientos */}
+        <ConsentBanner />
+
+        {/* Modal de consentimientos */}
+        <ConsentModal />
+
+        {/* Monitor de seguridad */}
+        <SecurityMonitor />
+      </div>
+    </AuditProvider>
   );
 }
 

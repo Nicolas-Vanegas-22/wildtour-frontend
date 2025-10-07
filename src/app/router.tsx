@@ -33,6 +33,9 @@ const Destinations = React.lazy(() => import('../presentation/pages/Destinations
 const DestinationDetail = React.lazy(() => import('../presentation/pages/DestinationDetail'));
 const Terms = React.lazy(() => import('../presentation/pages/Terms'));
 const Privacy = React.lazy(() => import('../presentation/pages/Privacy'));
+const DataRights = React.lazy(() => import('../presentation/pages/DataRights'));
+const PrivacyCenter = React.lazy(() => import('../presentation/pages/PrivacyCenter'));
+const CookiePolicy = React.lazy(() => import('../presentation/pages/CookiePolicy'));
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
   const token = useAuthStore((s) => s.token);
@@ -66,6 +69,9 @@ export function AppRouter() {
           <Route path="/registro" element={<Register />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/data-rights" element={<DataRights />} />
+          <Route path="/privacy-center" element={<PrivacyCenter />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
 

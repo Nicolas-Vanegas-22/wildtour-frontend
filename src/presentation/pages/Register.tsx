@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Mail, Lock, User, Phone, CreditCard, Mountain, ArrowLeft, UserPlus } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone, CreditCard, Mountain, ArrowLeft, UserPlus, Badge } from 'lucide-react';
 import { useAuthStore } from '../../application/state/useAuthStore';
 import { authApi } from '../../infrastructure/services/authApi';
 import { Button } from '../../shared/ui/Button';
@@ -19,6 +19,7 @@ export default function Register() {
     passwordConfirmation: '',
     role: 'user' as 'user' | 'provider',
     businessName: '',
+    rnt: '',
     acceptTerms: false
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -282,23 +283,46 @@ export default function Register() {
             </div>
           </div>
 
-          {/* Nombre del negocio (solo para prestadores) */}
+          {/* Campos adicionales para prestadores */}
           {formData.role === 'provider' && (
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-2">
-                Nombre del negocio
-              </label>
-              <div className="relative">
-                <Mountain className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  type="text"
-                  name="businessName"
-                  value={formData.businessName}
-                  onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                  placeholder="Mi empresa turística"
-                  required={formData.role === 'provider'}
-                />
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  Nombre del negocio
+                </label>
+                <div className="relative">
+                  <Mountain className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
+                  <input
+                    type="text"
+                    name="businessName"
+                    value={formData.businessName}
+                    onChange={handleChange}
+                    className="w-full pl-11 pr-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    placeholder="Mi empresa turística"
+                    required={formData.role === 'provider'}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  RNT (Registro Nacional de Turismo)
+                </label>
+                <div className="relative">
+                  <Badge className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
+                  <input
+                    type="text"
+                    name="rnt"
+                    value={formData.rnt}
+                    onChange={handleChange}
+                    className="w-full pl-11 pr-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    placeholder="RNT-123456789"
+                    required={formData.role === 'provider'}
+                  />
+                </div>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Obligatorio para prestadores de servicios turísticos
+                </p>
               </div>
             </div>
           )}

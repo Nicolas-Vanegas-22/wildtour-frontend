@@ -477,7 +477,7 @@ function ActivitiesTab({ activities }: { activities: Activity[] }) {
                     <span className="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm font-medium">
                       {activity.category}
                     </span>
-                    <span className="bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full text-sm"
+                    <span className="bg-neutral-100 text-neutral-700 px-3 py-1 rounded-full text-sm">
                       <Clock className="w-3 h-3 inline mr-1" />
                       {activity.duration}
                     </span>
