@@ -273,6 +273,20 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   >
                     <Link to="/registro">Registrarse</Link>
                   </Button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      'p-2 rounded-xl transition-colors',
+                      isScrolled || !isHomePage
+                        ? 'text-neutral-600 hover:text-primary-600 hover:bg-primary-50'
+                        : 'text-white/80 hover:text-white hover:bg-neutral-100/10'
+                    )}
+                  >
+                    <Link to="/perfil">
+                      <User className="w-5 h-5" />
+                    </Link>
+                  </motion.button>
                 </div>
               )}
 

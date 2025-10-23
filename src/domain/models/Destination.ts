@@ -7,6 +7,10 @@ export interface Location {
   city: string;
   department: string;
   country: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export interface Activity {

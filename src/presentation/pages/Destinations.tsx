@@ -23,6 +23,7 @@ import {
   UtensilsCrossed,
   Camera
 } from 'lucide-react';
+import InteractiveMap from '../components/InteractiveMap';
 import '../styles/account-settings.css';
 import { mockDestinations, tourismCategories, colombianDepartments } from '../../data/mockData';
 import { Destination, DestinationFilters } from '../../domain/models/Destination';
@@ -444,7 +445,14 @@ export default function Destinations() {
             <div className="loading-spinner w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full"></div>
           </div>
         ) : viewMode === 'map' ? (
-          <MapView destinations={filteredDestinations} />
+          <InteractiveMap
+            destinations={filteredDestinations}
+            height="600px"
+            showControls={true}
+            onDestinationSelect={(destination) => {
+              console.log('Selected destination:', destination);
+            }}
+          />
         ) : (
           <div className={`grid gap-6 ${
             viewMode === 'grid'

@@ -6,6 +6,8 @@ import { useAuthStore } from '../../application/state/useAuthStore';
 import { authApi } from '../../infrastructure/services/authApi';
 import { Button } from '../../shared/ui/Button';
 import { useToast } from '../hooks/useToast';
+import TermsModal from '../components/TermsModal';
+import PrivacyModal from '../components/PrivacyModal';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -25,6 +27,8 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   const { setAuth, isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
@@ -398,13 +402,21 @@ export default function Register() {
             />
             <label className="text-sm text-neutral-600">
               Acepto los{' '}
-              <Link to="/terms" className="text-primary-600 hover:text-primary-700 font-medium">
+              <button
+                type="button"
+                onClick={() => setShowTermsModal(true)}
+                className="text-primary-600 hover:text-primary-700 font-medium underline"
+              >
                 términos y condiciones
-              </Link>{' '}
+              </button>{' '}
               y la{' '}
-              <Link to="/privacy" className="text-primary-600 hover:text-primary-700 font-medium">
+              <button
+                type="button"
+                onClick={() => setShowPrivacyModal(true)}
+                className="text-primary-600 hover:text-primary-700 font-medium underline"
+              >
                 política de privacidad
-              </Link>
+              </button>
             </label>
           </div>
 
@@ -431,6 +443,21 @@ export default function Register() {
           </p>
         </div>
       </motion.div>
+
+      {/* Modal de términos y condiciones */}
+      <TermsModal
+        isOpen={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+        onAccept={() => {
+          setFormData(prev => ({ ...prev, acceptTerms: true }));
+        }}
+      />
+
+      {/* Modal de política de privacidad */}
+      <PrivacyModal
+        isOpen={showPrivacyModal}
+        onClose={() => setShowPrivacyModal(false)}
+      />
     </div>
   );
 }

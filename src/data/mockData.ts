@@ -133,7 +133,11 @@ export const mockDestinations: Destination[] = [
       address: 'Parque Arqueológico San Agustín',
       city: 'San Agustín',
       department: 'Huila',
-      country: 'Colombia'
+      country: 'Colombia',
+      coordinates: {
+        lat: 1.8833,
+        lng: -76.2667
+      }
     },
     images: {
       main: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
@@ -185,7 +189,11 @@ export const mockDestinations: Destination[] = [
       address: 'Desierto de la Tatacoa',
       city: 'Villavieja',
       department: 'Huila',
-      country: 'Colombia'
+      country: 'Colombia',
+      coordinates: {
+        lat: 3.2333,
+        lng: -75.1667
+      }
     },
     images: {
       main: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800&h=600&fit=crop',
@@ -281,7 +289,11 @@ export const mockDestinations: Destination[] = [
       address: 'Termales de Rivera',
       city: 'Rivera',
       department: 'Huila',
-      country: 'Colombia'
+      country: 'Colombia',
+      coordinates: {
+        lat: 2.7333,
+        lng: -75.2500
+      }
     },
     images: {
       main: 'https://images.unsplash.com/photo-1544737151681-6e4c999de2a7?w=800&h=600&fit=crop',
@@ -577,7 +589,11 @@ export const generateMockDestination = (id: string): Destination => {
       address: `Dirección ${id}`,
       city: 'Ciudad Ejemplo',
       department: 'Huila',
-      country: 'Colombia'
+      country: 'Colombia',
+      coordinates: {
+        lat: 1 + Math.random() * 5,
+        lng: -75 - Math.random() * 3
+      }
     },
     images: {
       main: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',

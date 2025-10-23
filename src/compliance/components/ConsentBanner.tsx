@@ -66,42 +66,34 @@ const ConsentBanner: React.FC<ConsentBannerProps> = ({
     return null;
   }
 
-  const bannerClasses = `
-    fixed left-0 right-0 z-50 mx-4 mb-4 md:mx-6 md:mb-6
-    ${position === 'top' ? 'top-4 md:top-6' : 'bottom-4 md:bottom-6'}
-    ${theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-white text-neutral-900'}
-    shadow-strong border border-neutral-200 rounded-2xl
-    max-w-6xl mx-auto backdrop-blur-lg
-    ${theme === 'dark' ? 'bg-opacity-95' : 'bg-opacity-95'}
-  `;
-
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div
-          initial={{
-            opacity: 0,
-            y: position === 'bottom' ? 100 : -100,
-            scale: 0.9
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            scale: 1
-          }}
-          exit={{
-            opacity: 0,
-            y: position === 'bottom' ? 100 : -100,
-            scale: 0.9
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 25
-          }}
-          className={bannerClasses}
-        >
-          <div className="p-6">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.9,
+              y: 20
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.9,
+              y: 20
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 25
+            }}
+            className={`${theme === 'dark' ? 'bg-neutral-900 text-white' : 'bg-white text-neutral-900'} shadow-strong border border-neutral-200 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto backdrop-blur-lg ${theme === 'dark' ? 'bg-opacity-95' : 'bg-opacity-95'}`}
+          >
+            <div className="p-6">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center">
@@ -220,7 +212,8 @@ const ConsentBanner: React.FC<ConsentBannerProps> = ({
               </p>
             </div>
           </div>
-        </motion.div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );

@@ -6,7 +6,6 @@ import {
   Users,
   Star,
   ArrowRight,
-  Play,
   Calendar,
   Heart,
   Award,
@@ -26,21 +25,21 @@ const Home: React.FC = () => {
   // Slides del hero
   const heroSlides = [
     {
-      image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1920&h=1080&fit=crop',
+      image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/e4/4a/0a/desierto-de-la-tatacoa.jpg?w=1920&h=1080&s=1',
       title: 'Descubre la Magia de Colombia',
       subtitle: 'Vive experiencias únicas en los paisajes más espectaculares del país',
       cta: 'Explora Destinos',
       accent: 'primary',
     },
     {
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Desierto_de_la_Tatacoa%2C_Huila%2C_Colombia.jpg/1920px-Desierto_de_la_Tatacoa%2C_Huila%2C_Colombia.jpg',
       title: 'Aventuras Que Transforman',
       subtitle: 'Conecta con la naturaleza y crea recuerdos inolvidables',
       cta: 'Ver Experiencias',
       accent: 'coral',
     },
     {
-      image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=1920&h=1080&fit=crop',
+      image: 'https://i0.wp.com/www.colombiaenfotos.org/wp-content/uploads/2019/11/tatacoa-desert-night-sky-stars-milky-way-colombia.jpg?w=1920&ssl=1',
       title: 'Desierto de la Tatacoa',
       subtitle: 'Contempla las estrellas en uno de los cielos más puros de América',
       cta: 'Visitar Villavieja',
@@ -53,7 +52,7 @@ const Home: React.FC = () => {
     id: 1,
     name: 'Desierto de la Tatacoa',
     location: 'Villavieja, Huila',
-    image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&h=400&fit=crop',
+    image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/e0/5a/68/caption.jpg?w=600&h=400&s=1',
     rating: 4.9,
     reviews: 234,
     price: 'Desde $150.000',
@@ -126,7 +125,7 @@ const Home: React.FC = () => {
             <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
               {heroSlides[currentSlide].subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex justify-center">
               <Button
                 size="xl"
                 variant={heroSlides[currentSlide].accent as any}
@@ -137,14 +136,6 @@ const Home: React.FC = () => {
                 <Link to="/villavieja">
                   {heroSlides[currentSlide].cta}
                 </Link>
-              </Button>
-              <Button
-                size="xl"
-                variant="ghost"
-                leftIcon={<Play className="w-5 h-5" />}
-                className="text-white hover:bg-white/10 text-lg px-8 py-4"
-              >
-                Ver Video
               </Button>
             </div>
           </div>
@@ -356,7 +347,7 @@ const Home: React.FC = () => {
               Tu próxima aventura está a un clic de distancia.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button
                 size="xl"
                 variant="secondary"
@@ -366,18 +357,6 @@ const Home: React.FC = () => {
               >
                 <Link to="/villavieja">
                   Planifica tu Viaje
-                </Link>
-              </Button>
-
-              <Button
-                size="xl"
-                variant="ghost"
-                leftIcon={<Navigation className="w-5 h-5" />}
-                className="text-white hover:bg-white/10 text-lg px-8 py-4"
-                asChild
-              >
-                <Link to="/contacto">
-                  Habla con un Experto
                 </Link>
               </Button>
             </div>
