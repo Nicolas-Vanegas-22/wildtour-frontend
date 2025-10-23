@@ -1,0 +1,1 @@
+import{r}from"./index-BxPqZtyK.js";function m(){const[n,s]=r.useState([]),i=r.useCallback((o,a="info")=>{const t=Math.random().toString(36).substr(2,9),u={id:t,message:o,type:a};s(e=>[...e,u]),setTimeout(()=>{s(e=>e.filter(l=>l.id!==t))},5e3)},[]),c=r.useCallback(o=>{s(a=>a.filter(t=>t.id!==o))},[]);return{toasts:n,showToast:i,removeToast:c}}export{m as u};

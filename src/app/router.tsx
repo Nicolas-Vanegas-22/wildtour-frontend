@@ -23,8 +23,6 @@ const NotificationSettings = React.lazy(() => import('../presentation/pages/Noti
 const AccountSettings = React.lazy(() => import('../presentation/pages/AccountSettings'));
 const Booking = React.lazy(() => import('../presentation/pages/Booking'));
 const VillaviejaModule = React.lazy(() => import('../presentation/pages/VillaviejaModule'));
-const ServiceFeed = React.lazy(() => import('../presentation/pages/ServiceFeed'));
-const ServiceBooking = React.lazy(() => import('../presentation/pages/ServiceBooking'));
 const PaymentReturn = React.lazy(() => import('../presentation/pages/PaymentReturn'));
 const MyBookings = React.lazy(() => import('../presentation/pages/MyBookings'));
 const UserSettings = React.lazy(() => import('../presentation/pages/UserSettings'));
@@ -38,16 +36,28 @@ const PrivacyCenter = React.lazy(() => import('../presentation/pages/PrivacyCent
 const CookiePolicy = React.lazy(() => import('../presentation/pages/CookiePolicy'));
 
 function PrivateRoute({ children }: { children: JSX.Element }) {
+  // During development or when VITE_BYPASS_AUTH is set to 'true' we allow bypassing auth
+  const bypassAuth = Boolean((import.meta as any).env?.VITE_BYPASS_AUTH === 'true' || (import.meta as any).env?.DEV);
+  if (bypassAuth) return children;
+
   const token = useAuthStore((s) => s.token);
   return token ? children : <Navigate to="/login" />;
 }
 
 function AdminRoute({ children }: { children: JSX.Element }) {
+  // Allow bypass in development or when explicitly enabled
+  const bypassAuth = Boolean((import.meta as any).env?.VITE_BYPASS_AUTH === 'true' || (import.meta as any).env?.DEV);
+  if (bypassAuth) return children;
+
   const { token, user } = useAuthStore((s) => ({ token: s.token, user: s.user }));
   return token && user?.role === 'admin' ? children : <Navigate to="/login" />;
 }
 
 function ProviderRoute({ children }: { children: JSX.Element }) {
+  // Allow bypass in development or when explicitly enabled
+  const bypassAuth = Boolean((import.meta as any).env?.VITE_BYPASS_AUTH === 'true' || (import.meta as any).env?.DEV);
+  if (bypassAuth) return children;
+
   const { token, user } = useAuthStore((s) => ({ token: s.token, user: s.user }));
   return token && (user?.role === 'provider' || user?.role === 'admin') ? children : <Navigate to="/login" />;
 }
@@ -62,8 +72,6 @@ export function AppRouter() {
           <Route path="/destinos" element={<Destinations />} />
           <Route path="/destinos/:id" element={<DestinationDetail />} />
           <Route path="/villavieja" element={<VillaviejaModule />} />
-          <Route path="/servicios" element={<ServiceFeed />} />
-          <Route path="/servicios/:serviceId/reservar" element={<PrivateRoute><ServiceBooking /></PrivateRoute>} />
           <Route path="/payment/return" element={<PaymentReturn />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />

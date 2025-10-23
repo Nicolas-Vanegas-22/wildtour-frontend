@@ -29,6 +29,8 @@ import { mockDestinations, tourismCategories, colombianDepartments } from '../..
 import { Destination, DestinationFilters } from '../../domain/models/Destination';
 import { Button } from '../../shared/ui/Button';
 import { cn } from '../../shared/utils/cn';
+import { destinationsApi } from '../../infrastructure/services/destinationsApi';
+import { useToast } from '../hooks/useToast';
 
 type ViewMode = 'grid' | 'list' | 'map';
 type SortOption = 'name' | 'rating' | 'price' | 'popularity';
@@ -40,6 +42,8 @@ export default function Destinations() {
   const [sortBy, setSortBy] = useState<SortOption>('popularity');
   const [showFilters, setShowFilters] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [useBackend, setUseBackend] = useState(true); // Try backend first
+  const { showToast } = useToast();
 
   // Filtros
   const [filters, setFilters] = useState<DestinationFilters>({
@@ -73,13 +77,48 @@ export default function Destinations() {
   };
 
   useEffect(() => {
-    applyFilters();
+    applyFilters().catch(err => {
+      console.error('Error applying filters:', err);
+      showToast('Error al cargar destinos', 'error');
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, searchQuery, sortBy]);
 
-  const applyFilters = () => {
+  const applyFilters = async () => {
     setIsLoading(true);
 
-    // Simulación de filtrado (en producción esto vendría del backend)
+    try {
+      if (useBackend) {
+        // Try to fetch from backend
+        const pagination = {
+          page: 1,
+          pageSize: 50,
+          sortBy: sortBy,
+          sortOrder: 'desc' as const
+        };
+
+        const response = await destinationsApi.getDestinations(filters, pagination);
+
+        // Apply text search filter (if backend doesn't support it yet)
+        let filtered = response.destinations;
+        if (searchQuery) {
+          filtered = filtered.filter(dest =>
+            dest.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            dest.description.toLowerCase().includes(searchQuery.toLowerCase())
+          );
+        }
+
+        setFilteredDestinations(filtered);
+        setTotalCount(response.total);
+        setIsLoading(false);
+        return;
+      }
+    } catch (error) {
+      console.warn('Backend not available, using mock data:', error);
+      setUseBackend(false); // Disable backend for this session
+    }
+
+    // Fallback to mock data
     let filtered = mockDestinations.filter(destination => {
       // Filtro por búsqueda de texto
       if (searchQuery && !destination.name.toLowerCase().includes(searchQuery.toLowerCase()) &&

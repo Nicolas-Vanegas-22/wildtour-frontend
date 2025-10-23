@@ -8,11 +8,46 @@ interface AvisoPrivacidadProps {
   className?: string;
 }
 
+// Custom SVG Icons
+const Calendar = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+  </svg>
+);
+
+const Cookie = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" strokeWidth={2} />
+    <circle cx="8" cy="8" r="1" fill="currentColor" />
+    <circle cx="16" cy="8" r="1" fill="currentColor" />
+    <circle cx="8" cy="16" r="1" fill="currentColor" />
+    <circle cx="16" cy="16" r="1" fill="currentColor" />
+    <circle cx="12" cy="10" r="1" fill="currentColor" />
+    <circle cx="12" cy="14" r="1" fill="currentColor" />
+  </svg>
+);
+
+const Megaphone = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+  </svg>
+);
+
+const Database = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <ellipse cx="12" cy="5" rx="9" ry="3" strokeWidth={2} />
+    <path strokeWidth={2} d="M3 5v14c0 1.657 4.03 3 9 3s9-1.343 9-3V5" />
+    <path strokeWidth={2} d="M3 12c0 1.657 4.03 3 9 3s9-1.343 9-3" />
+  </svg>
+);
+
+type ColorType = 'blue' | 'green' | 'purple' | 'amber' | 'neutral';
+
 const avisos = {
   registro: {
     titulo: 'Aviso de Privacidad - Registro de Usuario',
     icono: <Shield className="w-5 h-5" />,
-    color: 'blue',
+    color: 'blue' as ColorType,
     contenido: {
       responsable: 'Wild Tour SAS se identifica como responsable del tratamiento de sus datos personales.',
       finalidades: [
@@ -39,7 +74,7 @@ const avisos = {
   reservas: {
     titulo: 'Aviso de Privacidad - Proceso de Reservas',
     icono: <Calendar className="w-5 h-5" />,
-    color: 'green',
+    color: 'green' as ColorType,
     contenido: {
       responsable: 'Wild Tour SAS procesará sus datos para completar la reserva solicitada.',
       finalidades: [
@@ -66,7 +101,7 @@ const avisos = {
   marketing: {
     titulo: 'Aviso de Privacidad - Marketing y Comunicaciones',
     icono: <Megaphone className="w-5 h-5" />,
-    color: 'purple',
+    color: 'purple' as ColorType,
     contenido: {
       responsable: 'Wild Tour SAS utilizará sus datos para comunicaciones comerciales.',
       finalidades: [
@@ -92,7 +127,7 @@ const avisos = {
   cookies: {
     titulo: 'Aviso de Privacidad - Cookies y Tecnologías Similares',
     icono: <Cookie className="w-5 h-5" />,
-    color: 'amber',
+    color: 'amber' as ColorType,
     contenido: {
       responsable: 'Wild Tour SAS utiliza cookies para mejorar su experiencia de navegación.',
       finalidades: [
@@ -112,6 +147,7 @@ const avisos = {
       baseLegal: 'Interés legítimo (esenciales) y Consentimiento (opcionales)',
       retencion: 'Variable según el tipo: desde sesión hasta 24 meses',
       control: 'Puede gestionar sus preferencias desde el centro de cookies',
+      derechos: 'Puede gestionar sus preferencias desde el centro de cookies',
       terceros: 'Google Analytics, Facebook Pixel, redes sociales',
       contacto: 'cookies@wildtour.co'
     }
@@ -119,7 +155,7 @@ const avisos = {
   general: {
     titulo: 'Aviso General de Privacidad',
     icono: <Shield className="w-5 h-5" />,
-    color: 'neutral',
+    color: 'neutral' as ColorType,
     contenido: {
       responsable: 'Wild Tour SAS es responsable del tratamiento de todos sus datos personales.',
       finalidades: [
@@ -147,30 +183,6 @@ const avisos = {
     }
   }
 };
-
-const Calendar = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-  </svg>
-);
-
-const Cookie = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10" strokeWidth={2} />
-    <circle cx="8" cy="8" r="1" fill="currentColor" />
-    <circle cx="16" cy="8" r="1" fill="currentColor" />
-    <circle cx="8" cy="16" r="1" fill="currentColor" />
-    <circle cx="16" cy="16" r="1" fill="currentColor" />
-    <circle cx="12" cy="10" r="1" fill="currentColor" />
-    <circle cx="12" cy="14" r="1" fill="currentColor" />
-  </svg>
-);
-
-const Megaphone = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-  </svg>
-);
 
 const AvisoPrivacidad: React.FC<AvisoPrivacidadProps> = ({
   tipo,

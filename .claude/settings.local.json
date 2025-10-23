@@ -12,7 +12,10 @@
       "WebSearch",
       "WebFetch(domain:color.hailpixel.com)",
       "WebFetch(domain:webaim.org)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(rm:*)",
+      "Bash(rmdir:*)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []

@@ -53,7 +53,8 @@ export function useAuditLogger() {
         shouldAutoDelete: true,
       });
     } catch (error) {
-      console.error('Failed to log audit event:', error);
+      // Silenciar errores de auditoría en desarrollo
+      // console.debug('Failed to log audit event:', error);
       // No lanzar error para no afectar la funcionalidad principal
     }
   }, [user]);
@@ -154,7 +155,7 @@ export function useAuditLogger() {
         reason: options.reason,
         ...options.details,
       },
-      endpoint: '/auth/login',
+      endpoint: '/Auth/login',
       method: 'POST',
       consentRequired: false,
     });

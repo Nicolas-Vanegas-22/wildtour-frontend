@@ -1,8 +1,13 @@
 import { User } from '../../application/state/useAuthStore';
 import { auditApi } from '../../compliance/services/auditApi';
 import { sessionManager } from '../../compliance/utils/sessionManager';
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+import { api } from '../http/apiClient';
+import {
+  ApiResponse,
+  BackendAuthResponse,
+  BackendRegisterResponse,
+  handleApiError
+} from '../http/apiTypes';
 
 export interface LoginRequest {
   email: string;
@@ -13,14 +18,13 @@ export interface RegisterRequest {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  role: 'user' | 'provider';
-  person: {
-    firstName: string;
-    lastName: string;
-    document: number;
-    phoneNumber: number;
-  };
+  roleId: number; // 1 = Usuario, 2 = Prestador de Servicio (según backend .NET)
+  firstName?: string;
+  lastName?: string;
+  document?: string;
+  phoneNumber?: string;
+  businessName?: string; // For providers
+  rnt?: string; // For providers - Registro Nacional de Turismo
 }
 
 export interface AuthResponse {
@@ -29,24 +33,7 @@ export interface AuthResponse {
   expiresAt?: string;
 }
 
-export interface BackendAuthResponse {
-  success: boolean;
-  message: string;
-  data: {
-    token: string;
-    expiresAt: string;
-    user: {
-      id: number;
-      email: string;
-      username: string | null;
-      firstName: string | null;
-      lastName: string | null;
-      roles: string[];
-      permissions: string[];
-    };
-  };
-  errors: any[];
-}
+// Removed - now using types from apiTypes.ts
 
 export interface ForgotPasswordRequest {
   email: string;
@@ -64,29 +51,21 @@ class AuthApi {
     let userId: string | undefined;
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
+      // Call .NET API using axios client
+      const response = await api.post<ApiResponse<BackendAuthResponse>>(
+        '/Auth/login',
+        credentials
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        await this.logLoginAttempt(false, credentials.email, errorData.message);
-        throw new Error(errorData.message || 'Error en el inicio de sesión');
-      }
+      const backendData = response.data as any as BackendAuthResponse;
 
-      const backendResponse: BackendAuthResponse = await response.json();
-
-      if (!backendResponse.success) {
-        await this.logLoginAttempt(false, credentials.email, backendResponse.message);
-        throw new Error(backendResponse.message || 'Error en el inicio de sesión');
+      if (!backendData || !backendData.token) {
+        await this.logLoginAttempt(false, credentials.email, 'Invalid response from server');
+        throw new Error('Respuesta inválida del servidor');
       }
 
       success = true;
-      userId = backendResponse.data.user.id.toString();
+      userId = backendData.user.id.toString();
 
       // Crear nueva sesión
       sessionManager.renewSession();
@@ -100,33 +79,38 @@ class AuthApi {
 
       // Transformar la respuesta del backend al formato esperado por el frontend
       return {
-        token: backendResponse.data.token,
-        expiresAt: backendResponse.data.expiresAt,
+        token: backendData.token,
+        expiresAt: backendData.expiresAt,
         user: {
-          id: userId,
-          email: backendResponse.data.user.email,
-          username: backendResponse.data.user.username || '',
-          firstName: backendResponse.data.user.firstName || '',
-          lastName: backendResponse.data.user.lastName || '',
-          role: backendResponse.data.user.roles.includes('Admin') ? 'admin' :
-                backendResponse.data.user.roles.includes('Provider') ? 'provider' : 'user',
+          id: backendData.user.id,
+          email: backendData.user.email,
+          username: backendData.user.username || '',
+          registrationDate: new Date().toISOString(),
+          lastLoginDate: new Date().toISOString(),
+          isEmailConfirmed: false,
+          isActive: true,
+          personId: 0,
+          role: backendData.user.roles.includes('Admin') ? 'admin' :
+                backendData.user.roles.includes('Prestador de Servicio') ? 'provider' : 'tourist',
           avatar: '',
           person: {
-            firstName: backendResponse.data.user.firstName || '',
-            lastName: backendResponse.data.user.lastName || '',
+            id: 0,
+            firstName: backendData.user.firstName || '',
+            lastName: backendData.user.lastName || '',
             document: 0,
             phoneNumber: 0
           }
         }
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
 
       if (!success) {
-        await this.logLoginAttempt(false, credentials.email, error instanceof Error ? error.message : 'Unknown error');
+        const errorMessage = handleApiError(error);
+        await this.logLoginAttempt(false, credentials.email, errorMessage);
       }
 
-      throw error;
+      throw new Error(handleApiError(error));
     }
   }
 
@@ -134,25 +118,17 @@ class AuthApi {
     let success = false;
 
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
+      // Call .NET API - Note: Backend returns registered user info, not auth token
+      const response = await api.post<ApiResponse<BackendRegisterResponse>>(
+        '/Auth/register',
+        userData
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        await this.logRegistrationAttempt(false, userData, errorData.message);
-        throw new Error(errorData.message || 'Error en el registro');
-      }
+      const registerData = response.data as any as BackendRegisterResponse;
 
-      const backendResponse: BackendAuthResponse = await response.json();
-
-      if (!backendResponse.success) {
-        await this.logRegistrationAttempt(false, userData, backendResponse.message);
-        throw new Error(backendResponse.message || 'Error en el registro');
+      if (!registerData || !registerData.id) {
+        await this.logRegistrationAttempt(false, userData, 'Invalid response from server');
+        throw new Error('Respuesta inválida del servidor');
       }
 
       success = true;
@@ -160,130 +136,80 @@ class AuthApi {
       // Log del registro exitoso
       await this.logRegistrationAttempt(true, userData);
 
-      // Transformar la respuesta del backend al formato esperado por el frontend
-      return {
-        token: backendResponse.data.token,
-        expiresAt: backendResponse.data.expiresAt,
-        user: {
-          id: backendResponse.data.user.id.toString(),
-          email: backendResponse.data.user.email,
-          username: backendResponse.data.user.username || '',
-          firstName: backendResponse.data.user.firstName || '',
-          lastName: backendResponse.data.user.lastName || '',
-          role: backendResponse.data.user.roles.includes('Admin') ? 'admin' :
-                backendResponse.data.user.roles.includes('Provider') ? 'provider' : 'user',
-          avatar: '',
-          person: {
-            firstName: backendResponse.data.user.firstName || '',
-            lastName: backendResponse.data.user.lastName || '',
-            document: 0,
-            phoneNumber: 0
-          }
-        }
-      };
-    } catch (error) {
+      // Note: .NET backend returns user info, not token. User needs to login after registration.
+      // We'll auto-login by calling the login endpoint
+      const loginResponse = await this.login({
+        email: userData.email,
+        password: userData.password,
+      });
+
+      return loginResponse;
+    } catch (error: any) {
       console.error('Register error:', error);
 
       if (!success) {
-        await this.logRegistrationAttempt(false, userData, error instanceof Error ? error.message : 'Unknown error');
+        const errorMessage = handleApiError(error);
+        await this.logRegistrationAttempt(false, userData, errorMessage);
       }
 
-      throw error;
+      throw new Error(handleApiError(error));
     }
   }
 
-  async getProfile(token: string): Promise<User> {
+  async getProfile(_token: string): Promise<User> {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/me`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await api.get<ApiResponse<BackendAuthResponse['user']>>(
+        '/Auth/me'
+      );
 
-      if (!response.ok) {
-        throw new Error('Error obteniendo perfil de usuario');
-      }
+      const backendUser = response.data as any as BackendAuthResponse['user'];
 
-      const user = await response.json();
+      // Transform to frontend User format
+      const user: User = {
+        id: backendUser.id,
+        email: backendUser.email,
+        username: backendUser.username || '',
+        registrationDate: new Date().toISOString(),
+        lastLoginDate: new Date().toISOString(),
+        isEmailConfirmed: false,
+        isActive: true,
+        personId: 0,
+        role: backendUser.roles.includes('Admin') ? 'admin' :
+              backendUser.roles.includes('Prestador de Servicio') ? 'provider' : 'tourist',
+        avatar: '',
+        person: {
+          id: 0,
+          firstName: backendUser.firstName || '',
+          lastName: backendUser.lastName || '',
+          document: 0,
+          phoneNumber: 0
+        }
+      };
 
       // Log del acceso al perfil
-      await this.logProfileAccess(user.id, 'accessed');
+      await this.logProfileAccess(user.id.toString(), 'accessed');
 
       return user;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Get profile error:', error);
-      throw error;
+      throw new Error(handleApiError(error));
     }
   }
 
-  async forgotPassword(data: ForgotPasswordRequest): Promise<{ message: string }> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error enviando email de recuperación');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Forgot password error:', error);
-      throw error;
-    }
+  // TODO: Implement these endpoints in .NET backend
+  async forgotPassword(_data: ForgotPasswordRequest): Promise<{ message: string }> {
+    throw new Error('Endpoint /Auth/forgot-password no implementado en el backend .NET');
   }
 
-  async resetPassword(data: ResetPasswordRequest): Promise<{ message: string }> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error restableciendo contraseña');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Reset password error:', error);
-      throw error;
-    }
+  async resetPassword(_data: ResetPasswordRequest): Promise<{ message: string }> {
+    throw new Error('Endpoint /Auth/reset-password no implementado en el backend .NET');
   }
 
-  async refreshToken(token: string): Promise<AuthResponse> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Error renovando token');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Refresh token error:', error);
-      throw error;
-    }
+  async refreshToken(_token: string): Promise<AuthResponse> {
+    throw new Error('Endpoint /Auth/refresh no implementado en el backend .NET');
   }
 
-  async logout(token: string): Promise<void> {
+  async logout(_token: string): Promise<void> {
     try {
       // Log de la sesión antes del logout
       const sessionInfo = sessionManager.getSessionInfo();
@@ -301,7 +227,7 @@ class AuthApi {
         sessionId: sessionInfo.sessionId,
         ipAddress: '',
         userAgent: navigator.userAgent,
-        endpoint: '/auth/logout',
+        endpoint: '/Auth/logout',
         method: 'POST',
         source: 'wildtour-frontend',
         environment: import.meta.env.MODE as 'production' | 'staging' | 'development',
@@ -310,94 +236,26 @@ class AuthApi {
         consentRequired: false,
       });
 
-      await fetch(`${API_BASE_URL}/auth/logout`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      // Finalizar sesión
+      // TODO: Implement /Auth/logout in .NET backend
+      // For now, just end the session locally
       sessionManager.endSession();
     } catch (error) {
       console.error('Logout error:', error);
       // Finalizar sesión incluso si hay error
       sessionManager.endSession();
-      // No lanzamos error aquí porque el logout debería funcionar incluso si falla la petición
     }
   }
 
-  async updateProfile(token: string, userData: Partial<User>): Promise<User> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/profile`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error actualizando perfil');
-      }
-
-      const updatedUser = await response.json();
-
-      // Log de la actualización del perfil
-      await this.logProfileAccess(updatedUser.id, 'updated');
-
-      return updatedUser;
-    } catch (error) {
-      console.error('Update profile error:', error);
-      throw error;
-    }
+  async updateProfile(_token: string, _userData: Partial<User>): Promise<User> {
+    throw new Error('Endpoint /Auth/profile PUT no implementado en el backend .NET');
   }
 
-  async verifyEmail(token: string): Promise<{ message: string }> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/verify-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error verificando email');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Verify email error:', error);
-      throw error;
-    }
+  async verifyEmail(_token: string): Promise<{ message: string }> {
+    throw new Error('Endpoint /Auth/verify-email no implementado en el backend .NET');
   }
 
-  async resendVerificationEmail(email: string): Promise<{ message: string }> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/resend-verification`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error reenviando email de verificación');
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Resend verification error:', error);
-      throw error;
-    }
+  async resendVerificationEmail(_email: string): Promise<{ message: string }> {
+    throw new Error('Endpoint /Auth/resend-verification no implementado en el backend .NET');
   }
 
   private async logLoginAttempt(
@@ -421,7 +279,7 @@ class AuthApi {
         userEmail: email,
         ipAddress: '',
         userAgent: navigator.userAgent,
-        endpoint: '/auth/login',
+        endpoint: '/Auth/login',
         method: 'POST',
         source: 'wildtour-frontend',
         environment: import.meta.env.MODE as 'production' | 'staging' | 'development',
@@ -430,7 +288,8 @@ class AuthApi {
         consentRequired: false,
       });
     } catch (error) {
-      console.error('Failed to log login attempt:', error);
+      // Silenciar errores de auditoría en desarrollo
+      // console.debug('Failed to log login attempt:', error);
     }
   }
 
@@ -448,13 +307,13 @@ class AuthApi {
         details: {
           success,
           email: userData.email,
-          role: userData.role,
+          roleId: userData.roleId,
           reason,
         },
         userEmail: userData.email,
         ipAddress: '',
         userAgent: navigator.userAgent,
-        endpoint: '/auth/register',
+        endpoint: '/Auth/register',
         method: 'POST',
         dataCategories: ['personal_data', 'contact_data'],
         dataFields: ['email', 'firstName', 'lastName', 'document', 'phoneNumber'],
@@ -467,7 +326,8 @@ class AuthApi {
         shouldAutoDelete: true,
       });
     } catch (error) {
-      console.error('Failed to log registration attempt:', error);
+      // Silenciar errores de auditoría en desarrollo
+      // console.debug('Failed to log registration attempt:', error);
     }
   }
 
@@ -482,7 +342,7 @@ class AuthApi {
         userId,
         ipAddress: '',
         userAgent: navigator.userAgent,
-        endpoint: '/auth/profile',
+        endpoint: '/Auth/profile',
         method: action === 'update' ? 'PUT' : 'GET',
         dataCategories: ['personal_data'],
         dataFields: ['email', 'firstName', 'lastName', 'avatar'],

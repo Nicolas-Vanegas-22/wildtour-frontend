@@ -33,7 +33,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const navigation = [
     { name: 'Inicio', href: '/', icon: Home },
     { name: 'Villavieja', href: '/villavieja', icon: Mountain },
-    { name: 'Servicios', href: '/servicios', icon: User },
   ];
 
   // Detectar scroll para cambiar el estilo del navbar

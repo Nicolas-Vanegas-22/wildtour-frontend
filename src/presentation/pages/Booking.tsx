@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { BookingItem, BookingContact, BookingGuest, CartItem } from '../../domain/models/Booking';
 import { mockDestinations } from '../../data/mockData';
-import '../../styles/account-settings.css';
+import '../styles/account-settings.css';
 
 const Booking: React.FC = () => {
   const { destinationId } = useParams<{ destinationId: string }>();

@@ -20,26 +20,18 @@ import { Button } from '../../shared/ui/Button';
 import { cn } from '../../shared/utils/cn';
 import { villaviejaDestination } from '../../data/villaviejaData';
 import VillaviejaHome from '../components/villavieja/VillaviejaHome';
-import VillaviejaInfo from '../components/villavieja/VillaviejaInfo';
-import VillaviejaAttractions from '../components/villavieja/VillaviejaAttractions';
-import VillaviejaActivities from '../components/villavieja/VillaviejaActivities';
-import VillaviejaAccommodations from '../components/villavieja/VillaviejaAccommodations';
-import VillaviejaGastronomy from '../components/villavieja/VillaviejaGastronomy';
-import VillaviejaServices from '../components/villavieja/VillaviejaServices';
-import VillaviejaPackages from '../components/villavieja/VillaviejaPackages';
-import VillaviajaPracticalInfo from '../components/villavieja/VillaviajaPracticalInfo';
+import VillaviejaDiscover from '../components/villavieja/VillaviejaDiscover';
+import VillaviejaExperiences from '../components/villavieja/VillaviejaExperiences';
+import VillaviejaServicesHub from '../components/villavieja/VillaviejaServicesHub';
+import VillaviejaPlan from '../components/villavieja/VillaviejaPlan';
 import VillaviejaReservationModal from '../components/villavieja/VillaviejaReservationModal';
 
 type VillaviajaSectionType =
   | 'home'
-  | 'info'
-  | 'attractions'
-  | 'activities'
-  | 'accommodations'
-  | 'gastronomy'
+  | 'discover'
+  | 'experiences'
   | 'services'
-  | 'packages'
-  | 'practical';
+  | 'plan';
 
 interface SectionTab {
   id: VillaviajaSectionType;
@@ -60,70 +52,28 @@ const VillaviejaModule: React.FC = () => {
       description: 'Bienvenido a Villavieja'
     },
     {
-      id: 'accommodations',
-      name: 'Hoteles',
-      icon: <Bed className="w-5 h-5" />,
-      description: 'Alojamientos únicos'
-    },
-    {
-      id: 'services',
-      name: 'Guías',
-      icon: <Users className="w-5 h-5" />,
-      description: 'Expertos locales'
-    },
-    {
-      id: 'packages',
-      name: 'Experiencias',
-      icon: <Package className="w-5 h-5" />,
-      description: 'Paquetes completos'
-    },
-    {
-      id: 'info',
-      name: 'Información del Destino',
-      icon: <Info className="w-5 h-5" />,
-      description: 'Historia, cultura y clima'
-    },
-    {
-      id: 'attractions',
-      name: 'Atracciones Turísticas',
+      id: 'discover',
+      name: 'Descubre Villavieja',
       icon: <Mountain className="w-5 h-5" />,
-      description: 'Desierto de la Tatacoa y más'
+      description: 'Historia, cultura y atracciones'
     },
     {
-      id: 'activities',
-      name: 'Actividades Disponibles',
-      icon: <Camera className="w-5 h-5" />,
-      description: 'Senderismo, astronomía, fotografía'
-    },
-    {
-      id: 'accommodations',
-      name: 'Alojamientos',
-      icon: <Bed className="w-5 h-5" />,
-      description: 'Hoteles, glamping, camping'
-    },
-    {
-      id: 'gastronomy',
-      name: 'Gastronomía Local',
-      icon: <UtensilsCrossed className="w-5 h-5" />,
-      description: 'Restaurantes y platos típicos'
+      id: 'experiences',
+      name: 'Tours y Experiencias',
+      icon: <Package className="w-5 h-5" />,
+      description: 'Paquetes y actividades guiadas'
     },
     {
       id: 'services',
-      name: 'Servicios y Logística',
+      name: 'Servicios Locales',
       icon: <Car className="w-5 h-5" />,
-      description: 'Transporte, guías, equipos'
+      description: 'Alojamiento, gastronomía y guías'
     },
     {
-      id: 'packages',
-      name: 'Experiencias y Paquetes',
-      icon: <Package className="w-5 h-5" />,
-      description: 'Paquetes completos 1-3 días'
-    },
-    {
-      id: 'practical',
-      name: 'Información Práctica',
-      icon: <Navigation className="w-5 h-5" />,
-      description: 'Qué llevar, seguridad, contactos'
+      id: 'plan',
+      name: 'Planifica tu Viaje',
+      icon: <Info className="w-5 h-5" />,
+      description: 'Información práctica y logística'
     }
   ];
 
@@ -131,22 +81,14 @@ const VillaviejaModule: React.FC = () => {
     switch (activeSection) {
       case 'home':
         return <VillaviejaHome onNavigateToSection={setActiveSection} onReserve={() => setIsReservationModalOpen(true)} />;
-      case 'info':
-        return <VillaviejaInfo />;
-      case 'attractions':
-        return <VillaviejaAttractions />;
-      case 'activities':
-        return <VillaviejaActivities />;
-      case 'accommodations':
-        return <VillaviejaAccommodations />;
-      case 'gastronomy':
-        return <VillaviejaGastronomy />;
+      case 'discover':
+        return <VillaviejaDiscover />;
+      case 'experiences':
+        return <VillaviejaExperiences />;
       case 'services':
-        return <VillaviejaServices />;
-      case 'packages':
-        return <VillaviejaPackages />;
-      case 'practical':
-        return <VillaviajaPracticalInfo />;
+        return <VillaviejaServicesHub />;
+      case 'plan':
+        return <VillaviejaPlan />;
       default:
         return <VillaviejaHome onNavigateToSection={setActiveSection} onReserve={() => setIsReservationModalOpen(true)} />;
     }

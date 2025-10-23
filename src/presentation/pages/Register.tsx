@@ -8,6 +8,7 @@ import { Button } from '../../shared/ui/Button';
 import { useToast } from '../hooks/useToast';
 import TermsModal from '../components/TermsModal';
 import PrivacyModal from '../components/PrivacyModal';
+import RegisterResultModal from '../components/RegisterResultModal';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -29,6 +30,11 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [registrationResult, setRegistrationResult] = useState({
+    success: false,
+    message: ''
+  });
 
   const { setAuth, isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
@@ -64,34 +70,43 @@ export default function Register() {
     setIsLoading(true);
 
     try {
+      // Transform role to roleId: 1 = Usuario, 2 = Prestador de Servicio
+      const roleId = formData.role === 'provider' ? 2 : 1;
+
       const registerData = {
         username: formData.username,
         email: formData.email,
         password: formData.password,
-        confirmPassword: formData.passwordConfirmation,
-        role: formData.role,
-        person: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          document: parseInt(formData.document),
-          phoneNumber: parseInt(formData.phoneNumber)
-        }
+        roleId: roleId,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        document: formData.document,
+        phoneNumber: formData.phoneNumber,
+        ...(formData.role === 'provider' && {
+          businessName: formData.businessName,
+          rnt: formData.rnt
+        })
       };
 
       const response = await authApi.register(registerData);
       setAuth(response.token, response.user);
-      showToast('¡Cuenta creada exitosamente!', 'success');
 
-      // Redirigir según el rol
-      if (response.user.role === 'provider') {
-        navigate('/panel-proveedor');
-      } else if (response.user.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/');
-      }
+      // Mostrar modal de éxito
+      setRegistrationResult({
+        success: true,
+        message: formData.role === 'provider'
+          ? '¡Bienvenido! Tu cuenta de prestador ha sido creada exitosamente. Ahora podrás gestionar tus servicios turísticos.'
+          : '¡Bienvenido a WildTour! Tu cuenta ha sido creada exitosamente. Comienza a explorar los mejores destinos de Colombia.'
+      });
+      setShowResultModal(true);
     } catch (error) {
-      showToast(error instanceof Error ? error.message : 'Error al crear la cuenta', 'error');
+      // Mostrar modal de error
+      const errorMessage = error instanceof Error ? error.message : 'Error al crear la cuenta';
+      setRegistrationResult({
+        success: false,
+        message: errorMessage
+      });
+      setShowResultModal(true);
     } finally {
       setIsLoading(false);
     }
@@ -457,6 +472,26 @@ export default function Register() {
       <PrivacyModal
         isOpen={showPrivacyModal}
         onClose={() => setShowPrivacyModal(false)}
+      />
+
+      {/* Modal de resultado de registro */}
+      <RegisterResultModal
+        isOpen={showResultModal}
+        onClose={() => setShowResultModal(false)}
+        success={registrationResult.success}
+        message={registrationResult.message}
+        onContinue={() => {
+          setShowResultModal(false);
+          // Redirigir según el rol del usuario
+          const user = useAuthStore.getState().user;
+          if (user?.role === 'provider') {
+            navigate('/panel-proveedor');
+          } else if (user?.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/');
+          }
+        }}
       />
     </div>
   );

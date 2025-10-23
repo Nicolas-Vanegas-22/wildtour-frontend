@@ -31,13 +31,16 @@ import { useAuthStore } from '../../application/state/useAuthStore';
 import { User as UserModel, PersonInfo, UserPreferences, PaymentMethod, BillingInfo } from '../../domain/models/User';
 import { cn } from '../../shared/utils/cn';
 import { Button } from '../../shared/ui/Button';
+import { userApi } from '../../infrastructure/services/userApi';
+import { useToast } from '../hooks/useToast';
 
 interface CompleteProfileProps {
   className?: string;
 }
 
 const CompleteProfile: React.FC<CompleteProfileProps> = ({ className }) => {
-  const { user, setAuth } = useAuthStore();
+  const { user, updateUser } = useAuthStore();
+  const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState('personal');
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -144,22 +147,27 @@ const CompleteProfile: React.FC<CompleteProfileProps> = ({ className }) => {
   };
 
   useEffect(() => {
-    // Cargar datos del usuario
-    if (mockUserData.person) {
+    // Cargar datos del usuario desde el estado o desde mock
+    if (user) {
+      setPersonalInfo(user.person);
+      setBio(''); // TODO: Add bio field to User model
+      setProfilePhoto(user.avatar || '');
+    } else if (mockUserData.person) {
+      // Fallback a datos mock
       setPersonalInfo(mockUserData.person);
+      if (mockUserData.preferences) {
+        setPreferences(mockUserData.preferences);
+      }
+      if (mockUserData.paymentMethods) {
+        setPaymentMethods(mockUserData.paymentMethods);
+      }
+      if (mockUserData.billingInfo) {
+        setBillingInfo(mockUserData.billingInfo);
+      }
+      setBio(mockUserData.bio || '');
+      setProfilePhoto(mockUserData.profilePhoto || '');
     }
-    if (mockUserData.preferences) {
-      setPreferences(mockUserData.preferences);
-    }
-    if (mockUserData.paymentMethods) {
-      setPaymentMethods(mockUserData.paymentMethods);
-    }
-    if (mockUserData.billingInfo) {
-      setBillingInfo(mockUserData.billingInfo);
-    }
-    setBio(mockUserData.bio || '');
-    setProfilePhoto(mockUserData.profilePhoto || '');
-  }, []);
+  }, [user]);
 
   const availableInterests = [
     'Aventura', 'Naturaleza', 'Cultura', 'Gastronomía', 'Historia',
@@ -183,12 +191,25 @@ const CompleteProfile: React.FC<CompleteProfileProps> = ({ className }) => {
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      // Aquí iría la lógica para guardar en el backend
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simular API call
+      // Update personal information (Person entity)
+      const updatedUser = await userApi.updatePerson({
+        firstName: personalInfo.firstName,
+        lastName: personalInfo.lastName,
+        document: personalInfo.document,
+        phoneNumber: personalInfo.phoneNumber,
+      });
+
+      // Update local state
+      updateUser(updatedUser);
+
       setIsEditing(false);
-      // Mostrar mensaje de éxito
+      showToast('Perfil actualizado exitosamente', 'success');
     } catch (error) {
-      // Manejar error
+      console.error('Error updating profile:', error);
+      showToast(
+        error instanceof Error ? error.message : 'Error al actualizar el perfil',
+        'error'
+      );
     } finally {
       setIsLoading(false);
     }

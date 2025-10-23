@@ -1,0 +1,1 @@
+function n(e){var o,r;if((o=e.response)!=null&&o.data){const s=e.response.data;if(!s.success)return s.message||((r=s.errors)==null?void 0:r.join(", "))||"Error desconocido"}return e.message||"Error de conexión con el servidor"}export{n as h};

@@ -247,6 +247,13 @@ class AuditApi {
    * Registrar un evento de auditoría
    */
   async logEvent(event: Omit<AuditEvent, 'id' | 'timestamp'>): Promise<{ success: boolean; eventId: string }> {
+    // DESACTIVADO TEMPORALMENTE: El endpoint de auditoría no está implementado en el backend
+    // Esto evita hacer peticiones HTTP innecesarias
+    if (import.meta.env.MODE === 'development') {
+      // En desarrollo, solo retornar sin hacer nada
+      return { success: false, eventId: '' };
+    }
+
     try {
       const eventData = {
         ...event,
@@ -261,7 +268,7 @@ class AuditApi {
       });
     } catch (error) {
       console.error('Error logging audit event:', error);
-      throw error;
+      return { success: false, eventId: '' };
     }
   }
 
