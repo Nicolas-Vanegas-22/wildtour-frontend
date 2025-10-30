@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  MapPin,
   Users,
-  Star,
   ArrowRight,
   Calendar,
   Award,
   Shield,
   Leaf,
-  Clock,
 } from 'lucide-react';
 import { Button } from '../../shared/ui';
 import { Card, CardContent } from '../../shared/ui';
 import { cn } from '../../shared/utils/cn';
-import { tourPackages } from '../../data/tourPackages';
-import { realActivities } from '../../data/realActivities';
-import { mockDestinations } from '../../data/mockData';
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -24,61 +18,25 @@ const Home: React.FC = () => {
   // Slides del hero
   const heroSlides = [
     {
-      image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/e4/4a/0a/desierto-de-la-tatacoa.jpg?w=1920&h=1080&s=1',
+      image: '/images/hero/tatacoa-1.jpg',
       title: 'Descubre la Magia de Colombia',
       subtitle: 'Vive experiencias únicas en los paisajes más espectaculares del país',
       cta: 'Explora Destinos',
       accent: 'primary',
     },
     {
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Desierto_de_la_Tatacoa%2C_Huila%2C_Colombia.jpg/1920px-Desierto_de_la_Tatacoa%2C_Huila%2C_Colombia.jpg',
+      image: '/images/hero/tatacoa-2.jpg',
       title: 'Aventuras Que Transforman',
       subtitle: 'Conecta con la naturaleza y crea recuerdos inolvidables',
       cta: 'Ver Experiencias',
       accent: 'coral',
     },
     {
-      image: 'https://i0.wp.com/www.colombiaenfotos.org/wp-content/uploads/2019/11/tatacoa-desert-night-sky-stars-milky-way-colombia.jpg?w=1920&ssl=1',
+      image: '/images/hero/tatacoa-3.jpg',
       title: 'Desierto de la Tatacoa',
       subtitle: 'Contempla las estrellas en uno de los cielos más puros de América',
       cta: 'Visitar Villavieja',
       accent: 'accent',
-    },
-  ];
-
-  // Paquetes destacados (featured)
-  const featuredPackages = tourPackages.filter(pkg => pkg.featured).slice(0, 3);
-
-  // Actividades populares (ordenadas por rating)
-  const popularActivities = [...realActivities]
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, 6);
-
-  // Destinos principales
-  const topDestinations = mockDestinations.slice(0, 4);
-
-  // Testimonios
-  const testimonials = [
-    {
-      name: 'María González',
-      location: 'Bogotá',
-      comment: 'Una experiencia absolutamente increíble. El desierto de la Tatacoa me dejó sin palabras.',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b1-b0?w=100&h=100&fit=crop&crop=face',
-    },
-    {
-      name: 'Carlos Rodríguez',
-      location: 'Medellín',
-      comment: 'Wild Tour hizo que nuestro viaje familiar fuera perfecto. Altamente recomendado.',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
-    },
-    {
-      name: 'Ana Martínez',
-      location: 'Cali',
-      comment: 'La atención al detalle y la calidad del servicio superaron todas mis expectativas.',
-      rating: 5,
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
     },
   ];
 
@@ -125,9 +83,9 @@ const Home: React.FC = () => {
             <div className="flex justify-center">
               <Button
                 size="xl"
-                variant={heroSlides[currentSlide].accent as any}
+                variant="secondary"
                 rightIcon={<ArrowRight className="w-5 h-5" />}
-                className="text-lg px-8 py-4"
+                className="text-lg px-8 py-4 bg-white text-primary-700 hover:bg-gray-100 font-semibold shadow-xl"
                 asChild
               >
                 <Link to="/villavieja">
@@ -211,262 +169,6 @@ const Home: React.FC = () => {
                     <p className="text-gray-600 leading-relaxed">
                       {feature.description}
                     </p>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Tour Packages Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-gray-50 to-primary-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
-              Paquetes Turísticos Destacados
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Explora nuestras experiencias más populares diseñadas para crear recuerdos inolvidables
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredPackages.map((pkg) => (
-              <div key={pkg.id}>
-                <Card variant="elevated" hover className="h-full overflow-hidden">
-                  <div className="relative h-56 overflow-hidden">
-                    <img
-                      src={pkg.images[0]}
-                      alt={pkg.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                    />
-                    <div className="absolute top-4 right-4 bg-coral-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {pkg.category}
-                    </div>
-                    {pkg.discountPrice && (
-                      <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        Oferta
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center text-sm text-gray-600 mb-2">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      <span>{pkg.destination}</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                      {pkg.name}
-                    </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-2">
-                      {pkg.description}
-                    </p>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center">
-                        <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                        <span className="ml-1 text-gray-900 font-semibold">{pkg.rating}</span>
-                        <span className="ml-1 text-gray-500 text-sm">({pkg.reviewsCount})</span>
-                      </div>
-                      <div className="flex items-center text-gray-600 text-sm">
-                        <Clock className="w-4 h-4 mr-1" />
-                        <span>{pkg.duration}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between pt-4 border-t">
-                      <div>
-                        {pkg.discountPrice ? (
-                          <div>
-                            <span className="text-gray-400 line-through text-sm">
-                              ${pkg.price.toLocaleString()}
-                            </span>
-                            <span className="text-2xl font-bold text-primary-600 ml-2">
-                              ${pkg.discountPrice.toLocaleString()}
-                            </span>
-                          </div>
-                        ) : (
-                          <span className="text-2xl font-bold text-primary-600">
-                            ${pkg.price.toLocaleString()}
-                          </span>
-                        )}
-                      </div>
-                      <Button variant="primary" size="sm" asChild>
-                        <Link to="/villavieja">
-                          Ver Detalles
-                        </Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" rightIcon={<ArrowRight />} asChild>
-              <Link to="/villavieja">
-                Ver Todos los Paquetes
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Activities Section */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
-              Actividades Populares
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Descubre las experiencias favoritas de nuestros viajeros
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {popularActivities.map((activity) => (
-              <div key={activity.id}>
-                <Card variant="elevated" hover className="h-full overflow-hidden">
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={activity.images[0]}
-                      alt={activity.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                    />
-                    <div className="absolute top-4 right-4 bg-accent-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                      {activity.category}
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center text-sm text-gray-600 mb-2">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      <span className="line-clamp-1">{activity.destination}</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
-                      {activity.name}
-                    </h3>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="ml-1 text-gray-900 font-semibold">{activity.rating}</span>
-                        <span className="ml-1 text-gray-500 text-sm">({activity.reviewsCount})</span>
-                      </div>
-                      <span className="text-gray-600 text-sm">{activity.duration}</span>
-                    </div>
-                    <div className="flex items-center justify-between pt-4 border-t">
-                      <span className="text-xl font-bold text-primary-600">
-                        ${activity.price.toLocaleString()}
-                      </span>
-                      <Button variant="primary" size="sm" asChild>
-                        <Link to="/villavieja">
-                          Reservar
-                        </Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Top Destinations Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-primary-50 to-accent-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
-              Destinos Imperdibles
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Los lugares más increíbles de Colombia te están esperando
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {topDestinations.map((destination) => (
-              <div key={destination.id}>
-                <Card variant="elevated" hover className="h-full overflow-hidden group">
-                  <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={destination.images.main}
-                      alt={destination.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/20 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                      <h3 className="text-xl font-bold mb-1">{destination.name}</h3>
-                      <div className="flex items-center text-sm">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        <span>{destination.location.city}, {destination.location.department}</span>
-                      </div>
-                      <div className="flex items-center mt-2">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        <span className="ml-1 font-semibold">{destination.rating}</span>
-                        <span className="ml-1">({destination.totalReviews})</span>
-                      </div>
-                    </div>
-                  </div>
-                  <CardContent className="p-4">
-                    <Button variant="outline" size="sm" className="w-full" asChild>
-                      <Link to={`/${destination.slug || 'villavieja'}`}>
-                        Explorar Destino
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button variant="primary" size="lg" rightIcon={<ArrowRight />} asChild>
-              <Link to="/destinations">
-                Ver Todos los Destinos
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
-              Lo que dicen nuestros viajeros
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Historias reales de aventureros que han vivido experiencias únicas con Wild Tour.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index}>
-                <Card variant="elevated" className="h-full">
-                  <CardContent className="p-8">
-                    <div className="flex items-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-
-                    <p className="text-gray-700 mb-6 leading-relaxed">
-                      "{testimonial.comment}"
-                    </p>
-
-                    <div className="flex items-center">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-12 h-12 rounded-full object-cover mr-4"
-                      />
-                      <div>
-                        <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                        <p className="text-gray-600 text-sm">{testimonial.location}</p>
-                      </div>
-                    </div>
                   </CardContent>
                 </Card>
               </div>

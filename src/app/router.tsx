@@ -22,7 +22,7 @@ const Notifications = React.lazy(() => import('../presentation/pages/Notificatio
 const NotificationSettings = React.lazy(() => import('../presentation/pages/NotificationSettings'));
 const AccountSettings = React.lazy(() => import('../presentation/pages/AccountSettings'));
 const Booking = React.lazy(() => import('../presentation/pages/Booking'));
-const VillaviejaModule = React.lazy(() => import('../presentation/pages/VillaviejaModule'));
+const VillaviejaPackages = React.lazy(() => import('../presentation/pages/VillaviejaPackages'));
 const PaymentReturn = React.lazy(() => import('../presentation/pages/PaymentReturn'));
 const MyBookings = React.lazy(() => import('../presentation/pages/MyBookings'));
 const UserSettings = React.lazy(() => import('../presentation/pages/UserSettings'));
@@ -71,7 +71,7 @@ export function AppRouter() {
           <Route path="/" element={<Home />} />
           <Route path="/destinos" element={<Destinations />} />
           <Route path="/destinos/:id" element={<DestinationDetail />} />
-          <Route path="/villavieja" element={<VillaviejaModule />} />
+          <Route path="/villavieja" element={<VillaviejaPackages />} />
           <Route path="/payment/return" element={<PaymentReturn />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Register />} />

@@ -55,7 +55,18 @@ api.interceptors.response.use(
 
       // .NET API error format: { success: false, message, errors }
       if (!errorData.success && errorData.errors) {
-        error.message = errorData.message || errorData.errors.join(', ');
+        // errors puede ser un array o un objeto
+        if (Array.isArray(errorData.errors)) {
+          error.message = errorData.message || errorData.errors.join(', ');
+        } else if (typeof errorData.errors === 'object') {
+          // Si es un objeto, extraer todos los mensajes de error
+          const errorMessages = Object.values(errorData.errors).flat().join(', ');
+          error.message = errorData.message || errorMessages;
+        } else {
+          error.message = errorData.message || String(errorData.errors);
+        }
+      } else if (errorData.message) {
+        error.message = errorData.message;
       }
     }
 
