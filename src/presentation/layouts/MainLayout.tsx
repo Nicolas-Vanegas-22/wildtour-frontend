@@ -21,12 +21,13 @@ import ConsentBanner from '../../compliance/components/ConsentBanner';
 import ConsentModal from '../../compliance/components/ConsentModal';
 import { AuditProvider } from '../../compliance/components/AuditProvider';
 import { SecurityMonitor } from '../../compliance/components/SecurityMonitor';
+import LogoutModal from '../components/LogoutModal';
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const { isAuthenticated, user, logout } = useAuthStore();
+  const { isAuthenticated, user, logout, showLogoutModal, setShowLogoutModal } = useAuthStore();
   const location = useLocation();
 
   // Navegación principal
@@ -179,14 +180,22 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                       }}
                       className="flex items-center space-x-2 p-2 rounded-xl transition-colors hover:bg-primary-50"
                     >
-                      <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-500 rounded-lg flex items-center justify-center">
-                        <User className="w-4 h-4 text-white" />
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-500 rounded-lg flex items-center justify-center overflow-hidden">
+                        {user?.avatar ? (
+                          <img
+                            src={user.avatar.startsWith('http') ? user.avatar : `http://localhost:5116${user.avatar}`}
+                            alt={user?.username || 'Usuario'}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <User className="w-4 h-4 text-white" />
+                        )}
                       </div>
                       <span className={cn(
                         'hidden sm:block text-sm font-medium',
                         isScrolled || !isHomePage ? 'text-neutral-700' : 'text-white'
                       )}>
-                        {user?.name?.split(' ')[0] || 'Usuario'}
+                        {user?.username?.split(' ')[0] || user?.person?.firstName || 'Usuario'}
                       </span>
                     </motion.button>
 
@@ -200,7 +209,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         onClick={(e) => e.stopPropagation()}
                       >
                         <div className="px-4 py-3 border-b border-neutral-200">
-                          <p className="text-sm font-medium text-primary-700">{user?.name || 'Usuario'}</p>
+                          <p className="text-sm font-medium text-primary-700">{user?.username || user?.person?.firstName || 'Usuario'}</p>
                           <p className="text-xs text-neutral-600">{user?.email}</p>
                         </div>
 
@@ -226,17 +235,11 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                             <Settings className="w-4 h-4" />
                             <span>Configuración</span>
                           </Link>
-                          <Link
-                            to="/privacy-center"
-                            className="flex items-center space-x-3 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 transition-colors"
-                          >
-                            <Settings className="w-4 h-4" />
-                            <span>Privacidad</span>
-                          </Link>
                         </div>
 
                         <div className="border-t border-neutral-200 py-2">
                           <button
+                            type="button"
                             onClick={() => {
                               logout();
                               setShowUserMenu(false);
@@ -272,20 +275,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   >
                     <Link to="/registro">Registrarse</Link>
                   </Button>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={cn(
-                      'p-2 rounded-xl transition-colors',
-                      isScrolled || !isHomePage
-                        ? 'text-neutral-600 hover:text-primary-600 hover:bg-primary-50'
-                        : 'text-white/80 hover:text-white hover:bg-neutral-100/10'
-                    )}
-                  >
-                    <Link to="/perfil">
-                      <User className="w-5 h-5" />
-                    </Link>
-                  </motion.button>
                 </div>
               )}
 
@@ -370,6 +359,12 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
         {/* Monitor de seguridad */}
         <SecurityMonitor />
+
+        {/* Modal de cierre de sesión */}
+        <LogoutModal
+          isOpen={showLogoutModal}
+          onClose={() => setShowLogoutModal(false)}
+        />
       </div>
     </AuditProvider>
   );

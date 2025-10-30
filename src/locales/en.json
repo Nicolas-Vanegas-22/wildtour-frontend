@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "close": "Close",
+    "continue": "Continue",
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "app": {
+    "title": "Wild Tour",
+    "subtitle": "Colombia",
+    "search": "Search",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "logout": "Sign Out",
+    "sessionClosed": "Session Closed",
+    "redirecting": "Redirecting to home..."
+  },
+  "nav": {
+    "home": "Home",
+    "destinations": "Destinations",
+    "activities": "Activities",
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "user": {
+    "profile": "My Profile",
+    "myBookings": "My Bookings",
+    "favorites": "Favorites",
+    "settings": "Settings",
+    "notifications": "Notifications"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Customize your experience",
+    "general": "General",
+    "privacy": "Privacy",
+    "notifications": "Notifications",
+    "language": "Language",
+    "selectLanguage": "Select language",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "systemMode": "System mode"
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your personal information",
+    "editProfile": "Edit Profile",
+    "uploadPhoto": "Change photo",
+    "username": "Username",
+    "email": "Email address",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "document": "Document",
+    "phone": "Phone",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Error updating profile",
+    "deleteAccount": "Delete account"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Stay up to date with everything",
+    "markAllRead": "Mark all as read",
+    "deleteAll": "Delete all",
+    "noNotifications": "You have no notifications",
+    "noUnread": "You have no unread notifications",
+    "all": "All",
+    "unread": "Unread",
+    "read": "Read",
+    "types": {
+      "booking": "Booking",
+      "favorite": "Favorite",
+      "review": "Review",
+      "system": "System",
+      "promotion": "Promotion"
+    }
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to continue your adventure",
+    "registerTitle": "Join the adventure",
+    "registerSubtitle": "Create your account and discover Colombia",
+    "forgotPassword": "Forgot your password?",
+    "rememberMe": "Remember me",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "acceptTerms": "I accept the terms and conditions",
+    "acceptPrivacy": "I accept the privacy policy",
+    "accountType": "Account type",
+    "tourist": "Tourist",
+    "provider": "Service Provider",
+    "businessName": "Business name",
+    "rnt": "RNT (National Tourism Registry)",
+    "createAccount": "Create account",
+    "creatingAccount": "Creating account...",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Account created successfully!"
+  },
+  "home": {
+    "hero": "Explore unique experiences",
+    "heroSubtitle": "Discover the best destinations in Colombia"
+  },
+  "filters": {
+    "region": "Region",
+    "type": "Type",
+    "budget": "Budget",
+    "rating": "Rating",
+    "date": "Date",
+    "duration": "Duration",
+    "category": "Category"
+  },
+  "errors": {
+    "generic": "An error has occurred",
+    "network": "Connection error",
+    "notFound": "Not found",
+    "unauthorized": "Unauthorized",
+    "serverError": "Server error"
+  }
+}

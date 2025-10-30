@@ -28,6 +28,7 @@ interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  showLogoutModal: boolean;
 }
 
 interface AuthActions {
@@ -37,6 +38,8 @@ interface AuthActions {
   setLoading: (loading: boolean) => void;
   clearAuth: () => void;
   setFromStorage: () => void;
+  setUser: (user: User) => void;
+  setShowLogoutModal: (show: boolean) => void;
 }
 
 type AuthStore = AuthState & AuthActions;
@@ -49,6 +52,7 @@ export const useAuthStore = create<AuthStore>()(
       token: null,
       isAuthenticated: false,
       isLoading: false,
+      showLogoutModal: false,
 
       // Acciones
       setAuth: (token: string, user: User) => {
@@ -64,15 +68,20 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       logout: () => {
-        localStorage.removeItem('wildtour-token');
-        localStorage.removeItem('wildtour-user');
+        set({ showLogoutModal: true });
 
-        set({
-          user: null,
-          token: null,
-          isAuthenticated: false,
-          isLoading: false,
-        });
+        setTimeout(() => {
+          localStorage.removeItem('wildtour-token');
+          localStorage.removeItem('wildtour-user');
+
+          set({
+            user: null,
+            token: null,
+            isAuthenticated: false,
+            isLoading: false,
+            showLogoutModal: false,
+          });
+        }, 100);
       },
 
       updateUser: (userData: Partial<User>) => {
@@ -122,6 +131,15 @@ export const useAuthStore = create<AuthStore>()(
             localStorage.removeItem('wildtour-user');
           }
         }
+      },
+
+      setUser: (user: User) => {
+        localStorage.setItem('wildtour-user', JSON.stringify(user));
+        set({ user });
+      },
+
+      setShowLogoutModal: (show: boolean) => {
+        set({ showLogoutModal: show });
       },
     }),
     {

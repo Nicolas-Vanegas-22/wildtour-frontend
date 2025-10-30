@@ -1,18 +1,35 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+
+import translationES from '../locales/es.json';
+import translationEN from '../locales/en.json';
 
 const resources = {
-  es: { translation: {
-    app: { title: 'WildTour Colombia', search: 'Buscar', login: 'Iniciar sesión', logout: 'Cerrar sesión' },
-    home: { hero: 'Explora experiencias únicas' },
-    filters: { region: 'Región', type: 'Tipo', budget: 'Presupuesto', rating: 'Calificación' }
-  }},
-  en: { translation: {
-    app: { title: 'WildTour Colombia', search: 'Search', login: 'Sign in', logout: 'Sign out' },
-    home: { hero: 'Explore unique experiences' },
-    filters: { region: 'Region', type: 'Type', budget: 'Budget', rating: 'Rating' }
-  }},
+  es: {
+    translation: translationES
+  },
+  en: {
+    translation: translationEN
+  }
 };
 
-i18n.use(initReactI18next).init({ resources, lng: 'es', fallbackLng: 'es', interpolation: { escapeValue: false } });
+// Detectar idioma del navegador o localStorage
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    fallbackLng: 'es',
+    debug: false,
+    interpolation: {
+      escapeValue: false,
+    },
+    detection: {
+      order: ['localStorage', 'navigator'],
+      caches: ['localStorage'],
+      lookupLocalStorage: 'wildtour-language',
+    },
+  });
+
 export default i18n;

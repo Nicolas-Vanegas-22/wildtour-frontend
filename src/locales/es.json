@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "back": "Volver",
+    "close": "Cerrar",
+    "continue": "Continuar",
+    "loading": "Cargando...",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "all": "Todas",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "app": {
+    "title": "Wild Tour",
+    "subtitle": "Colombia",
+    "search": "Buscar",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión",
+    "sessionClosed": "Sesión Cerrada",
+    "redirecting": "Redirigiendo al inicio..."
+  },
+  "nav": {
+    "home": "Inicio",
+    "destinations": "Destinos",
+    "activities": "Actividades",
+    "about": "Nosotros",
+    "contact": "Contacto"
+  },
+  "user": {
+    "profile": "Mi Perfil",
+    "myBookings": "Mis Reservas",
+    "favorites": "Favoritos",
+    "settings": "Configuración",
+    "notifications": "Notificaciones"
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Personaliza tu experiencia",
+    "general": "General",
+    "privacy": "Privacidad",
+    "notifications": "Notificaciones",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar idioma",
+    "appearance": "Apariencia",
+    "theme": "Tema",
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo claro",
+    "systemMode": "Modo sistema"
+  },
+  "profile": {
+    "title": "Mi Perfil",
+    "subtitle": "Gestiona tu información personal",
+    "editProfile": "Editar Perfil",
+    "uploadPhoto": "Cambiar foto",
+    "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "firstName": "Nombres",
+    "lastName": "Apellidos",
+    "document": "Documento",
+    "phone": "Teléfono",
+    "saveChanges": "Guardar Cambios",
+    "saving": "Guardando...",
+    "updateSuccess": "Perfil actualizado exitosamente",
+    "updateError": "Error al actualizar perfil",
+    "deleteAccount": "Eliminar cuenta"
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "subtitle": "Mantente al tanto de todo lo que sucede",
+    "markAllRead": "Marcar todas como leídas",
+    "deleteAll": "Eliminar todas",
+    "noNotifications": "No tienes notificaciones",
+    "noUnread": "No tienes notificaciones sin leer",
+    "all": "Todas",
+    "unread": "No leídas",
+    "read": "Leídas",
+    "types": {
+      "booking": "Reserva",
+      "favorite": "Favorito",
+      "review": "Reseña",
+      "system": "Sistema",
+      "promotion": "Promoción"
+    }
+  },
+  "auth": {
+    "loginTitle": "Bienvenido de nuevo",
+    "loginSubtitle": "Inicia sesión para continuar tu aventura",
+    "registerTitle": "Únete a la aventura",
+    "registerSubtitle": "Crea tu cuenta y descubre Colombia",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recordarme",
+    "noAccount": "¿No tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "acceptTerms": "Acepto los términos y condiciones",
+    "acceptPrivacy": "Acepto la política de privacidad",
+    "accountType": "Tipo de cuenta",
+    "tourist": "Turista",
+    "provider": "Prestador de Servicio",
+    "businessName": "Nombre del negocio",
+    "rnt": "RNT (Registro Nacional de Turismo)",
+    "createAccount": "Crear cuenta",
+    "creatingAccount": "Creando cuenta...",
+    "loginSuccess": "Inicio de sesión exitoso",
+    "registerSuccess": "¡Cuenta creada exitosamente!"
+  },
+  "home": {
+    "hero": "Explora experiencias únicas",
+    "heroSubtitle": "Descubre los mejores destinos de Colombia"
+  },
+  "filters": {
+    "region": "Región",
+    "type": "Tipo",
+    "budget": "Presupuesto",
+    "rating": "Calificación",
+    "date": "Fecha",
+    "duration": "Duración",
+    "category": "Categoría"
+  },
+  "errors": {
+    "generic": "Ha ocurrido un error",
+    "network": "Error de conexión",
+    "notFound": "No encontrado",
+    "unauthorized": "No autorizado",
+    "serverError": "Error del servidor"
+  }
+}

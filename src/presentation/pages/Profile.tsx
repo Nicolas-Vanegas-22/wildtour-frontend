@@ -1,6 +1,8 @@
 import { FormEvent, useState, useEffect } from 'react';
 import { useAuthStore } from '../../application/state/useAuthStore';
 import { AuthRepo } from '../../infrastructure/repositories/AuthRepo';
+import DeleteAccountModal from '../components/DeleteAccountModal';
+import { useNavigate } from 'react-router-dom';
 
 interface UserProfile {
   id: string;
@@ -18,9 +20,12 @@ interface UserProfile {
 
 export default function Profile() {
   const { user, setAuth } = useAuthStore();
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -94,14 +99,16 @@ export default function Profile() {
   };
 
   const deleteAccount = async () => {
-    if (window.confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
-      try {
-        await AuthRepo.deleteAccount();
-        useAuthStore.getState().logout();
-        alert('Cuenta eliminada exitosamente');
-      } catch (err: any) {
-        alert(err.message || 'Error al eliminar cuenta');
-      }
+    setIsDeleting(true);
+    try {
+      await AuthRepo.deleteAccount();
+      useAuthStore.getState().logout();
+      setShowDeleteModal(false);
+      navigate('/');
+    } catch (err: any) {
+      alert(err.message || 'Error al eliminar cuenta');
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -190,7 +197,7 @@ export default function Profile() {
                   Editar perfil
                 </button>
                 <button
-                  onClick={deleteAccount}
+                  onClick={() => setShowDeleteModal(true)}
                   className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                 >
                   Eliminar cuenta
@@ -287,6 +294,14 @@ export default function Profile() {
           )}
         </div>
       </div>
+
+      {/* Modal de confirmación de eliminación */}
+      <DeleteAccountModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={deleteAccount}
+        isLoading={isDeleting}
+      />
     </div>
   );
 }

@@ -64,11 +64,25 @@ class UserApi {
 
   /**
    * Upload profile avatar
+   * Max file size: 5MB
+   * Allowed formats: jpg, jpeg, png, webp
    */
   async uploadAvatar(file: File): Promise<{ avatarUrl: string }> {
     try {
+      // Validar tamaño del archivo (5MB = 5 * 1024 * 1024 bytes)
+      const maxSize = 5 * 1024 * 1024;
+      if (file.size > maxSize) {
+        throw new Error('El archivo es demasiado grande. Máximo 5MB.');
+      }
+
+      // Validar tipo de archivo
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        throw new Error('Formato de archivo no permitido. Usa JPG, PNG o WEBP.');
+      }
+
       const formData = new FormData();
-      formData.append('avatar', file);
+      formData.append('file', file); // Backend espera 'file' no 'avatar'
 
       const response = await api.post<ApiResponse<{ avatarUrl: string }>>(
         '/users/me/avatar',
