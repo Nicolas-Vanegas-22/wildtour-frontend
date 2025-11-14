@@ -44,6 +44,21 @@ export interface ResetPasswordRequest {
   password: string;
 }
 
+export interface ValidateDocumentRequest {
+  document: string;
+}
+
+export interface ValidateDocumentResponse {
+  isValid: boolean;
+  message: string;
+}
+
+export interface Role {
+  id: number;
+  name: string;
+  description?: string;
+}
+
 class AuthApi {
   async login(credentials: LoginRequest): Promise<AuthResponse> {
     const startTime = Date.now();
@@ -256,6 +271,30 @@ class AuthApi {
 
   async resendVerificationEmail(_email: string): Promise<{ message: string }> {
     throw new Error('Endpoint /Auth/resend-verification no implementado en el backend .NET');
+  }
+
+  async validateDocument(document: string): Promise<ValidateDocumentResponse> {
+    try {
+      const response = await api.post<ApiResponse<ValidateDocumentResponse>>(
+        '/Auth/validate-document',
+        { document }
+      );
+
+      return response.data as any as ValidateDocumentResponse;
+    } catch (error: any) {
+      console.error('Validate document error:', error);
+      throw new Error(handleApiError(error));
+    }
+  }
+
+  async getRoles(): Promise<Role[]> {
+    try {
+      const response = await api.get<ApiResponse<Role[]>>('/Auth/roles');
+      return response.data as any as Role[];
+    } catch (error: any) {
+      console.error('Get roles error:', error);
+      throw new Error(handleApiError(error));
+    }
   }
 
   private async logLoginAttempt(

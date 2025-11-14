@@ -1,14 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Mail, Lock, User, Phone, CreditCard, Mountain, ArrowLeft, UserPlus, Badge } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone, CreditCard, Mountain, ArrowLeft, UserPlus, Badge, Building2 } from 'lucide-react';
 import { useAuthStore } from '../../application/state/useAuthStore';
 import { authApi } from '../../infrastructure/services/authApi';
+import { rntApi } from '../../infrastructure/services/rntApi';
 import { Button } from '../../shared/ui/Button';
 import { useToast } from '../hooks/useToast';
 import TermsModal from '../components/TermsModal';
 import PrivacyModal from '../components/PrivacyModal';
 import RegisterResultModal from '../components/RegisterResultModal';
+
+// Tipos de RNT según el Ministerio de Comercio, Industria y Turismo de Colombia
+const RNT_TYPES = [
+  { value: 'alojamiento_hotel', label: 'Hotel' },
+  { value: 'alojamiento_hostel', label: 'Hostal' },
+  { value: 'alojamiento_apartamento', label: 'Apartamento Turístico' },
+  { value: 'alojamiento_camping', label: 'Camping / Glamping' },
+  { value: 'alojamiento_casa_rural', label: 'Casa Rural / Finca' },
+  { value: 'agencia_viajes', label: 'Agencia de Viajes' },
+  { value: 'operador_turismo', label: 'Operador de Turismo' },
+  { value: 'guia_turismo', label: 'Guía de Turismo' },
+  { value: 'transporte_terrestre', label: 'Transporte Terrestre Automotor' },
+  { value: 'transporte_aereo', label: 'Transporte Aéreo' },
+  { value: 'transporte_maritimo', label: 'Transporte Marítimo' },
+  { value: 'arrendador_vehiculos', label: 'Arrendador de Vehículos' },
+  { value: 'operador_congresos', label: 'Operador de Congresos y Eventos' },
+  { value: 'parque_tematico', label: 'Parque Temático' },
+  { value: 'restaurante', label: 'Restaurante y Bar Turístico' },
+  { value: 'empresa_navegacion', label: 'Empresa de Navegación Turística' },
+  { value: 'plataforma_digital', label: 'Plataforma Electrónica de Servicios Turísticos' },
+  { value: 'centro_buceo', label: 'Centro de Buceo' },
+  { value: 'establecimiento_gastronomia', label: 'Establecimiento de Gastronomía' },
+  { value: 'turismo_aventura', label: 'Operador de Turismo de Aventura' },
+  { value: 'otro', label: 'Otro' }
+];
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -23,6 +49,7 @@ export default function Register() {
     role: 'user' as 'user' | 'provider',
     businessName: '',
     rnt: '',
+    rntType: '', // Nuevo campo para el tipo de RNT
     acceptTerms: false
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +63,19 @@ export default function Register() {
     message: ''
   });
 
-  const { setAuth, isAuthenticated } = useAuthStore();
+  // Estado simplificado para verificación RNT
+  const [isVerifyingRNT, setIsVerifyingRNT] = useState(false);
+
+  // Estado para validación de cédula
+  const [documentValidation, setDocumentValidation] = useState<{
+    status: 'idle' | 'validating' | 'valid' | 'invalid';
+    message: string;
+  }>({
+    status: 'idle',
+    message: ''
+  });
+
+  const { setAuth, isAuthenticated, user } = useAuthStore();
   const navigate = useNavigate();
   const { showToast } = useToast();
 
@@ -46,12 +85,88 @@ export default function Register() {
     }
   }, [isAuthenticated, navigate]);
 
+  // Limpiar campos específicos de prestador cuando cambia a turista
+  useEffect(() => {
+    if (formData.role === 'user') {
+      setFormData(prev => ({
+        ...prev,
+        businessName: '',
+        rnt: '',
+        rntType: ''
+      }));
+    }
+  }, [formData.role]);
+
+  // Validación de cédula con debounce - PARA TODOS LOS USUARIOS
+  useEffect(() => {
+    if (!formData.document || formData.document.length < 6) {
+      setDocumentValidation({ status: 'idle', message: '' });
+      return;
+    }
+
+    const timeoutId = setTimeout(async () => {
+      setDocumentValidation({ status: 'validating', message: 'Validando cédula...' });
+
+      try {
+        const result = await authApi.validateDocument(formData.document);
+
+        if (result.isValid) {
+          setDocumentValidation({
+            status: 'valid',
+            message: '✓ Cédula válida'
+          });
+        } else {
+          setDocumentValidation({
+            status: 'invalid',
+            message: result.message || 'Cédula inválida'
+          });
+        }
+      } catch (error) {
+        setDocumentValidation({
+          status: 'invalid',
+          message: 'Error al validar la cédula'
+        });
+      }
+    }, 500); // Debounce de 500ms
+
+    return () => clearTimeout(timeoutId);
+  }, [formData.document]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
+  };
+
+  // Función para verificar el RNT (llamada internamente durante el registro)
+  const verifyRNT = async (): Promise<{ isValid: boolean; message: string; details?: string }> => {
+    try {
+      const result = await rntApi.verifyRNT({
+        rntNumber: formData.rnt,
+        rntType: formData.rntType,
+        businessName: formData.businessName
+      });
+
+      if (result.isValid && result.status === 'active') {
+        return {
+          isValid: true,
+          message: 'RNT verificado correctamente',
+          details: result.registeredName ? `Registrado como: ${result.registeredName}` : undefined
+        };
+      } else {
+        return {
+          isValid: false,
+          message: result.message || 'El RNT no pudo ser verificado'
+        };
+      }
+    } catch (error) {
+      return {
+        isValid: false,
+        message: 'Error al verificar el RNT. Por favor intenta nuevamente.'
+      };
+    }
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -70,6 +185,24 @@ export default function Register() {
     setIsLoading(true);
 
     try {
+      // Si es prestador, verificar RNT primero
+      if (formData.role === 'provider') {
+        setIsVerifyingRNT(true);
+        const rntVerification = await verifyRNT();
+        setIsVerifyingRNT(false);
+
+        if (!rntVerification.isValid) {
+          // Mostrar modal de error de verificación RNT
+          setRegistrationResult({
+            success: false,
+            message: rntVerification.message
+          });
+          setShowResultModal(true);
+          setIsLoading(false);
+          return;
+        }
+      }
+
       // Transform role to roleId: 1 = Usuario, 2 = Prestador de Servicio
       const roleId = formData.role === 'provider' ? 2 : 1;
 
@@ -84,11 +217,24 @@ export default function Register() {
         phoneNumber: formData.phoneNumber,
         ...(formData.role === 'provider' && {
           businessName: formData.businessName,
-          rnt: formData.rnt
+          rnt: formData.rnt,
+          rntType: formData.rntType
         })
       };
 
+      // 🔍 LOG 1: Mostrar el objeto completo que se envía al backend
+      console.log('📤 Datos de registro que se envían al backend:');
+      console.log(JSON.stringify(registerData, null, 2));
+      console.log('RoleId:', registerData.roleId, '(1=Turista, 2=Prestador)');
+
       const response = await authApi.register(registerData);
+
+      // 🔍 LOG 2: Mostrar la respuesta del backend con roleId y roleName
+      console.log('📥 Respuesta del backend después del registro:');
+      console.log('Usuario completo:', JSON.stringify(response.user, null, 2));
+      console.log('Role:', response.user.role);
+      console.log('Token recibido:', response.token ? '✅ Token presente' : '❌ Sin token');
+
       setAuth(response.token, response.user);
 
       // Mostrar modal de éxito
@@ -109,6 +255,7 @@ export default function Register() {
       setShowResultModal(true);
     } finally {
       setIsLoading(false);
+      setIsVerifyingRNT(false);
     }
   };
 
@@ -249,20 +396,58 @@ export default function Register() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-2">
-                Documento
+                Documento (Cédula)
               </label>
               <div className="relative">
                 <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
                 <input
-                  type="number"
+                  type="text"
                   name="document"
                   value={formData.document}
                   onChange={handleChange}
-                  className="w-full pl-11 pr-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  className={`w-full pl-11 pr-12 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
+                    documentValidation.status === 'valid'
+                      ? 'border-success-500 focus:ring-success-500'
+                      : documentValidation.status === 'invalid'
+                      ? 'border-error-500 focus:ring-error-500'
+                      : 'border-neutral-200 focus:ring-primary-500'
+                  }`}
                   placeholder="1234567890"
                   required
                 />
+                {/* Indicador de validación */}
+                {documentValidation.status === 'validating' && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <div className="animate-spin w-5 h-5 border-2 border-primary-500 border-t-transparent rounded-full" />
+                  </div>
+                )}
+                {documentValidation.status === 'valid' && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <svg className="w-5 h-5 text-success-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                )}
+                {documentValidation.status === 'invalid' && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <svg className="w-5 h-5 text-error-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                )}
               </div>
+              {/* Mensaje de validación */}
+              {documentValidation.message && (
+                <p className={`text-xs mt-1 ${
+                  documentValidation.status === 'valid'
+                    ? 'text-success-600'
+                    : documentValidation.status === 'invalid'
+                    ? 'text-error-600'
+                    : 'text-neutral-500'
+                }`}>
+                  {documentValidation.message}
+                </p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-2">
@@ -304,10 +489,56 @@ export default function Register() {
 
           {/* Campos adicionales para prestadores */}
           {formData.role === 'provider' && (
-            <div className="space-y-4">
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="space-y-4 border-t border-neutral-200 pt-6"
+            >
+              <div className="bg-primary-50 border border-primary-200 rounded-xl p-4 mb-4">
+                <p className="text-sm text-primary-800 font-medium">
+                  📋 Información del Prestador de Servicios Turísticos
+                </p>
+                <p className="text-xs text-primary-700 mt-1">
+                  Completa la información de tu registro RNT
+                </p>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-2">
-                  Nombre del negocio
+                  Tipo de Prestador (Según RNT)
+                </label>
+                <div className="relative">
+                  <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400 pointer-events-none z-10" />
+                  <select
+                    name="rntType"
+                    value={formData.rntType}
+                    onChange={handleChange}
+                    className="w-full pl-11 pr-10 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all appearance-none bg-white cursor-pointer text-neutral-800"
+                    required={formData.role === 'provider'}
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                      backgroundPosition: 'right 0.5rem center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: '1.5em 1.5em'
+                    }}
+                  >
+                    <option value="" className="text-neutral-400">Selecciona el tipo de prestador...</option>
+                    {RNT_TYPES.map((type) => (
+                      <option key={type.value} value={type.value} className="text-neutral-800">
+                        {type.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Selecciona la categoría bajo la cual está registrado tu RNT
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  Nombre de la Empresa o Establecimiento
                 </label>
                 <div className="relative">
                   <Mountain className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
@@ -317,15 +548,18 @@ export default function Register() {
                     value={formData.businessName}
                     onChange={handleChange}
                     className="w-full pl-11 pr-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                    placeholder="Mi empresa turística"
+                    placeholder="Ej: Hotel Vista Hermosa, Tours Aventura Colombia"
                     required={formData.role === 'provider'}
                   />
                 </div>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Nombre comercial de tu empresa o establecimiento
+                </p>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-neutral-700 mb-2">
-                  RNT (Registro Nacional de Turismo)
+                  Número de RNT (Registro Nacional de Turismo)
                 </label>
                 <div className="relative">
                   <Badge className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
@@ -335,15 +569,15 @@ export default function Register() {
                     value={formData.rnt}
                     onChange={handleChange}
                     className="w-full pl-11 pr-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                    placeholder="RNT-123456789"
+                    placeholder="Ej: 12345"
                     required={formData.role === 'provider'}
                   />
                 </div>
                 <p className="text-xs text-neutral-500 mt-1">
-                  Obligatorio para prestadores de servicios turísticos
+                  Número de registro asignado por el Ministerio de Comercio, Industria y Turismo. Este será verificado automáticamente al crear la cuenta.
                 </p>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Password */}
@@ -441,7 +675,11 @@ export default function Register() {
             className="w-full"
             size="lg"
           >
-            {isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
+            {isLoading ? (
+              isVerifyingRNT ? 'Verificando RNT...' : 'Creando cuenta...'
+            ) : (
+              'Crear cuenta'
+            )}
           </Button>
         </form>
 
