@@ -21,10 +21,11 @@ export interface RegisterRequest {
   roleId: number; // 1 = Usuario, 2 = Prestador de Servicio (según backend .NET)
   firstName?: string;
   lastName?: string;
-  document?: string;
+  document?: number;
   phoneNumber?: string;
   businessName?: string; // For providers
   rnt?: string; // For providers - Registro Nacional de Turismo
+  rntType?: string; // For providers - Tipo de RNT (obligatorio cuando roleId === 2)
 }
 
 export interface AuthResponse {
@@ -280,10 +281,25 @@ class AuthApi {
         { document }
       );
 
-      return response.data as any as ValidateDocumentResponse;
+      // El backend devuelve ApiResponse con structure: { success, message, data: { isValid, message } }
+      const apiResponse = response.data as any as ApiResponse<ValidateDocumentResponse>;
+
+      if (apiResponse.success && apiResponse.data) {
+        return apiResponse.data;
+      } else {
+        // Si no es exitoso, retornar validación inválida
+        return {
+          isValid: false,
+          message: apiResponse.message || 'Error al validar el documento'
+        };
+      }
     } catch (error: any) {
       console.error('Validate document error:', error);
-      throw new Error(handleApiError(error));
+      // En caso de error, retornar validación fallida en lugar de lanzar error
+      return {
+        isValid: false,
+        message: handleApiError(error)
+      };
     }
   }
 

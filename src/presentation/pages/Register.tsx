@@ -107,24 +107,17 @@ export default function Register() {
     const timeoutId = setTimeout(async () => {
       setDocumentValidation({ status: 'validating', message: 'Validando cédula...' });
 
-      try {
-        const result = await authApi.validateDocument(formData.document);
+      const result = await authApi.validateDocument(formData.document);
 
-        if (result.isValid) {
-          setDocumentValidation({
-            status: 'valid',
-            message: '✓ Cédula válida'
-          });
-        } else {
-          setDocumentValidation({
-            status: 'invalid',
-            message: result.message || 'Cédula inválida'
-          });
-        }
-      } catch (error) {
+      if (result.isValid) {
+        setDocumentValidation({
+          status: 'valid',
+          message: '✓ Cédula válida'
+        });
+      } else {
         setDocumentValidation({
           status: 'invalid',
-          message: 'Error al validar la cédula'
+          message: result.message || 'Cédula inválida'
         });
       }
     }, 500); // Debounce de 500ms
@@ -134,31 +127,94 @@ export default function Register() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
+
+    // Formatear el documento: solo números (eliminar puntos, comas, espacios)
+    if (name === 'document') {
+      const formattedValue = value.replace(/[^0-9]/g, '');
+      setFormData(prev => ({
+        ...prev,
+        [name]: formattedValue
+      }));
+      return;
+    }
+
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
   };
 
-  // Función para verificar el RNT (llamada internamente durante el registro)
-  const verifyRNT = async (): Promise<{ isValid: boolean; message: string; details?: string }> => {
+  // Validación de campos de prestador de servicio
+  const validateProviderFields = (): { isValid: boolean; errors: string[] } => {
+    if (formData.role !== 'provider') {
+      return { isValid: true, errors: [] };
+    }
+
+    const errors: string[] = [];
+
+    // Validar documento (obligatorio para prestadores)
+    if (!formData.document || formData.document.trim() === '') {
+      errors.push('El número de cédula es obligatorio para prestadores');
+    } else if (!/^\d{6,10}$/.test(formData.document)) {
+      errors.push('La cédula debe tener entre 6 y 10 dígitos');
+    }
+
+    // Validar businessName (obligatorio)
+    if (!formData.businessName || formData.businessName.trim() === '') {
+      errors.push('El nombre del negocio es obligatorio');
+    } else if (formData.businessName.length > 200) {
+      errors.push('El nombre del negocio no puede exceder 200 caracteres');
+    }
+
+    // Validar RNT (obligatorio)
+    if (!formData.rnt || formData.rnt.trim() === '') {
+      errors.push('El número RNT es obligatorio');
+    } else if (formData.rnt.length > 50) {
+      errors.push('El número RNT no puede exceder 50 caracteres');
+    }
+
+    // Validar rntType (obligatorio)
+    if (!formData.rntType || formData.rntType.trim() === '') {
+      errors.push('El tipo de RNT es obligatorio');
+    } else if (formData.rntType.length > 100) {
+      errors.push('El tipo de RNT no puede exceder 100 caracteres');
+    }
+
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  };
+
+  // Función para verificar el RNT con documento (llamada internamente durante el registro)
+  const verifyRNTWithDocument = async (): Promise<{ isValid: boolean; message: string; details?: string }> => {
     try {
-      const result = await rntApi.verifyRNT({
+      const result = await rntApi.verifyRNTWithDocument({
         rntNumber: formData.rnt,
-        rntType: formData.rntType,
+        document: formData.document,
         businessName: formData.businessName
       });
 
-      if (result.isValid && result.status === 'active') {
+      if (result.isValid && result.documentMatches && result.businessNameMatches) {
         return {
           isValid: true,
-          message: 'RNT verificado correctamente',
+          message: '✅ Datos verificados correctamente con el RNT',
           details: result.registeredName ? `Registrado como: ${result.registeredName}` : undefined
         };
       } else {
+        const errors: string[] = [];
+
+        if (!result.documentMatches) {
+          errors.push('La cédula no coincide con el NIT registrado en el RNT');
+        }
+
+        if (!result.businessNameMatches) {
+          errors.push('El nombre del negocio no coincide con el registrado');
+        }
+
         return {
           isValid: false,
-          message: result.message || 'El RNT no pudo ser verificado'
+          message: errors.length > 0 ? errors.join('. ') : result.message || 'Los datos no coinciden con el RNT registrado'
         };
       }
     } catch (error) {
@@ -182,13 +238,25 @@ export default function Register() {
       return;
     }
 
+    // Validar campos de prestador antes de continuar
+    const validation = validateProviderFields();
+    if (!validation.isValid) {
+      showToast(validation.errors.join('\n'), 'error');
+      setRegistrationResult({
+        success: false,
+        message: validation.errors.join('\n')
+      });
+      setShowResultModal(true);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      // Si es prestador, verificar RNT primero
+      // Si es prestador, verificar RNT con documento primero
       if (formData.role === 'provider') {
         setIsVerifyingRNT(true);
-        const rntVerification = await verifyRNT();
+        const rntVerification = await verifyRNTWithDocument();
         setIsVerifyingRNT(false);
 
         if (!rntVerification.isValid) {
@@ -396,7 +464,7 @@ export default function Register() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-2">
-                Documento (Cédula)
+                Documento (Cédula){formData.role === 'provider' && ' *'}
               </label>
               <div className="relative">
                 <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400" />
@@ -413,7 +481,7 @@ export default function Register() {
                       : 'border-neutral-200 focus:ring-primary-500'
                   }`}
                   placeholder="1234567890"
-                  required
+                  required={formData.role === 'provider'}
                 />
                 {/* Indicador de validación */}
                 {documentValidation.status === 'validating' && (
@@ -500,7 +568,7 @@ export default function Register() {
                   📋 Información del Prestador de Servicios Turísticos
                 </p>
                 <p className="text-xs text-primary-700 mt-1">
-                  Completa la información de tu registro RNT
+                  Completa la información de tu registro RNT. Tu cédula será verificada con el NIT registrado en el RNT para garantizar la autenticidad.
                 </p>
               </div>
 
@@ -574,7 +642,7 @@ export default function Register() {
                   />
                 </div>
                 <p className="text-xs text-neutral-500 mt-1">
-                  Número de registro asignado por el Ministerio de Comercio, Industria y Turismo. Este será verificado automáticamente al crear la cuenta.
+                  Número de registro asignado por el Ministerio de Comercio, Industria y Turismo. Se verificará automáticamente con tu cédula al crear la cuenta.
                 </p>
               </div>
             </motion.div>
@@ -676,7 +744,7 @@ export default function Register() {
             size="lg"
           >
             {isLoading ? (
-              isVerifyingRNT ? 'Verificando RNT...' : 'Creando cuenta...'
+              isVerifyingRNT ? 'Verificando datos con RNT...' : 'Creando cuenta...'
             ) : (
               'Crear cuenta'
             )}

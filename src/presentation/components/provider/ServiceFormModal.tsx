@@ -278,12 +278,12 @@ export default function ServiceFormModal({
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none bg-white cursor-pointer"
+                    className="w-full px-4 py-3 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none bg-white cursor-pointer text-neutral-900"
                     required
                   >
-                    <option value="">Selecciona una categoría...</option>
+                    <option value="" className="text-neutral-500">Selecciona una categoría...</option>
                     {CATEGORIES_INFO.map((cat) => (
-                      <option key={cat.category} value={cat.category}>
+                      <option key={cat.category} value={cat.category} className="text-neutral-900">
                         {cat.title}
                       </option>
                     ))}
