@@ -14,6 +14,7 @@ const Profile = React.lazy(() => import('../presentation/pages/Profile'));
 const BookingFlow = React.lazy(() => import('../presentation/pages/BookingFlow'));
 const PaymentPage = React.lazy(() => import('../presentation/pages/PaymentPage'));
 const BookingConfirmation = React.lazy(() => import('../presentation/pages/BookingConfirmation'));
+const TouristDashboard = React.lazy(() => import('../presentation/pages/TouristDashboard'));
 const ProviderDashboard = React.lazy(() => import('../presentation/pages/ProviderDashboard'));
 const AdminDashboard = React.lazy(() => import('../presentation/pages/AdminDashboard'));
 const ReviewModeration = React.lazy(() => import('../presentation/pages/ReviewModeration'));
@@ -86,7 +87,11 @@ export function AppRouter() {
           <Route path="/pago/:bookingId" element={<PrivateRoute><PaymentPage /></PrivateRoute>} />
           <Route path="/confirmacion/:bookingId" element={<PrivateRoute><BookingConfirmation /></PrivateRoute>} />
 
-          {/* Rutas para proveedores */}
+          {/* Rutas de dashboards por rol */}
+          <Route path="/dashboard/turista" element={<PrivateRoute><TouristDashboard /></PrivateRoute>} />
+          <Route path="/dashboard/prestador" element={<ProviderRoute><ProviderDashboard /></ProviderRoute>} />
+
+          {/* Rutas para proveedores - mantenemos compatibilidad con ruta antigua */}
           <Route path="/panel-proveedor" element={<ProviderRoute><ProviderDashboard /></ProviderRoute>} />
 
           {/* Rutas para administradores */}

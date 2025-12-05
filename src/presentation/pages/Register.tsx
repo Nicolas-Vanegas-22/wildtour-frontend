@@ -305,10 +305,17 @@ export default function Register() {
 
       setAuth(response.token, response.user);
 
+      // 🔍 LOG 3: Verificar el rol que se recibió del backend después del login automático
+      console.log('📊 Verificación del rol recibido:');
+      console.log('User role:', response.user.role);
+      console.log('Role type:', typeof response.user.role);
+      console.log('Is provider?', response.user.role === 'provider');
+      console.log('Is tourist?', response.user.role === 'tourist');
+
       // Mostrar modal de éxito
       setRegistrationResult({
         success: true,
-        message: formData.role === 'provider'
+        message: response.user.role === 'provider'
           ? '¡Bienvenido! Tu cuenta de prestador ha sido creada exitosamente. Ahora podrás gestionar tus servicios turísticos.'
           : '¡Bienvenido a WildTour! Tu cuenta ha sido creada exitosamente. Comienza a explorar los mejores destinos de Colombia.'
       });
@@ -788,13 +795,35 @@ export default function Register() {
         message={registrationResult.message}
         onContinue={() => {
           setShowResultModal(false);
-          // Redirigir según el rol del usuario
-          const user = useAuthStore.getState().user;
-          if (user?.role === 'provider') {
-            navigate('/panel-proveedor');
-          } else if (user?.role === 'admin') {
+
+          // Obtener el usuario actual del store
+          const currentUser = useAuthStore.getState().user;
+
+          // 🔍 LOG 4: Verificar el rol antes de la redirección
+          console.log('🔄 Redirigiendo usuario...');
+          console.log('Usuario actual:', currentUser);
+          console.log('Rol del usuario:', currentUser?.role);
+
+          // Redirigir según el rol real devuelto por el backend
+          if (!currentUser) {
+            console.warn('⚠️ No hay usuario en el store, redirigiendo a login');
+            navigate('/login');
+            return;
+          }
+
+          // Redirección basada en el rol
+          if (currentUser.role === 'tourist') {
+            console.log('✅ Redirigiendo a: /dashboard/turista');
+            navigate('/dashboard/turista');
+          } else if (currentUser.role === 'provider') {
+            console.log('✅ Redirigiendo a: /dashboard/prestador');
+            navigate('/dashboard/prestador');
+          } else if (currentUser.role === 'admin') {
+            console.log('✅ Redirigiendo a: /admin');
             navigate('/admin');
           } else {
+            // Fallback: si el rol no es reconocido, redirigir al home
+            console.warn('⚠️ Rol no reconocido:', currentUser.role, '- Redirigiendo al home');
             navigate('/');
           }
         }}
