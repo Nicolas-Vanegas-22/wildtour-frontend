@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(dotnet ef:*)",
+      "Bash(dotnet build:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(timeout 60 dotnet ef migrations add:*)",
+      "Bash(dotnet clean:*)"
+    ]
+  }
+}
